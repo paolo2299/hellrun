@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 	public float MaxSpeedRunning = 8f;
 	public float MaxSpeedWalking = 5f;
 	public float jumpForce = 8.5f;
+	public float jumpCutoff = 2.2f;
 	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
 
 	private CharacterController2D _controller;
@@ -84,6 +85,9 @@ public class Player : MonoBehaviour {
 			else if (_controller.State.IsHuggingWallLeft)
 				_controller.Jump(wallJumpForce);
 		}
+
+		if (!Input.GetKey (KeyCode.Space) && _controller.Velocity.y > jumpCutoff)
+			_controller.SetVerticalVelocity (jumpCutoff);
 	}
 
 	private void Flip() {
