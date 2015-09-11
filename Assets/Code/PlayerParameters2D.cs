@@ -12,5 +12,11 @@ public class PlayerParameters2D
 	}
 	
 	public JumpBehavior JumpRestrictions = JumpBehavior.CanJumpOnGround;
-	public float JumpFrequency = .25f;	
+	public float JumpFrequency = .25f;
+
+	public int grappleAngleDegrees = 45;
+	public float grappleAngleRadians {
+		get { return (float) (grappleAngleDegrees * (Math.PI / 180)); }
+	}
+	public float grappleMaxLength = 20f;
 }

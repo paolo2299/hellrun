@@ -18,13 +18,14 @@ public class CharacterController2D : MonoBehaviour
 	public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
 	public GameObject StandingOn { get; private set; }
 	public Vector3 PlatformVelocity { get; private set; }
-	
+
 	private Vector2 _velocity;
 	private Transform _transform;
 	private Vector3 _localScale;
 	private BoxCollider2D _boxCollider;
 	private ControllerParameters2D _overrideParameters;
 	private GameObject _lastStandingOn;
+	private GrappleConstraint _grappleConstraint;
 	
 	private Vector3
 		_activeGlobalPlatformPoint,
@@ -84,6 +85,16 @@ public class CharacterController2D : MonoBehaviour
 	{
 		// TODO: Moving platform support
 		SetVelocity(force);
+	}
+
+	public void FireGrapple(float angleRadians, float maxLength) {
+		var origin = _transform.position;
+		var direction = new Vector2(Mathf.Cos (angleRadians), Mathf.Sin (angleRadians));
+		Debug.DrawRay(origin, direction * maxLength, Color.cyan);
+		
+		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
+		if (!raycastHit)
+			return;
 	}
 	
 	public void LateUpdate()

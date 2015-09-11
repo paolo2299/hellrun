@@ -1494,6 +1494,10 @@ Prefab:
       propertyPath: SpeedAccelerationWalking
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11429436, guid: 7e15e0f5993ef48f3a7662c64e45aa99, type: 2}
+      propertyPath: DefaultParameters.grappleMaxLength
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7e15e0f5993ef48f3a7662c64e45aa99, type: 2}
   m_IsPrefabParent: 0

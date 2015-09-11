@@ -86,6 +86,9 @@ public class Player : MonoBehaviour {
 				_controller.Jump(wallJumpForce);
 		}
 
+		if (Input.GetKey (KeyCode.G))
+			_controller.FireGrapple (Parameters.grappleAngleRadians, Parameters.grappleMaxLength);
+
 		if (!Input.GetKey (KeyCode.Space) && _controller.Velocity.y > jumpCutoff)
 			_controller.SetVerticalVelocity (jumpCutoff);
 	}
