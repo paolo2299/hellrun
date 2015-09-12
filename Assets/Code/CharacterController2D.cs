@@ -78,12 +78,14 @@ public class CharacterController2D : MonoBehaviour
 	public void Jump(float force)
 	{
 		// TODO: Moving platform support
+		ReleaseGrapple ();
 		SetVerticalVelocity(force);
 	}
 
 	public void Jump(Vector2 force)
 	{
 		// TODO: Moving platform support
+		ReleaseGrapple ();
 		SetVelocity(force);
 	}
 
@@ -95,12 +97,69 @@ public class CharacterController2D : MonoBehaviour
 		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
 		if (!raycastHit)
 			return;
+
+		var anchor = raycastHit.point;
+		var length = raycastHit.distance;
+		_grappleConstraint = new GrappleConstraint (anchor, length, maxLength);
+		State.IsGrappling = true;
+	}
+
+	public void ReleaseGrapple () {
+		_grappleConstraint = null;
+		State.IsGrappling = false;
 	}
 	
 	public void LateUpdate()
 	{
 		_velocity.y += Parameters.Gravity * Time.deltaTime;
+		if (State.IsGrappling) {
+			Debug.DrawLine (_transform.position, _grappleConstraint.anchor, Color.cyan);
+			ConstrainVelocityToGrapple();
+		}
+		
 		Move(Velocity * Time.deltaTime);
+
+		if (State.IsGrappling)
+			AdjustPositionForGrapple ();
+	}
+
+	private void ConstrainVelocityToGrapple()
+	{
+		if (!State.IsGrappling)
+			return;
+
+		var grappleDirection = (Vector2) _transform.position - _grappleConstraint.anchor;
+		var grapplePerp = new Vector2 (-grappleDirection.y, grappleDirection.x);
+		var projectedVelocity = Vector3.Project (Velocity, grapplePerp);
+		SetVelocity (projectedVelocity);
+		Debug.DrawLine (_transform.position, _transform.position + (Vector3) Velocity, Color.magenta);
+	}
+
+	private void AdjustPositionForGrapple()
+	{
+		if (!State.IsGrappling)
+			return;
+
+		var grappleVector = (Vector2) _transform.position - _grappleConstraint.anchor;
+		var grappleLength = grappleVector.magnitude;
+		var adjustment = _grappleConstraint.length - grappleLength;
+		_transform.Translate(grappleVector.normalized * adjustment, Space.World);
+	}
+
+	public void RetractGrapple(float amount)
+	{
+		if (!State.IsGrappling)
+			return;
+
+		_grappleConstraint.Retract(amount);
+	}
+
+	public void ExtendGrapple(float amount)
+	{
+		if (!State.IsGrappling)
+			return;
+		
+		_grappleConstraint.Extend(amount);
 	}
 	
 	private void Move(Vector2 deltaMovement)

@@ -19,4 +19,6 @@ public class PlayerParameters2D
 		get { return (float) (grappleAngleDegrees * (Math.PI / 180)); }
 	}
 	public float grappleMaxLength = 20f;
+	public float grappleRetractSpeed = 1f;
+	public float grappleExtendSpeed = 1f;
 }

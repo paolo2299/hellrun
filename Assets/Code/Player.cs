@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
 				return _jumpIn <= 0;
 			
 			if (Parameters.JumpRestrictions == PlayerParameters2D.JumpBehavior.CanJumpOnGround)
-				return _controller.State.IsGrounded || _controller.State.IsHuggingWall;
+				return _controller.State.IsGrounded || _controller.State.IsHuggingWall || _controller.State.IsGrappling;
 			
 			return false;
 		}
@@ -86,11 +86,18 @@ public class Player : MonoBehaviour {
 				_controller.Jump(wallJumpForce);
 		}
 
-		if (Input.GetKey (KeyCode.G))
-			_controller.FireGrapple (Parameters.grappleAngleRadians, Parameters.grappleMaxLength);
-
 		if (!Input.GetKey (KeyCode.Space) && _controller.Velocity.y > jumpCutoff)
 			_controller.SetVerticalVelocity (jumpCutoff);
+
+		if (_controller.State.IsGrappling) {
+			if (Input.GetKey (KeyCode.UpArrow))
+				_controller.RetractGrapple(Parameters.grappleRetractSpeed);
+			else if (Input.GetKey (KeyCode.DownArrow))
+			    _controller.ExtendGrapple(Parameters.grappleExtendSpeed);
+		}
+
+		if (Input.GetKey (KeyCode.G))
+			_controller.FireGrapple (Parameters.grappleAngleRadians, Parameters.grappleMaxLength);
 	}
 
 	private void Flip() {

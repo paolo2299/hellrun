@@ -13,6 +13,7 @@ public class ControllerState2D
 	public bool IsHuggingWallRight { get; set; }
 	public bool IsHuggingWallLeft { get; set; }
 	public bool IsHuggingWall { get { return IsHuggingWallLeft || IsHuggingWallRight; } }
+	public bool IsGrappling { get; set; }
 	public float SlopeAngle { get; set; }
 	public bool HasCollisions {
 		get { return IsCollidingRight || IsCollidingLeft || IsCollidingAbove || IsCollidingBelow; }
