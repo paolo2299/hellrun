@@ -78,9 +78,9 @@ public class Player : MonoBehaviour {
 		_isRunning = Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift);
 
 		if (_canJump && Input.GetKeyDown (KeyCode.Space)) {
-			if (_controller.State.IsHuggingWallRight)
+			if (_controller.State.IsHuggingWallRight && !_controller.State.IsGrounded)
 				_controller.Jump(new Vector2(-wallJumpForce.x, wallJumpForce.y));
-			else if (_controller.State.IsHuggingWallLeft)
+			else if (_controller.State.IsHuggingWallLeft && !_controller.State.IsGrounded)
 				_controller.Jump(wallJumpForce);
 			else
 				_controller.Jump(jumpForce);
