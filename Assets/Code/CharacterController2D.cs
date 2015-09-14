@@ -116,11 +116,12 @@ public class CharacterController2D : MonoBehaviour
 			Debug.DrawLine (_transform.position, _grappleConstraint.anchor, Color.cyan);
 			ConstrainVelocityToGrapple();
 		}
+		var deltaMovement = Velocity * Time.deltaTime;
+		if (State.IsGrappling) {
+			deltaMovement = AdjustMovementForGrappleLength (deltaMovement);
+		}
 		
-		Move(Velocity * Time.deltaTime);
-
-		if (State.IsGrappling)
-			AdjustPositionForGrapple ();
+		Move(deltaMovement);
 	}
 
 	private void ConstrainVelocityToGrapple()
@@ -135,31 +136,30 @@ public class CharacterController2D : MonoBehaviour
 		Debug.DrawLine (_transform.position, _transform.position + (Vector3) Velocity, Color.magenta);
 	}
 
-	private void AdjustPositionForGrapple()
+	private Vector2 AdjustMovementForGrappleLength(Vector2 deltaMovement)
+	{
+		var newPosition = (Vector2) _transform.position + deltaMovement;
+		var newGrappleVector = _grappleConstraint.anchor - newPosition;
+		var newGrappleNormal = newGrappleVector.normalized;
+		var adjustmentSize = newGrappleVector.magnitude - _grappleConstraint.length;
+		var adjustment = new Vector2 (newGrappleNormal.x * adjustmentSize, newGrappleNormal.y * adjustmentSize);
+		return new Vector2 (deltaMovement.x + adjustment.x, deltaMovement.y + adjustment.y);
+	}
+
+	public void RetractGrapple(float speed)
 	{
 		if (!State.IsGrappling)
 			return;
 
-		var grappleVector = (Vector2) _transform.position - _grappleConstraint.anchor;
-		var grappleLength = grappleVector.magnitude;
-		var adjustment = _grappleConstraint.length - grappleLength;
-		_transform.Translate(grappleVector.normalized * adjustment, Space.World);
+		_grappleConstraint.Retract(speed * Time.deltaTime);
 	}
 
-	public void RetractGrapple(float amount)
-	{
-		if (!State.IsGrappling)
-			return;
-
-		_grappleConstraint.Retract(amount);
-	}
-
-	public void ExtendGrapple(float amount)
+	public void ExtendGrapple(float speed)
 	{
 		if (!State.IsGrappling)
 			return;
 		
-		_grappleConstraint.Extend(amount);
+		_grappleConstraint.Extend(speed * Time.deltaTime);
 	}
 	
 	private void Move(Vector2 deltaMovement)

@@ -15,7 +15,7 @@ public class GrappleConstraint {
 	//constructors
 	public GrappleConstraint (Vector2 anchor, float startLength, float maxLength) {
 		_anchor = anchor;
-		_length = length;
+		_length = startLength;
 		_maxLength = maxLength;
 	}
 
