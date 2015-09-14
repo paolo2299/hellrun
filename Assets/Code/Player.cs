@@ -78,12 +78,12 @@ public class Player : MonoBehaviour {
 		_isRunning = Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift);
 
 		if (_canJump && Input.GetKeyDown (KeyCode.Space)) {
-			if (_controller.State.IsGrounded)
-				_controller.Jump(jumpForce);
-			else if (_controller.State.IsHuggingWallRight)
+			if (_controller.State.IsHuggingWallRight)
 				_controller.Jump(new Vector2(-wallJumpForce.x, wallJumpForce.y));
 			else if (_controller.State.IsHuggingWallLeft)
 				_controller.Jump(wallJumpForce);
+			else
+				_controller.Jump(jumpForce);
 		}
 
 		if (!Input.GetKey (KeyCode.Space) && _controller.Velocity.y > jumpCutoff)
@@ -96,8 +96,29 @@ public class Player : MonoBehaviour {
 			    _controller.ExtendGrapple(Parameters.grappleExtendSpeed);
 		}
 
-		if (Input.GetKey (KeyCode.G))
-			_controller.FireGrapple (Parameters.grappleAngleRadians, Parameters.grappleMaxLength);
+		if (!_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
+			//TODO case statement
+			if (_normalizedHorizontalSpeed > 0)
+				FireGrappleRight ();
+			else if (_normalizedHorizontalSpeed < 0)
+				FireGrappleLeft ();
+			else
+				FireGrappleUp ();
+		}
+	}
+
+	private void FireGrappleRight() {
+		var direction = new Vector2(Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
+		_controller.FireGrapple (direction, Parameters.grappleMaxLength);
+	}
+	
+	private void FireGrappleLeft() {
+		var direction = new Vector2(-Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
+		_controller.FireGrapple (direction, Parameters.grappleMaxLength);
+	}
+
+	private void FireGrappleUp() {
+		_controller.FireGrapple (Vector2.up, Parameters.grappleMaxLength);
 	}
 
 	private void Flip() {

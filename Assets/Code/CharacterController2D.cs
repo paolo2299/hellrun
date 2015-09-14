@@ -78,26 +78,29 @@ public class CharacterController2D : MonoBehaviour
 	public void Jump(float force)
 	{
 		// TODO: Moving platform support
-		ReleaseGrapple ();
+		if (State.IsGrappling)
+			ReleaseGrapple ();
+
 		SetVerticalVelocity(force);
 	}
 
 	public void Jump(Vector2 force)
 	{
 		// TODO: Moving platform support
-		ReleaseGrapple ();
+		if (State.IsGrappling)
+			ReleaseGrapple ();
+
 		SetVelocity(force);
 	}
 
-	public void FireGrapple(float angleRadians, float maxLength) {
+	public void FireGrapple(Vector2 direction, float maxLength) {
 		var origin = _transform.position;
-		var direction = new Vector2(Mathf.Cos (angleRadians), Mathf.Sin (angleRadians));
 		Debug.DrawRay(origin, direction * maxLength, Color.cyan);
 		
 		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
 		if (!raycastHit)
 			return;
-
+		
 		var anchor = raycastHit.point;
 		var length = raycastHit.distance;
 		_grappleConstraint = new GrappleConstraint (anchor, length, maxLength);
