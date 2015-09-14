@@ -320,9 +320,15 @@ public class CharacterController2D : MonoBehaviour
 
 	private void DetectWalls()
 	{
+		DetectWalls (true);
+		DetectWalls (false);
+	}
+
+	private void DetectWalls(bool onRight) 
+	{
 		var rayDistance = SkinWidth;
-		var rayDirection = Vector2.right;
-		var rayOrigin = _raycastBottomRight;
+		var rayDirection = onRight ? Vector2.right : Vector2.left;
+		var rayOrigin = onRight ? _raycastBottomRight : _raycastBottomLeft;
 		
 		for (var i = 0; i < TotalHorizontalRays; i++)
 		{
@@ -331,12 +337,15 @@ public class CharacterController2D : MonoBehaviour
 			
 			var rayCastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
 			if (rayCastHit) {
-				State.IsHuggingWallRight = true;
+				if (onRight)
+					State.IsHuggingWallRight = true;
+				else
+					State.IsHuggingWallLeft = true;
 				break;
 			}
 		}
 	}
-	
+
 	private void MoveVertically(ref Vector2 deltaMovement)
 	{
 		var isGoingUp = deltaMovement.y > 0;
