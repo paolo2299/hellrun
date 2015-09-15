@@ -14,7 +14,7 @@ public class BackgroundParallax : MonoBehaviour {
 
 	void Update () {
 		var parallax = (_lastPosition.x - transform.position.x) * parallaxScale;
-		var backgroundTargetPosition = background.position.x + parallax;
+		var backgroundTargetPosition = background.position.x - parallax;
 		background.position = new Vector3 (backgroundTargetPosition, background.position.y, background.position.z);
 		_lastPosition = transform.position;
 	}
