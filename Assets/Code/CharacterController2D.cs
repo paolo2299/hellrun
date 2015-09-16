@@ -10,6 +10,7 @@ public class CharacterController2D : MonoBehaviour
 	private static readonly float SlopeLimitTangant = Mathf.Tan(75f * Mathf.Deg2Rad);
 	
 	public LayerMask PlatformMask;
+	public Animator animator;
 	public ControllerParameters2D DefaultParameters;
 	
 	public ControllerState2D State { get; private set; }
@@ -26,7 +27,7 @@ public class CharacterController2D : MonoBehaviour
 	private ControllerParameters2D _overrideParameters;
 	private GameObject _lastStandingOn;
 	private GrappleConstraint _grappleConstraint;
-	
+
 	private Vector3
 		_activeGlobalPlatformPoint,
 		_activeLocalPlatformPoint;
@@ -125,6 +126,10 @@ public class CharacterController2D : MonoBehaviour
 		}
 		
 		Move(deltaMovement);
+
+		if (animator) {
+			animator.SetFloat("playerSpeed", Mathf.Abs(Velocity.x));
+		}
 	}
 
 	private void ConstrainVelocityToGrapple()
