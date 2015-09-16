@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24a9a74f09075456aa3d69370661f5c6
-timeCreated: 1441560012
+timeCreated: 1442441890
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -255,7 +255,7 @@ TextureImporter:
     - name: push_1
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
         width: 16
         height: 16
@@ -265,7 +265,7 @@ TextureImporter:
     - name: push_2
       rect:
         serializedVersion: 2
-        x: 16
+        x: 18
         y: 0
         width: 16
         height: 16
@@ -275,7 +275,7 @@ TextureImporter:
     - name: push_3
       rect:
         serializedVersion: 2
-        x: 32
+        x: 34
         y: 0
         width: 16
         height: 16
@@ -300,7 +300,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
