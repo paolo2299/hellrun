@@ -129,6 +129,17 @@ public class CharacterController2D : MonoBehaviour
 
 		if (animator) {
 			animator.SetFloat("playerSpeed", Mathf.Abs(Velocity.x));
+			animator.SetBool("isGrounded", State.IsGrounded);
+			animator.SetBool("isHuggingWall", State.IsHuggingWall);
+			var isRising = false;
+			var isFalling = false;
+			if (Velocity.y > 0) {
+				isRising = true;
+			} else {
+				isFalling = true;
+			}
+			animator.SetBool("isRising", isRising);
+			animator.SetBool("isFalling", isFalling);
 		}
 	}
 
