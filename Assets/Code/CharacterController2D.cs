@@ -19,6 +19,7 @@ public class CharacterController2D : MonoBehaviour
 	public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
 	public GameObject StandingOn { get; private set; }
 	public Vector3 PlatformVelocity { get; private set; }
+	public LineRenderer lineRenderer;
 
 	private Vector2 _velocity;
 	private Transform _transform;
@@ -112,6 +113,20 @@ public class CharacterController2D : MonoBehaviour
 		_grappleConstraint = null;
 		State.IsGrappling = false;
 	}
+
+	public void SetGrappleForRendering () {
+		//TODO find a more appropriate place for this - handled in separate Grapple script?
+		if (State.IsGrappling) {
+			Debug.Log("enabling");
+			Debug.Log (new Vector3(_transform.position.x, _transform.position.y, -1));
+			Debug.Log (new Vector3(_grappleConstraint.anchor.x, _grappleConstraint.anchor.y, -1));
+			lineRenderer.enabled = true;
+			lineRenderer.SetPosition (0, new Vector3(_transform.position.x, _transform.position.y, -1));
+			lineRenderer.SetPosition (1, new Vector3(_grappleConstraint.anchor.x, _grappleConstraint.anchor.y, -1));
+		} else {
+			lineRenderer.enabled = false;
+		}
+	}
 	
 	public void LateUpdate()
 	{
@@ -141,6 +156,8 @@ public class CharacterController2D : MonoBehaviour
 			animator.SetBool("isRising", isRising);
 			animator.SetBool("isFalling", isFalling);
 		}
+
+		SetGrappleForRendering ();
 	}
 
 	private void ConstrainVelocityToGrapple()
