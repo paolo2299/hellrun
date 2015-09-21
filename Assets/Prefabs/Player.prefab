@@ -127,7 +127,7 @@ MonoBehaviour:
     SlopeLimit: 30
     Gravity: -17
     JumpFrequency: .25
-  lineRenderer: {fileID: 0}
+  grapple: {fileID: 0}
 --- !u!114 &11478726
 MonoBehaviour:
   m_ObjectHideFlags: 1
