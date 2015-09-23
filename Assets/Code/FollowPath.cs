@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System
+using System.Collections.Generic;
 
 public class FollowPath : MonoBehaviour {
 
@@ -33,6 +33,7 @@ public class FollowPath : MonoBehaviour {
 
 		var distanceSquared = (transform.position - _currentPoint.Current.position).sqrMagnitude;
 
-		//TODO - rest of method
+		if (distanceSquared < MaxDistanceToGoal)
+			_currentPoint.MoveNext ();
 	}
 }
