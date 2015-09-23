@@ -97,7 +97,6 @@ public class Player : MonoBehaviour {
 		}
 
 		if (!_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
-			//TODO case statement
 			if (_normalizedHorizontalSpeed > 0)
 				FireGrappleRight ();
 			else if (_normalizedHorizontalSpeed < 0)

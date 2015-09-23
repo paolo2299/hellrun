@@ -213,9 +213,9 @@ public class CharacterController2D : MonoBehaviour
 
 			DetectWalls();
 
-			//TODO - why are these here? They seem to make the player bounce off walls (which I don't think is the desired effect...)
-			//CorrectHorizontalPlacement(ref deltaMovement, true);
-			//CorrectHorizontalPlacement(ref deltaMovement, false);
+			//If moving platforms have moved into the character correct accordingly
+			CorrectHorizontalPlacement(ref deltaMovement, true);
+			CorrectHorizontalPlacement(ref deltaMovement, false);
 		}
 		
 		_transform.Translate(deltaMovement, Space.World);
@@ -276,9 +276,9 @@ public class CharacterController2D : MonoBehaviour
 		var rayOrigin = isRight ? _raycastBottomRight : _raycastBottomLeft;
 		
 		if (isRight)
-			rayOrigin.x -= (halfWidth - SkinWidth);
+			rayOrigin.x -= halfWidth;
 		else
-			rayOrigin.x += (halfWidth - SkinWidth);
+			rayOrigin.x += halfWidth;
 		
 		var rayDirection = isRight ? Vector2.right : -Vector2.right;
 		var offset = 0f;
@@ -286,7 +286,7 @@ public class CharacterController2D : MonoBehaviour
 		for (var i = 1; i < TotalHorizontalRays - 1; i++)
 		{
 			var rayVector = new Vector2(deltaMovement.x + rayOrigin.x, deltaMovement.y + rayOrigin.y + (i * _verticalDistanceBetweenRays));
-			//			Debug.DrawRay(rayVector, rayDirection * halfWidth, isRight ? Color.cyan : Color.magenta);
+			Debug.DrawRay(rayVector, rayDirection * halfWidth, isRight ? Color.cyan : Color.magenta);
 			
 			var raycastHit = Physics2D.Raycast(rayVector, rayDirection, halfWidth, PlatformMask);
 			if (!raycastHit)
