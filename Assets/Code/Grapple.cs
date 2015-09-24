@@ -21,6 +21,10 @@ public class Grapple : MonoBehaviour {
 		_trailingEnd = trailingEnd;
 	}
 
+	public void SetAnchor (Vector2 anchor) {
+		_anchor = anchor;
+	}
+
 	public float AngleInDegrees () {
 		var opposite = transform.position.x - _anchor.x;
 		var adjacent = _anchor.y - transform.position.y;

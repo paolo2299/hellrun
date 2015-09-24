@@ -19,7 +19,7 @@ public class CharacterController2D : MonoBehaviour
 	public bool HandleCollisions { get; set; }
 	public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
 	public GameObject StandingOn { get; private set; }
-	public Vector3 PlatformVelocity { get; private set; }
+	public GameObject GrapplingOn { get; private set; }
 
 	private Vector2 _velocity;
 	private Transform _transform;
@@ -31,7 +31,9 @@ public class CharacterController2D : MonoBehaviour
 
 	private Vector3
 		_activeGlobalPlatformPoint,
-		_activeLocalPlatformPoint;
+		_activeLocalPlatformPoint,
+		_activeGlobalGrapplePoint,
+		_activeLocalGrapplePoint;
 	
 	private Vector3
 		_raycastTopLeft,
@@ -107,11 +109,14 @@ public class CharacterController2D : MonoBehaviour
 		var length = raycastHit.distance;
 		_grappleConstraint = new GrappleConstraint (anchor, length, maxLength);
 		State.IsGrappling = true;
+		GrapplingOn = raycastHit.collider.gameObject;
+		SetGrapplePoints();
 	}
 
 	public void ReleaseGrapple () {
 		_grappleConstraint = null;
 		State.IsGrappling = false;
+		GrapplingOn = null;
 	}
 
 	public void LateUpdate()
@@ -250,6 +255,17 @@ public class CharacterController2D : MonoBehaviour
 			_lastStandingOn.SendMessage("ControllerExit2D", this, SendMessageOptions.DontRequireReceiver);
 			_lastStandingOn = null;
 		}
+
+		if (GrapplingOn != null)
+		{
+			SetGrapplePoints();
+		}
+	}
+
+	private void SetGrapplePoints()
+	{
+		_activeGlobalGrapplePoint = _grappleConstraint.anchor;
+		_activeLocalGrapplePoint = GrapplingOn.transform.InverseTransformPoint (_grappleConstraint.anchor);
 	}
 	
 	private void HandlePlatforms()
@@ -261,13 +277,21 @@ public class CharacterController2D : MonoBehaviour
 			
 			if (moveDistance != Vector3.zero)
 				transform.Translate(moveDistance, Space.World);
-			
-			PlatformVelocity = (newGlobalPlatformPoint - _activeGlobalPlatformPoint) / Time.deltaTime;
 		}
-		else
-			PlatformVelocity = Vector3.zero;
 		
 		StandingOn = null;
+
+		if (GrapplingOn != null && _activeGlobalGrapplePoint != Vector3.zero) 
+		{
+			var newGlobalGrapplePoint = GrapplingOn.transform.TransformPoint(_activeLocalGrapplePoint);
+			var moveDistance = newGlobalGrapplePoint - _activeGlobalGrapplePoint;
+
+			if (moveDistance != Vector3.zero)
+			{
+				_grappleConstraint.SetAnchor(_grappleConstraint.anchor + (Vector2) moveDistance);
+				grapple.SetAnchor(_grappleConstraint.anchor);
+			}
+		}
 	}
 	
 	private void CorrectHorizontalPlacement(ref Vector2 deltaMovement, bool isRight)

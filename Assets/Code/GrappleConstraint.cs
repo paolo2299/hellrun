@@ -29,4 +29,8 @@ public class GrappleConstraint {
 		_length -= amount;
 		_length = Mathf.Clamp (_length, 0, _maxLength);
 	}
+
+	public void SetAnchor (Vector2 anchor) {
+		_anchor = anchor;
+	}
 }
