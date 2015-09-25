@@ -66,6 +66,11 @@ public class Player : MonoBehaviour {
 		Debug.Log ("You dead!!!!");
 	}
 
+	public void FinishLevel() {
+		enabled = false;
+		_controller.enabled = false;
+	}
+
 	private void HandleInput() {
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			_normalizedHorizontalSpeed = 1;
