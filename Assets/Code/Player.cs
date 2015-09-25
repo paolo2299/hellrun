@@ -62,6 +62,10 @@ public class Player : MonoBehaviour {
 		_jumpIn = Parameters.JumpFrequency;
 	}
 
+	public void Die (){
+		Debug.Log ("You dead!!!!");
+	}
+
 	private void HandleInput() {
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			_normalizedHorizontalSpeed = 1;
