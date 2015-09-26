@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 	public float jumpForce = 8.5f;
 	public float jumpCutoff = 2.2f;
 	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
-
+	
 	private CharacterController2D _controller;
 	private PlayerParameters2D _overrideParameters;
 	private bool _isFacingRight;
@@ -64,6 +64,11 @@ public class Player : MonoBehaviour {
 
 	public void Die (){
 		Debug.Log ("You dead!!!!");
+		_controller.Die ();
+	}
+
+	public void Respawn () {
+		_controller.Respawn ();
 	}
 
 	public void FinishLevel() {

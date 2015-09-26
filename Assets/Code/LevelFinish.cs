@@ -8,7 +8,7 @@ public class LevelFinish : MonoBehaviour {
 	{
 		var player = other.gameObject.GetComponent<Player> ();
 		if (player != null) {
-			player.FinishLevel(nextLevel);
+			LevelManager.Instance.GotoNextLevel(nextLevel);
 		}
 	}
 }

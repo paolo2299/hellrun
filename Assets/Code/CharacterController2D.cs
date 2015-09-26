@@ -21,6 +21,7 @@ public class CharacterController2D : MonoBehaviour
 	public GameObject StandingOn { get; private set; }
 	public GameObject GrapplingOn { get; private set; }
 
+	private Vector3 _originalPos;
 	private Vector2 _velocity;
 	private Transform _transform;
 	private Vector3 _localScale;
@@ -49,6 +50,7 @@ public class CharacterController2D : MonoBehaviour
 		HandleCollisions = true;
 		State = new ControllerState2D();
 		_transform = transform;
+		_originalPos = transform.position;
 		_localScale = transform.localScale;
 		_boxCollider = GetComponent<BoxCollider2D>();
 		
@@ -95,6 +97,19 @@ public class CharacterController2D : MonoBehaviour
 			ReleaseGrapple ();
 
 		SetVelocity(force);
+	}
+
+	public void Die() {
+		ReleaseGrapple ();
+		_boxCollider.enabled = false;
+		HandleCollisions = false;
+	}
+
+	public void Respawn() {
+		transform.position = _originalPos;
+		_velocity = Vector2.zero;
+		_boxCollider.enabled = true;
+		HandleCollisions = true;
 	}
 
 	public void FireGrapple(Vector2 direction, float maxLength) {

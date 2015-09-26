@@ -2,6 +2,20 @@
 using System.Collections;
 
 public class LevelManager : MonoBehaviour {
+
+	public static LevelManager Instance { get; private set; }
+
+	public Player player;
+	public CameraController mainCamera;
+
+	public void Awake() {
+		Debug.Log ("Level Manaer Awake!");
+		LevelManager.Instance = this;
+		Debug.Log (LevelManager.Instance);
+		player = GameObject.FindObjectOfType<Player> ();
+		mainCamera = GameObject.FindObjectOfType<CameraController> ();
+	}
+
 	public void GotoNextLevel(string levelName) {
 		StartCoroutine(GotoNextLevelCo(levelName));
 	}
@@ -17,10 +31,16 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void KillPlayer() {
+		Debug.Log ("In KillPlayer");
+		Debug.Log (player);
 		StartCoroutine (KillPlayerCo());
 	}
 
 	private IEnumerator KillPlayerCo() {
-		yield return new WaitForSeconds (2f);
+		player.Die ();
+
+		yield return new WaitForSeconds (0.5f);
+
+		player.Respawn ();
 	}
 }
