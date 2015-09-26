@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour {
 
 	private IEnumerator GotoNextLevelCo(string levelName) {
 
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (0.1f);
 
 		if (string.IsNullOrEmpty (levelName))
 			Application.LoadLevel ("StartScreen");
