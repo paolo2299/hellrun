@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour {
 	public CameraController mainCamera;
 
 	public void Awake() {
-		Debug.Log ("Level Manaer Awake!");
 		LevelManager.Instance = this;
 		Debug.Log (LevelManager.Instance);
 		player = GameObject.FindObjectOfType<Player> ();
@@ -31,8 +30,6 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void KillPlayer() {
-		Debug.Log ("In KillPlayer");
-		Debug.Log (player);
 		StartCoroutine (KillPlayerCo());
 	}
 
