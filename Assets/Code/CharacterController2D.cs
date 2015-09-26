@@ -83,7 +83,6 @@ public class CharacterController2D : MonoBehaviour
 	
 	public void Jump(float force)
 	{
-		// TODO: Moving platform support
 		if (State.IsGrappling)
 			ReleaseGrapple ();
 
@@ -92,22 +91,23 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Jump(Vector2 force)
 	{
-		// TODO: Moving platform support
 		if (State.IsGrappling)
 			ReleaseGrapple ();
 
 		SetVelocity(force);
 	}
 
-	public void Die() {
-		ReleaseGrapple ();
+	public void Respawn() {
+		Enable ();
+		transform.position = _originalPos;
+	}
+
+	public void Disable() {;
 		_boxCollider.enabled = false;
 		HandleCollisions = false;
 	}
 
-	public void Respawn() {
-		transform.position = _originalPos;
-		_velocity = Vector2.zero;
+	public void Enable() {
 		_boxCollider.enabled = true;
 		HandleCollisions = true;
 	}

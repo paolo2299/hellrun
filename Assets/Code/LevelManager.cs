@@ -9,8 +9,7 @@ public class LevelManager : MonoBehaviour {
 	public CameraController mainCamera;
 
 	public void Awake() {
-		LevelManager.Instance = this;
-		Debug.Log (LevelManager.Instance);
+		LevelManager.Instance = this;;
 		player = GameObject.FindObjectOfType<Player> ();
 		mainCamera = GameObject.FindObjectOfType<CameraController> ();
 	}
@@ -20,7 +19,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private IEnumerator GotoNextLevelCo(string levelName) {
-
+		player.Disable ();
 		yield return new WaitForSeconds (0.1f);
 
 		if (string.IsNullOrEmpty (levelName))
@@ -35,9 +34,7 @@ public class LevelManager : MonoBehaviour {
 
 	private IEnumerator KillPlayerCo() {
 		player.Die ();
-
 		yield return new WaitForSeconds (0.5f);
-
 		player.Respawn ();
 	}
 }

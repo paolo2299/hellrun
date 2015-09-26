@@ -12,7 +12,8 @@ public class Player : MonoBehaviour {
 	public float jumpForce = 8.5f;
 	public float jumpCutoff = 2.2f;
 	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
-	
+
+	private bool _aliveAndActive = true;
 	private CharacterController2D _controller;
 	private PlayerParameters2D _overrideParameters;
 	private bool _isFacingRight;
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour {
 		_jumpIn -= Time.deltaTime;
 		HandleInput ();
 
-		var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking; //TODO - moving opposite direction?
+		var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
 		var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
 		if (_normalizedHorizontalSpeed != 0)
 			_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
@@ -63,17 +64,23 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Die (){
-		Debug.Log ("You dead!!!!");
-		_controller.Die ();
+		if (_aliveAndActive) {
+			Debug.Log ("You dead!!!!");
+			_controller.ReleaseGrapple ();
+			_aliveAndActive = false;
+			_controller.Disable ();
+		}
 	}
 
 	public void Respawn () {
+		Debug.Log ("Respawning");
+		_aliveAndActive = true;
 		_controller.Respawn ();
+		_controller.Enable ();
 	}
 
-	public void FinishLevel() {
-		enabled = false;
-		_controller.enabled = false;
+	public void Disable() {
+		_controller.Disable ();
 	}
 
 	private void HandleInput() {
