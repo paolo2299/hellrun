@@ -26,12 +26,10 @@ public class Grapple : MonoBehaviour {
 	}
 
 	public float AngleInDegrees () {
-		var opposite = transform.position.x - _anchor.x;
-		var adjacent = _anchor.y - transform.position.y;
-		if (opposite == 0)
-			return 0;
-		var ratio = opposite / adjacent;
-		return Mathf.Atan (ratio) * (360 / (2 * Mathf.PI));
+		var direction = (Vector2) transform.position - _anchor;
+		var anglePositivity = Mathf.Sign (direction.x);
+
+		return anglePositivity * Vector2.Angle (Vector2.down, direction);
 	}
 
 	public float LengthMultiplier () {

@@ -18,6 +18,8 @@ public class ControllerState2D
 	public bool HasCollisions {
 		get { return IsCollidingRight || IsCollidingLeft || IsCollidingAbove || IsCollidingBelow; }
 	}
+	public Vector2 PreviousGrapplingPosition { get; set; }
+	public Vector2 PreviousGrapplingVelocity { get; set; }
 
 	public void Reset()
 	{

@@ -60,6 +60,98 @@ public class CharacterController2D : MonoBehaviour
 		var colliderHeight = _boxCollider.size.y * Mathf.Abs(transform.localScale.y) - (2 * SkinWidth);
 		_verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
 	}
+
+	public void LateUpdate()
+	{
+		if (State.IsGrappling) {
+			UpdateForGrapple ();
+		} else {
+			_velocity.y += Parameters.Gravity * Time.deltaTime;
+			var deltaMovement = Velocity * Time.deltaTime;
+			Move (deltaMovement);
+		}
+		UpdateGrapple ();
+		UpdateAnimator ();
+	}
+
+	private void UpdateAnimator () 
+	{
+		if (animator) {
+			animator.SetFloat("playerSpeed", Mathf.Abs(Velocity.x));
+			animator.SetBool("isGrounded", State.IsGrounded);
+			animator.SetBool("isHuggingWall", State.IsHuggingWall);
+			var isRising = false;
+			var isFalling = false;
+			if (Velocity.y > 0) {
+				isRising = true;
+			} else {
+				isFalling = true;
+			}
+			animator.SetBool("isRising", isRising);
+			animator.SetBool("isFalling", isFalling);
+		}
+	}
+
+	private void UpdateForGrapple()
+	{
+		if (!State.IsGrappling)
+			return;
+
+		AdjustGrappleForPlatforms ();
+		AdjustPositionForGrappleLength ();
+		
+		var grappleDirectionStart = (Vector2) _transform.position - _grappleConstraint.anchor;
+
+		var grappleAngleDegrees = 0f;
+		if (grappleDirectionStart.y < 0)
+			grappleAngleDegrees = Vector2.Angle (Vector2.down, grappleDirectionStart);
+		else
+			grappleAngleDegrees = Vector2.Angle (Vector2.up, grappleDirectionStart);
+		var grappleAngleRadians = grappleAngleDegrees * 2 * Mathf.PI / 360f;
+		
+		var gravityForce = -Parameters.Gravity * Vector2.down;
+		var tensionForceMagnitude = -Parameters.Gravity * Mathf.Cos (grappleAngleRadians) + (Velocity.magnitude * Velocity.magnitude) / _grappleConstraint.length;
+		var tensionForceDirection = -grappleDirectionStart.normalized;
+		var tensionForce = tensionForceMagnitude * tensionForceDirection;
+		
+		var resultantForce = gravityForce + tensionForce;
+		
+		AddForce (resultantForce * Time.deltaTime);
+
+		var deltaMovement = Velocity * Time.deltaTime;
+		Move (deltaMovement);
+	
+		//Adjust Velocity for the fact that we have moved in an arc, not a straight line
+		var grappleDirectionEnd = (Vector2) _transform.position - _grappleConstraint.anchor;
+		var angleTraversedRadians = Vector2.Angle (grappleDirectionStart, grappleDirectionEnd) * 2 * Mathf.PI / 360f;
+		var distanceTraversed = angleTraversedRadians * _grappleConstraint.length;
+
+		var grapplePerp = new Vector2 (-grappleDirectionEnd.y, grappleDirectionEnd.x).normalized;
+		var currentSpeed = distanceTraversed / Time.deltaTime;
+		
+		var grappleDirectionTowards = (Vector2)_transform.position + Velocity * Time.deltaTime - _grappleConstraint.anchor;
+		var clockwiseness = Mathf.Sign (grappleDirectionEnd.y * grappleDirectionTowards.x - grappleDirectionEnd.x * grappleDirectionTowards.y);
+		var tangentialVelocity = -currentSpeed * clockwiseness * grapplePerp;
+		
+		SetVelocity (tangentialVelocity);
+	}
+
+	private void AdjustPositionForGrappleLength()
+	{
+		var grappleVector = _grappleConstraint.anchor - (Vector2) _transform.position;
+		var grappleNormal = grappleVector.normalized;
+		var adjustmentSize = grappleVector.magnitude - _grappleConstraint.length;
+		var adjustment = grappleNormal * adjustmentSize;
+		Move (adjustment, false);
+		var newGrappleVector = _grappleConstraint.anchor - (Vector2) _transform.position;
+		var newGrappleLength = newGrappleVector.magnitude;
+
+		if (Mathf.Abs(newGrappleLength - _grappleConstraint.length) > 0.001f) {
+			//Must have hit something so adjust the grapple instead
+			_grappleConstraint.Extend(newGrappleLength - _grappleConstraint.length);
+			//TODO if grapple exceeds maximum length then release
+		}
+	}
 	
 	public void AddForce(Vector2 force)
 	{
@@ -114,7 +206,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public void FireGrapple(Vector2 direction, float maxLength) {
 		var origin = _transform.position;
-		Debug.DrawRay(origin, direction * maxLength, Color.cyan);
+		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
 		
 		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
 		if (!raycastHit)
@@ -132,38 +224,8 @@ public class CharacterController2D : MonoBehaviour
 		_grappleConstraint = null;
 		State.IsGrappling = false;
 		GrapplingOn = null;
-	}
-
-	public void LateUpdate()
-	{
-		_velocity.y += Parameters.Gravity * Time.deltaTime;
-		if (State.IsGrappling) {
-			Debug.DrawLine (_transform.position, _grappleConstraint.anchor, Color.cyan);
-			ConstrainVelocityToGrapple();
-		}
-		var deltaMovement = Velocity * Time.deltaTime;
-		if (State.IsGrappling) {
-			deltaMovement = AdjustMovementForGrappleLength (deltaMovement);
-		}
-		
-		Move(deltaMovement);
-
-		if (animator) {
-			animator.SetFloat("playerSpeed", Mathf.Abs(Velocity.x));
-			animator.SetBool("isGrounded", State.IsGrounded);
-			animator.SetBool("isHuggingWall", State.IsHuggingWall);
-			var isRising = false;
-			var isFalling = false;
-			if (Velocity.y > 0) {
-				isRising = true;
-			} else {
-				isFalling = true;
-			}
-			animator.SetBool("isRising", isRising);
-			animator.SetBool("isFalling", isFalling);
-		}
-
-		UpdateGrapple ();
+		State.PreviousGrapplingPosition = Vector2.zero;
+		State.PreviousGrapplingVelocity = Vector2.zero;
 	}
 
 	private void UpdateGrapple () {
@@ -173,28 +235,6 @@ public class CharacterController2D : MonoBehaviour
 		} else {
 			grapple.isActive = false;
 		}
-	}
-
-	private void ConstrainVelocityToGrapple()
-	{
-		if (!State.IsGrappling)
-			return;
-
-		var grappleDirection = (Vector2) _transform.position - _grappleConstraint.anchor;
-		var grapplePerp = new Vector2 (-grappleDirection.y, grappleDirection.x);
-		var projectedVelocity = Vector3.Project (Velocity, grapplePerp);
-		SetVelocity (projectedVelocity);
-		Debug.DrawLine (_transform.position, _transform.position + (Vector3) Velocity, Color.magenta);
-	}
-
-	private Vector2 AdjustMovementForGrappleLength(Vector2 deltaMovement)
-	{
-		var newPosition = (Vector2) _transform.position + deltaMovement;
-		var newGrappleVector = _grappleConstraint.anchor - newPosition;
-		var newGrappleNormal = newGrappleVector.normalized;
-		var adjustmentSize = newGrappleVector.magnitude - _grappleConstraint.length;
-		var adjustment = new Vector2 (newGrappleNormal.x * adjustmentSize, newGrappleNormal.y * adjustmentSize);
-		return new Vector2 (deltaMovement.x + adjustment.x, deltaMovement.y + adjustment.y);
 	}
 
 	public void RetractGrapple(float speed)
@@ -213,7 +253,7 @@ public class CharacterController2D : MonoBehaviour
 		_grappleConstraint.Extend(speed * Time.deltaTime);
 	}
 	
-	private void Move(Vector2 deltaMovement)
+	private void Move(Vector2 deltaMovement, bool updateVelocity = true)
 	{
 		var wasGrounded = State.IsCollidingBelow;
 		State.Reset();
@@ -237,11 +277,12 @@ public class CharacterController2D : MonoBehaviour
 			CorrectHorizontalPlacement(ref deltaMovement, true);
 			CorrectHorizontalPlacement(ref deltaMovement, false);
 		}
-		
+
 		_transform.Translate(deltaMovement, Space.World);
 		
-		if (Time.deltaTime > 0)
+		if (Time.deltaTime > 0 && updateVelocity) {
 			_velocity = deltaMovement / Time.deltaTime;
+		}
 		
 		_velocity.x = Mathf.Clamp(_velocity.x, -Parameters.MaxVelocity.x, Parameters.MaxVelocity.x);
 		_velocity.y = Mathf.Clamp(_velocity.y, -Parameters.MaxVelocity.y, Parameters.MaxVelocity.y);
@@ -295,12 +336,15 @@ public class CharacterController2D : MonoBehaviour
 		}
 		
 		StandingOn = null;
+	}
 
+	private void AdjustGrappleForPlatforms()
+	{	
 		if (GrapplingOn != null && _activeGlobalGrapplePoint != Vector3.zero) 
 		{
 			var newGlobalGrapplePoint = GrapplingOn.transform.TransformPoint(_activeLocalGrapplePoint);
 			var moveDistance = newGlobalGrapplePoint - _activeGlobalGrapplePoint;
-
+			
 			if (moveDistance != Vector3.zero)
 			{
 				_grappleConstraint.SetAnchor(_grappleConstraint.anchor + (Vector2) moveDistance);
@@ -325,7 +369,7 @@ public class CharacterController2D : MonoBehaviour
 		for (var i = 1; i < TotalHorizontalRays - 1; i++)
 		{
 			var rayVector = new Vector2(deltaMovement.x + rayOrigin.x, deltaMovement.y + rayOrigin.y + (i * _verticalDistanceBetweenRays));
-			Debug.DrawRay(rayVector, rayDirection * halfWidth, isRight ? Color.cyan : Color.magenta);
+			//Debug.DrawRay(rayVector, rayDirection * halfWidth, isRight ? Color.cyan : Color.magenta);
 			
 			var raycastHit = Physics2D.Raycast(rayVector, rayDirection, halfWidth, PlatformMask);
 			if (!raycastHit)
@@ -357,7 +401,7 @@ public class CharacterController2D : MonoBehaviour
 		for (var i = 0; i < TotalHorizontalRays; i++)
 		{
 			var rayVector = new Vector2(rayOrigin.x, rayOrigin.y + (i * _verticalDistanceBetweenRays));
-			Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.red);
+			//Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.red);
 			
 			var rayCastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
 			if (!rayCastHit)
@@ -400,7 +444,7 @@ public class CharacterController2D : MonoBehaviour
 		for (var i = 0; i < TotalHorizontalRays; i++)
 		{
 			var rayVector = new Vector2(rayOrigin.x, rayOrigin.y + (i * _verticalDistanceBetweenRays));
-			Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.green);
+			//Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.green);
 			
 			var rayCastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
 			if (rayCastHit) {
@@ -426,7 +470,7 @@ public class CharacterController2D : MonoBehaviour
 		for (var i = 0; i < TotalVerticalRays; i++)
 		{
 			var rayVector = new Vector2(rayOrigin.x + (i * _horizontalDistanceBetweenRays), rayOrigin.y);
-			Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.red);
+			//Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.red);
 			
 			var raycastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
 			if (!raycastHit)
@@ -472,7 +516,7 @@ public class CharacterController2D : MonoBehaviour
 		var slopeDistance = SlopeLimitTangant * (_raycastBottomRight.x - center);
 		var slopeRayVector = new Vector2(center, _raycastBottomLeft.y);
 		
-		Debug.DrawRay(slopeRayVector, direction * slopeDistance, Color.yellow);
+		//Debug.DrawRay(slopeRayVector, direction * slopeDistance, Color.yellow);
 		
 		var raycastHit = Physics2D.Raycast(slopeRayVector, direction, slopeDistance, PlatformMask);
 		if (!raycastHit)

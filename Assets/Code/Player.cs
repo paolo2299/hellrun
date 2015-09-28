@@ -43,10 +43,11 @@ public class Player : MonoBehaviour {
 		_jumpIn -= Time.deltaTime;
 		HandleInput ();
 
-		var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
-		var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
-		if (_normalizedHorizontalSpeed != 0)
+		if (_normalizedHorizontalSpeed != 0) {
+			var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
+			var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
 			_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
+		}
 		else if (_controller.State.IsGrounded)
 			_controller.SetHorizontalVelocity(0);
 	}
