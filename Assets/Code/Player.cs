@@ -78,6 +78,7 @@ public class Player : MonoBehaviour {
 		_aliveAndActive = true;
 		_controller.Respawn ();
 		_controller.Enable ();
+		_controller.SetVelocity(new Vector2 (0f, 0f));
 	}
 
 	public void Disable() {
