@@ -3265,11 +3265,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 411772, guid: ffeedabc37e08471699d7db24ef35ed2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 21.2010002
+      value: 21.0769997
       objectReference: {fileID: 0}
     - target: {fileID: 411772, guid: ffeedabc37e08471699d7db24ef35ed2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 8
+      value: 7.98600006
       objectReference: {fileID: 0}
     - target: {fileID: 411772, guid: ffeedabc37e08471699d7db24ef35ed2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3293,7 +3293,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 411772, guid: ffeedabc37e08471699d7db24ef35ed2, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 11439226, guid: ffeedabc37e08471699d7db24ef35ed2, type: 2}
       propertyPath: nextLevel
@@ -8230,6 +8230,10 @@ Prefab:
     - target: {fileID: 477762, guid: 49644226a3e654c5bab034228d669d4e, type: 2}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 13228184, guid: 49644226a3e654c5bab034228d669d4e, type: 2}
+      propertyPath: m_Text
+      value: The Stairs
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49644226a3e654c5bab034228d669d4e, type: 2}
