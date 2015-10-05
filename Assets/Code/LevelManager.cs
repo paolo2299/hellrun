@@ -11,13 +11,15 @@ public class LevelManager : MonoBehaviour {
 	public GUIText levelNameText;
 	private float elapsedTimeThisTry;
 	private float totalElapsedTime;
+	private LevelProgress levelProgress;
 
 	public void Awake() {
-		LevelManager.Instance = this;;
+		LevelManager.Instance = this;
 		player = GameObject.FindObjectOfType<Player> ();
 		mainCamera = GameObject.FindObjectOfType<CameraController> ();
 		elapsedTimeThisTry = 0f;
 		totalElapsedTime = 0f;
+		levelProgress = GameData.Instance.GetLevelProgress (Application.loadedLevelName);
 	}
 
 	public void GotoNextLevel(string levelName) {
@@ -26,12 +28,21 @@ public class LevelManager : MonoBehaviour {
 
 	private IEnumerator GotoNextLevelCo(string levelName) {
 		player.Disable ();
+		SaveLevelData ();
 		yield return new WaitForSeconds (0.1f);
 
 		if (string.IsNullOrEmpty (levelName))
 			Application.LoadLevel ("StartScreen");
 		else
 			Application.LoadLevel (levelName);
+	}
+
+	private void SaveLevelData() {
+		if (!levelProgress.complete || levelProgress.bestTime > elapsedTimeThisTry) {
+			levelProgress.bestTime = elapsedTimeThisTry;
+		}
+		levelProgress.complete = true;
+		GameData.Instance.SaveGameProgress ();
 	}
 
 	public void KillPlayer() {
