@@ -31,10 +31,11 @@ public class LevelManager : MonoBehaviour {
 		SaveLevelData ();
 		yield return new WaitForSeconds (0.1f);
 
-		if (string.IsNullOrEmpty (levelName))
-			Application.LoadLevel ("StartScreen");
-		else
-			Application.LoadLevel (levelName);
+		Application.LoadLevelAdditive ("level_complete");
+		//if (string.IsNullOrEmpty (levelName))
+		//	Application.LoadLevel ("StartScreen");
+		//else
+		//	Application.LoadLevel (levelName);
 	}
 
 	private void SaveLevelData() {
