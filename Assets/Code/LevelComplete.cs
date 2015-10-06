@@ -8,7 +8,7 @@ public class LevelComplete : MonoBehaviour {
 
 	void Start () {
 		levelProgess = GameData.Instance.GetLevelProgress (Application.loadedLevelName);
-		fastestTime.text = "fastet time ever: " + levelProgess.bestTime.ToString ();
+		fastestTime.text = "fastet time ever: " + StopWatch.Format(levelProgess.bestTime);
 	}
 
 	void Update () {

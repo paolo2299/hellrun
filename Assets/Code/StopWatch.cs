@@ -19,11 +19,7 @@ public class StopWatch {
 
 	public string formattedTime {
 		get {
-			var elapsed = time;
-			var minutes = (int)(elapsed / 60);
-			var seconds = (int)(elapsed % 60);
-			var fraction = (int)((elapsed * 100) % 100);
-			return string.Format ("{0:00}:{1:00}:{2:00}", minutes, seconds, fraction);
+			return StopWatch.Format(time);
 		}
 	}
 
@@ -40,5 +36,16 @@ public class StopWatch {
 	public void Stop () {
 		stopTime = Time.time;
 		stopped = true;
+	}
+
+	public static string Format(float timeInSecs) {
+		var minutes = (int)(timeInSecs / 60);
+		var seconds = (int)(timeInSecs % 60);
+		var fraction = (int)((timeInSecs * 100) % 100);
+		if (minutes > 0) {
+			return string.Format ("{0:00}:{1:00}:{2:00}", minutes, seconds, fraction);
+		} else {
+			return string.Format ("{0:00}:{1:00}", seconds, fraction);
+		}
 	}
 }
