@@ -10,20 +10,21 @@ public class LevelManager : MonoBehaviour {
 	public GUIText elapsedTimeText;
 	public GUIText levelNameText;
 	public string nextLevel;
-	private float elapsedTimeThisTry;
-	private float totalElapsedTime;
+	private StopWatch stopWatchThisTry;
+	private StopWatch stopWatchSinceLevelStart;
 	private LevelProgress levelProgress;
 
 	public void Awake() {
 		LevelManager.Instance = this;
 		player = GameObject.FindObjectOfType<Player> ();
 		mainCamera = GameObject.FindObjectOfType<CameraController> ();
-		elapsedTimeThisTry = 0f;
-		totalElapsedTime = 0f;
+		stopWatchThisTry = new StopWatch ();
+		stopWatchSinceLevelStart = new StopWatch ();
 		levelProgress = GameData.Instance.GetLevelProgress (Application.loadedLevelName);
 	}
 
 	public void LevelComplete() {
+		stopWatchThisTry.Stop ();
 		player.Disable ();
 		SaveLevelData ();
 		
@@ -31,8 +32,8 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void SaveLevelData() {
-		if (!levelProgress.complete || levelProgress.bestTime > elapsedTimeThisTry) {
-			levelProgress.bestTime = elapsedTimeThisTry;
+		if (!levelProgress.complete || levelProgress.bestTime > stopWatchThisTry.time) {
+			levelProgress.bestTime = stopWatchThisTry.time;
 		}
 		levelProgress.complete = true;
 		GameData.Instance.SaveGameProgress ();
@@ -45,23 +46,14 @@ public class LevelManager : MonoBehaviour {
 	private IEnumerator KillPlayerCo() {
 		player.Die ();
 		yield return new WaitForSeconds (0.5f);
-		elapsedTimeThisTry = 0f;
+		stopWatchThisTry.Start ();
 		player.Respawn ();
 	}
 
 	public void Update() {
-		elapsedTimeThisTry += Time.deltaTime;
-		totalElapsedTime += Time.deltaTime;
-		elapsedTimeText.text = ElapsedTimeThisTryString ();
-		if (totalElapsedTime > 5f) {
+		elapsedTimeText.text = stopWatchThisTry.formattedTime;
+		if (stopWatchSinceLevelStart.time > 5f) {
 			levelNameText.enabled = false;
 		}
-	}
-
-	public string ElapsedTimeThisTryString() {
-		var minutes = (int)(elapsedTimeThisTry / 60);
-		var seconds = (int)(elapsedTimeThisTry % 60);
-		var fraction = (int)((elapsedTimeThisTry * 100) % 100);
-		return string.Format ("{0:00}:{1:00}:{2:00}", minutes, seconds, fraction);
 	}
 }
