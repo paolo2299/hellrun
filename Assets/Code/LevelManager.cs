@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour {
 	public CameraController mainCamera;
 	public GUIText elapsedTimeText;
 	public GUIText levelNameText;
+	public string nextLevel;
 	private float elapsedTimeThisTry;
 	private float totalElapsedTime;
 	private LevelProgress levelProgress;
@@ -22,20 +23,11 @@ public class LevelManager : MonoBehaviour {
 		levelProgress = GameData.Instance.GetLevelProgress (Application.loadedLevelName);
 	}
 
-	public void GotoNextLevel(string levelName) {
-		StartCoroutine(GotoNextLevelCo(levelName));
-	}
-
-	private IEnumerator GotoNextLevelCo(string levelName) {
+	public void LevelComplete() {
 		player.Disable ();
 		SaveLevelData ();
-		yield return new WaitForSeconds (0.1f);
-
+		
 		Application.LoadLevelAdditive ("level_complete");
-		//if (string.IsNullOrEmpty (levelName))
-		//	Application.LoadLevel ("StartScreen");
-		//else
-		//	Application.LoadLevel (levelName);
 	}
 
 	private void SaveLevelData() {
