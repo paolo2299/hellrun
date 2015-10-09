@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour {
 	public string nextLevel;
 	private StopWatch stopWatchThisTry;
 	private StopWatch stopWatchSinceLevelStart;
-	private LevelProgress levelProgress;
+	private GameProgress gameProgress;
 
 	public void Awake() {
 		LevelManager.Instance = this;
@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour {
 		mainCamera = GameObject.FindObjectOfType<CameraController> ();
 		stopWatchThisTry = new StopWatch ();
 		stopWatchSinceLevelStart = new StopWatch ();
-		levelProgress = GameData.Instance.GetLevelProgress (Application.loadedLevelName);
+		gameProgress = GameProgress.Load();
 	}
 
 	public void LevelComplete() {
@@ -32,11 +32,12 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void SaveLevelData() {
-		if (!levelProgress.complete || levelProgress.bestTime > stopWatchThisTry.time) {
-			levelProgress.bestTime = stopWatchThisTry.time;
+		var alreadyComplete = gameProgress.GetLevelComplete (Application.loadedLevelName);
+		var bestTime = gameProgress.GetLevelBestTime (Application.loadedLevelName);
+		if (!alreadyComplete || bestTime > stopWatchThisTry.time) {
+			gameProgress.SetLevelBestTime(Application.loadedLevelName, stopWatchThisTry.time);
 		}
-		levelProgress.complete = true;
-		GameData.Instance.SaveGameProgress ();
+		gameProgress.SetLevelComplete (Application.loadedLevelName, true);
 	}
 
 	public void KillPlayer() {

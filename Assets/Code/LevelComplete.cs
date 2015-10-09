@@ -2,20 +2,20 @@
 using System.Collections;
 
 public class LevelComplete : MonoBehaviour {
-	private LevelProgress levelProgess;
+	private GameProgress gameProgess;
 	private LevelManager levelManager;
 	public GUIText fastestTime;
 
 	void Start () {
-		levelProgess = GameData.Instance.GetLevelProgress (Application.loadedLevelName);
-		fastestTime.text = "fastet time ever: " + StopWatch.Format(levelProgess.bestTime);
+		gameProgess = GameProgress.Load ();
+		fastestTime.text = "fastet time ever: " + StopWatch.Format(gameProgess.GetLevelBestTime(Application.loadedLevelName));
 	}
 
 	void Update () {
 		if (Input.GetKey (KeyCode.R)) {
 			Application.LoadLevel(Application.loadedLevelName);
 		} else if (Input.GetKey (KeyCode.Return)) {
-			Application.LoadLevel(LevelManager.Instance.nextLevel);
+			Application.LoadLevel(gameProgess.GetNextSceneName(Application.loadedLevelName));
 		}
 	}
 }

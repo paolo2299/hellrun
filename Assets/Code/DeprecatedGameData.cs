@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class GameData {
+public class DeprecatedGameData {
 
 	//make this class a singleton
-	private static GameData _instance;
-	private GameData() {}
+	private static DeprecatedGameData _instance;
+	private DeprecatedGameData() {}
 
-	private GameProgress _gameProgress;
+	private DeprecatedGameProgress _gameProgress;
 
-	public static GameData Instance {
+	public static DeprecatedGameData Instance {
 		get {
 			if (_instance == null) {
-				_instance = new GameData();
+				_instance = new DeprecatedGameData();
 			}
 			return _instance;
 		}
 	}
 
-	private GameProgress gameProgress;
+	private DeprecatedGameProgress gameProgress;
 
-	public LevelProgress GetLevelProgress(string levelName) {
+	public DeprecatedLevelProgress GetLevelProgress(string levelName) {
 #if UNITY_WEBPLAYER
 		Debug.Log ("not loading level progress from file as this is the web player");
 		var levelProgress = new LevelProgress ();
@@ -34,19 +34,19 @@ public class GameData {
 #endif
 	}
 
-	private LevelProgress LoadLevelProgressFromFile(string levelName) {
+	private DeprecatedLevelProgress LoadLevelProgressFromFile(string levelName) {
 		if (_gameProgress == null) {
 			LoadGameProgress();
 		}
 		if (_gameProgress.levels == null) {;
-			_gameProgress.levels = new List<LevelProgress>();
+			_gameProgress.levels = new List<DeprecatedLevelProgress>();
 		};
-		foreach (LevelProgress lp in _gameProgress.levels) {
+		foreach (DeprecatedLevelProgress lp in _gameProgress.levels) {
 			if (lp.levelName == levelName) {
 				return lp;
 			}
 		}
-		var levelProgress = new LevelProgress ();
+		var levelProgress = new DeprecatedLevelProgress ();
 		levelProgress.levelName = levelName;
 		_gameProgress.levels.Add (levelProgress);
 		return levelProgress;
@@ -56,10 +56,10 @@ public class GameData {
 		if (File.Exists (Application.persistentDataPath + "/gameData.dat")) {
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open (Application.persistentDataPath + "/gameData.dat", FileMode.Open);
-			_gameProgress = (GameProgress)bf.Deserialize (file);
+			_gameProgress = (DeprecatedGameProgress)bf.Deserialize (file);
 			file.Close ();
 		} else {
-			_gameProgress = new GameProgress ();
+			_gameProgress = new DeprecatedGameProgress ();
 		}
 	}
 
@@ -73,7 +73,7 @@ public class GameData {
 
 	private void SaveGameProgressToFile() {
 		Debug.Log ("Saving Game");
-		foreach (LevelProgress lp in _gameProgress.levels) {
+		foreach (DeprecatedLevelProgress lp in _gameProgress.levels) {
 			Debug.Log ("State of level " + lp.levelName);
 			Debug.Log (lp.complete);
 			Debug.Log (lp.bestTime);
@@ -87,12 +87,12 @@ public class GameData {
 }
 
 [System.Serializable]
-public class GameProgress {
-	public List<LevelProgress> levels;
+public class DeprecatedGameProgress {
+	public List<DeprecatedLevelProgress> levels;
 }
 
 [System.Serializable]
-public class LevelProgress {
+public class DeprecatedLevelProgress {
 	public string levelName;
 	public bool complete;
 	public float bestTime;
