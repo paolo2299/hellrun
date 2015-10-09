@@ -15,7 +15,11 @@ public class LevelComplete : MonoBehaviour {
 		if (Input.GetKey (KeyCode.R)) {
 			Application.LoadLevel(Application.loadedLevelName);
 		} else if (Input.GetKey (KeyCode.Return)) {
-			Application.LoadLevel(gameProgess.GetNextSceneName(Application.loadedLevelName));
+			if (gameProgess.GetIsLastLevelInChapter(Application.loadedLevelName)) {
+				Application.LoadLevel("level_select");
+			} else {
+				Application.LoadLevel(gameProgess.GetNextSceneName(Application.loadedLevelName));
+			}
 		}
 	}
 }

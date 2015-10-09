@@ -63,6 +63,10 @@ public class GameProgress {
 		SaveGameProgress ();
 	}
 
+	public bool GetIsLastLevelInChapter(string sceneName) {
+		return GetLevelWithSceneName (sceneName).lastLevelInChapter;
+	}
+
 	public string GetNextSceneName (string sceneName) {
 		return GetLevelWithSceneName (sceneName).nextSceneName;
 	}
@@ -108,16 +112,20 @@ public class GameProgress {
 
 [System.Serializable]
 public class GameLevel {
-	public GameLevel (string name, string nextSceneName, bool lastLevelInChapter = false) {
+	public GameLevel (string name, string sceneName, string nextSceneName, bool firstLevelInChapter = false, bool lastLevelInChapter = false) {
 		this.name = name;
+		this.sceneName = sceneName;
 		this.nextSceneName = nextSceneName;
+		this.firstLevelInChapter = firstLevelInChapter;
 		this.lastLevelInChapter = lastLevelInChapter;
 	}
 
 	public string name;
+	public bool firstLevelInChapter;
 	public bool lastLevelInChapter;
 	public bool complete;
 	public float bestTime;
+	public string sceneName;
 	public string nextSceneName;
 }
 
@@ -126,8 +134,8 @@ public class GameChapter {
 	public static GameChapter TheCastle { 
 		get {
 			var levels = new List<GameLevel> {
-				new GameLevel("The Stairs", "level_1_2"),
-				new GameLevel("Floating Around", "level_1_3", true) //TODO saving the next scene name is a bit weird - should be a more elegant way
+				new GameLevel("The Stairs", "level_1_1", "level_1_2", true, false),
+				new GameLevel("Floating Around", "level_1_2", "level_1_3", false, true) //TODO saving the next scene name is a bit weird - should be a more elegant way
 			};
 			return new GameChapter("The Castle", levels);
 		} 
