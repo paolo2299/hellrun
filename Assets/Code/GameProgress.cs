@@ -71,6 +71,10 @@ public class GameProgress {
 		return GetLevelWithSceneName (sceneName).nextSceneName;
 	}
 
+	public string GetLevelName (string sceneName) {
+		return GetLevelWithSceneName (sceneName).name;
+	}
+
 	public GameProgress () {
 		chapters.Add (GameChapter.TheCastle);
 	}

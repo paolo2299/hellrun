@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour {
 	private StopWatch stopWatchThisTry;
 	private StopWatch stopWatchSinceLevelStart;
 	private GameProgress gameProgress;
+	private string levelName;
 
 	public void Awake() {
 		LevelManager.Instance = this;
@@ -21,6 +22,7 @@ public class LevelManager : MonoBehaviour {
 		stopWatchThisTry = new StopWatch ();
 		stopWatchSinceLevelStart = new StopWatch ();
 		gameProgress = GameProgress.Load();
+		levelName = gameProgress.GetLevelName(Application.loadedLevelName);
 	}
 
 	public void LevelComplete() {
@@ -55,6 +57,8 @@ public class LevelManager : MonoBehaviour {
 		elapsedTimeText.text = stopWatchThisTry.formattedTime;
 		if (stopWatchSinceLevelStart.time > 5f) {
 			levelNameText.enabled = false;
+		} else {
+			levelNameText.text = levelName;
 		}
 	}
 }
