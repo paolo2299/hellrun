@@ -13,6 +13,7 @@ public class PlayerParameters2D
 	
 	public JumpBehavior JumpRestrictions = JumpBehavior.CanJumpOnGround;
 	public float JumpFrequency = .25f;
+	public float WallStickTime = .25f;
 
 	public int grappleAngleDegrees = 45;
 	public float grappleAngleRadians {

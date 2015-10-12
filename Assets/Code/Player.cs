@@ -34,9 +34,34 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	private float _leaveWallIn;
+	private bool _canLeaveWall
+	{
+		get
+		{
+			if (!_controller.State.IsHuggingWall) {
+				//should never end up here as not on wall!
+				return true;
+			}
+
+			var keyCode = _controller.State.IsHuggingWallRight ? KeyCode.LeftArrow : KeyCode.RightArrow;
+
+			if (_leaveWallIn <= 0) {
+				return true;
+			}
+			if (Input.GetKey(keyCode)) {
+				_leaveWallIn -= Time.deltaTime;
+			} else {
+				_leaveWallIn = Parameters.WallStickTime;
+			}
+			return false;
+		}
+	}
+
 	void Start () {
 		_controller = GetComponent<CharacterController2D> ();
 		_isFacingRight = transform.localScale.x > 0;
+		_leaveWallIn = Parameters.WallStickTime;
 	}
 
 	void Update () {
@@ -44,9 +69,12 @@ public class Player : MonoBehaviour {
 		HandleInput ();
 
 		if (_normalizedHorizontalSpeed != 0) {
-			var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
-			var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
-			_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
+			if (!_controller.State.IsHuggingWall || _canLeaveWall) {
+				var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
+				var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
+				_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
+				_leaveWallIn = Parameters.WallStickTime;
+			}
 		}
 		else if (_controller.State.IsGrounded)
 			_controller.SetHorizontalVelocity(0);
@@ -88,11 +116,11 @@ public class Player : MonoBehaviour {
 	private void HandleInput() {
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			_normalizedHorizontalSpeed = 1;
-			if (!_isFacingRight)
+			if (!_isFacingRight && !_controller.State.IsHuggingWallLeft)
 				Flip ();
 		} else if (Input.GetKey (KeyCode.LeftArrow)) {
 			_normalizedHorizontalSpeed = -1;
-			if (_isFacingRight)
+			if (_isFacingRight && !_controller.State.IsHuggingWallRight)
 				Flip ();
 		} else {
 			_normalizedHorizontalSpeed = 0;
