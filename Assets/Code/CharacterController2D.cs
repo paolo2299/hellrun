@@ -437,7 +437,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void DetectWalls(bool onRight) 
 	{
-		var rayDistance = SkinWidth;
+		var rayDistance = SkinWidth * 1.5f;
 		var rayDirection = onRight ? Vector2.right : Vector2.left;
 		var rayOrigin = onRight ? _raycastBottomRight : _raycastBottomLeft;
 		
