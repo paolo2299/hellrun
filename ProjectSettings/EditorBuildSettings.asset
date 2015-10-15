@@ -10,8 +10,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/level_select.unity
   - enabled: 1
+    path: Assets/Scenes/level_complete.unity
+  - enabled: 1
     path: Assets/Scenes/level_1_1.unity
   - enabled: 1
     path: Assets/Scenes/level_1_2.unity
   - enabled: 1
-    path: Assets/Scenes/level_complete.unity
+    path: Assets/Scenes/level_1_3.unity
