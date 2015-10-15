@@ -17,11 +17,22 @@ public class GameProgress {
 		if (_gameProgress != null) {
 			return _gameProgress;
 		}
+		#if UNITY_WEBPLAYER
+			Debug.Log ("Not loading game progress as insode web player"); 
+			_gameProgress = new GameProgress ();
+		#else
+			_gameProgress = LoadFromFile();
+		#endif
+
+		return _gameProgress;
+	}
+
+	private static GameProgress LoadFromFile() {
 		if (File.Exists (Application.persistentDataPath + "/gameProgress.dat")) {
 			Debug.Log ("Loading game progress from file " + Application.persistentDataPath + "/gameProgress.dat");
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open (Application.persistentDataPath + "/gameProgress.dat", FileMode.Open);
-			_gameProgress = (GameProgress)bf.Deserialize (file);
+			var gameProgress = (GameProgress)bf.Deserialize (file);
 			foreach (GameChapter gc in _gameProgress.chapters) {
 				Debug.Log ("Loaded state of chapter " + gc.name);
 				foreach (GameLevel gl in gc.levels) {
@@ -36,11 +47,11 @@ public class GameProgress {
 				}
 			}
 			file.Close ();
+			return gameProgress;
 		} else {
 			Debug.Log ("No game progress file found at " + Application.persistentDataPath + "/gameProgress.dat");
-			_gameProgress = new GameProgress ();
+			return new GameProgress ();
 		}
-		return _gameProgress;
 	}
 
 	public bool GetLevelComplete(string sceneName) {
@@ -138,8 +149,9 @@ public class GameChapter {
 	public static GameChapter TheCastle { 
 		get {
 			var levels = new List<GameLevel> {
-				new GameLevel("The Stairs", "level_1_1", "level_1_2", true, false),
-				new GameLevel("Floating Around", "level_1_2", "level_1_3", false, true) //TODO saving the next scene name is a bit weird - should be a more elegant way
+				new GameLevel("The stairs", "level_1_1", "level_1_2", true, false),
+				new GameLevel("Scaling the turret", "level_1_2", "level_1_3", false, false), //TODO saving the next scene name is a bit weird - should be a more elegant way
+				new GameLevel("Gate hopper", "level_1_3", "level_1_4", false, true),
 			};
 			return new GameChapter("The Castle", levels);
 		} 
