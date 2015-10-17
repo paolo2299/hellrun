@@ -151,7 +151,8 @@ public class GameChapter {
 			var levels = new List<GameLevel> {
 				new GameLevel("The stairs", "level_1_1", "level_1_2", true, false),
 				new GameLevel("Scaling the turret", "level_1_2", "level_1_3", false, false), //TODO saving the next scene name is a bit weird - should be a more elegant way
-				new GameLevel("Gate hopper", "level_1_3", "level_1_4", false, true),
+				new GameLevel("Gate hopper", "level_1_3", "level_1_4", false, false),
+				new GameLevel("The descent", "level_1_4", "level_1_5", false, true),
 			};
 			return new GameChapter("The Castle", levels);
 		} 
