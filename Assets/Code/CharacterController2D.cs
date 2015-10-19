@@ -67,6 +67,7 @@ public class CharacterController2D : MonoBehaviour
 			UpdateForGrapple ();
 		} else {
 			_velocity.y += Parameters.Gravity * Time.deltaTime;
+			_velocity.y = Mathf.Clamp(_velocity.y, -Parameters.MaxFallingVelocity, float.MaxValue);
 			var deltaMovement = Velocity * Time.deltaTime;
 			Move (deltaMovement);
 		}
