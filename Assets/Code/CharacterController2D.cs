@@ -98,6 +98,11 @@ public class CharacterController2D : MonoBehaviour
 		if (!State.IsGrappling)
 			return;
 
+		if (GrapplingOn == null) {
+			ReleaseGrapple();
+			return;
+		}
+
 		AdjustGrappleForPlatforms ();
 		AdjustPositionForGrappleLength ();
 		
