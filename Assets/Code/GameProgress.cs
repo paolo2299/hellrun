@@ -153,7 +153,8 @@ public class GameChapter {
 				new GameLevel("Scaling the turret", "level_1_2", "level_1_3", false, false), //TODO saving the next scene name is a bit weird - should be a more elegant way
 				new GameLevel("Gate hopper", "level_1_3", "level_1_4", false, false),
 				new GameLevel("Climbing the walls", "level_1_4", "level_1_5", false, false),
-				new GameLevel("The descent", "level_1_5", "level_1_5", false, true),
+				new GameLevel("The haunted platform", "level_1_5", "level_1_6", false, false),
+				new GameLevel("The descent", "level_1_6", "level_1_7", false, true),
 			};
 			return new GameChapter("The Castle", levels);
 		} 
