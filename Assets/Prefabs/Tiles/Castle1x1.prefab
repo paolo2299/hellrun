@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 477120}
   - 61: {fileID: 6111140}
   m_Layer: 8
-  m_Name: dark_blue_1
+  m_Name: Castle1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
