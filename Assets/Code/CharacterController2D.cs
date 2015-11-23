@@ -16,7 +16,6 @@ public class CharacterController2D : MonoBehaviour
 	
 	public ControllerState2D State { get; private set; }
 	public Vector2 Velocity { get { return _velocity; } }
-	public bool HandleCollisions { get; set; }
 	public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
 	public GameObject StandingOn { get; private set; }
 	public GameObject GrapplingOn { get; private set; }
@@ -47,7 +46,6 @@ public class CharacterController2D : MonoBehaviour
 	
 	public void Awake()
 	{
-		HandleCollisions = true;
 		State = new ControllerState2D();
 		_transform = transform;
 		_originalPos = transform.position;
@@ -202,12 +200,12 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Disable() {;
 		_boxCollider.enabled = false;
-		HandleCollisions = false;
+		enabled = false;
 	}
 
 	public void Enable() {
 		_boxCollider.enabled = true;
-		HandleCollisions = true;
+		enabled = true;
 	}
 
 	public void FireGrapple(Vector2 direction, float maxLength) {
@@ -263,26 +261,23 @@ public class CharacterController2D : MonoBehaviour
 	{
 		var wasGrounded = State.IsCollidingBelow;
 		State.Reset();
+
+		HandlePlatforms();
+		CalculateRayOrigins();
 		
-		if (HandleCollisions)
-		{
-			HandlePlatforms();
-			CalculateRayOrigins();
-			
-			if (deltaMovement.y < 0 && wasGrounded)
-				HandleVerticalSlope(ref deltaMovement);
-			
-			if (Mathf.Abs(deltaMovement.x) > .001f)
-				MoveHorizontally(ref deltaMovement);
-			
-			MoveVertically(ref deltaMovement);
+		if (deltaMovement.y < 0 && wasGrounded)
+			HandleVerticalSlope(ref deltaMovement);
+		
+		if (Mathf.Abs(deltaMovement.x) > .001f)
+			MoveHorizontally(ref deltaMovement);
+		
+		MoveVertically(ref deltaMovement);
 
-			DetectWalls();
+		DetectWalls();
 
-			//If moving platforms have moved into the character correct accordingly
-			CorrectHorizontalPlacement(ref deltaMovement, true);
-			CorrectHorizontalPlacement(ref deltaMovement, false);
-		}
+		//If moving platforms have moved into the character correct accordingly
+		CorrectHorizontalPlacement(ref deltaMovement, true);
+		CorrectHorizontalPlacement(ref deltaMovement, false);
 
 		_transform.Translate(deltaMovement, Space.World);
 		

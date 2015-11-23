@@ -65,19 +65,20 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-		_jumpIn -= Time.deltaTime;
-		HandleInput ();
+		if (_aliveAndActive) {
+			_jumpIn -= Time.deltaTime;
+			HandleInput ();
 
-		if (_normalizedHorizontalSpeed != 0) {
-			if (!_controller.State.IsHuggingWall || _canLeaveWall) {
-				var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
-				var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
-				_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
-				_leaveWallIn = Parameters.WallStickTime;
-			}
+			if (_normalizedHorizontalSpeed != 0) {
+				if (!_controller.State.IsHuggingWall || _canLeaveWall) {
+					var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
+					var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
+					_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
+					_leaveWallIn = Parameters.WallStickTime;
+				}
+			} else if (_controller.State.IsGrounded)
+				_controller.SetHorizontalVelocity (0);
 		}
-		else if (_controller.State.IsGrounded)
-			_controller.SetHorizontalVelocity(0);
 	}
 
 	public void Jump(float force)
