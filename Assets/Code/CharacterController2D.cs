@@ -28,6 +28,7 @@ public class CharacterController2D : MonoBehaviour
 	private ControllerParameters2D _overrideParameters;
 	private GameObject _lastStandingOn;
 	private GrappleConstraint _grappleConstraint;
+	private bool _alive = true;
 
 	private Vector3
 		_activeGlobalPlatformPoint,
@@ -76,18 +77,23 @@ public class CharacterController2D : MonoBehaviour
 	private void UpdateAnimator () 
 	{
 		if (animator) {
-			animator.SetFloat("playerSpeed", Mathf.Abs(Velocity.x));
-			animator.SetBool("isGrounded", State.IsGrounded);
-			animator.SetBool("isHuggingWall", State.IsHuggingWall);
-			var isRising = false;
-			var isFalling = false;
-			if (Velocity.y > 0) {
-				isRising = true;
+			if(_alive) {
+				animator.SetBool("isDead", false);
+				animator.SetFloat("playerSpeed", Mathf.Abs(Velocity.x));
+				animator.SetBool("isGrounded", State.IsGrounded);
+				animator.SetBool("isHuggingWall", State.IsHuggingWall);
+				var isRising = false;
+				var isFalling = false;
+				if (Velocity.y > 0) {
+					isRising = true;
+				} else {
+					isFalling = true;
+				}
+				animator.SetBool("isRising", isRising);
+				animator.SetBool("isFalling", isFalling);
 			} else {
-				isFalling = true;
+				animator.SetBool("isDead", true);
 			}
-			animator.SetBool("isRising", isRising);
-			animator.SetBool("isFalling", isFalling);
 		}
 	}
 
@@ -194,11 +200,22 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	public void Respawn() {
-		Enable ();
+		Live ();
 		transform.position = _originalPos;
 	}
 
-	public void Disable() {;
+	public void Die() {
+		Disable ();
+		_alive = false;
+		UpdateAnimator ();
+	}
+	
+	public void Live() {
+		Enable ();
+		_alive = true;
+	}
+
+	public void Disable() {
 		_boxCollider.enabled = false;
 		enabled = false;
 	}

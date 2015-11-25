@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 	public float jumpCutoff = 2.2f;
 	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
 
-	private bool _aliveAndActive = true;
+	private bool _alive = true;
 	private CharacterController2D _controller;
 	private PlayerParameters2D _overrideParameters;
 	private bool _isFacingRight;
@@ -65,7 +65,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-		if (_aliveAndActive) {
+		if (_alive) {
 			_jumpIn -= Time.deltaTime;
 			HandleInput ();
 
@@ -94,19 +94,19 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Die (){
-		if (_aliveAndActive) {
+		if (_alive) {
 			Debug.Log ("You dead!!!!");
 			_controller.ReleaseGrapple ();
-			_aliveAndActive = false;
-			_controller.Disable ();
+			_alive = false;
+			_controller.Die();
 		}
 	}
 
 	public void Respawn () {
 		Debug.Log ("Respawning");
-		_aliveAndActive = true;
+		_alive = true;
 		_controller.Respawn ();
-		_controller.Enable ();
+		_controller.Live ();
 		_controller.SetVelocity(new Vector2 (0f, 0f));
 	}
 
