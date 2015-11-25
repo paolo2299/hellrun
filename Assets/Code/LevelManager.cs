@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour {
 	private GameProgress gameProgress;
 	private string levelName;
 
+	private bool _resetting;
+
 	public void Awake() {
 		LevelManager.Instance = this;
 		player = GameObject.FindObjectOfType<Player> ();
@@ -42,6 +44,15 @@ public class LevelManager : MonoBehaviour {
 		gameProgress.SetLevelComplete (Application.loadedLevelName, true);
 	}
 
+	public bool ResetInProgress() {
+		return _resetting;
+	}
+
+	public void Reset() {
+		stopWatchThisTry.Start ();
+		_resetting = true;
+	}
+
 	public void KillPlayer() {
 		StartCoroutine (KillPlayerCo());
 	}
@@ -59,6 +70,13 @@ public class LevelManager : MonoBehaviour {
 			levelNameText.enabled = false;
 		} else {
 			levelNameText.text = levelName;
+		}
+		if (_resetting) {
+			//Only allow the resetting flag to be true for one frame
+			_resetting = false;
+		}
+		if (Input.GetKey (KeyCode.R)) {
+			Reset ();
 		}
 	}
 }

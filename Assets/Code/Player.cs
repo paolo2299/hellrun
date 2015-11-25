@@ -65,6 +65,9 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
+		if (LevelManager.Instance.ResetInProgress ()) {
+			Reset ();
+		}
 		if (_alive) {
 			_jumpIn -= Time.deltaTime;
 			HandleInput ();
@@ -108,6 +111,12 @@ public class Player : MonoBehaviour {
 		_controller.Respawn ();
 		_controller.Live ();
 		_controller.SetVelocity(new Vector2 (0f, 0f));
+	}
+
+	public void Reset () {
+		_controller.ReleaseGrapple ();
+		Disable ();
+		Respawn ();
 	}
 
 	public void Disable() {
