@@ -82,9 +82,28 @@ public class Player : MonoBehaviour {
 			} else if (_controller.State.IsGrounded) {
 				_controller.SetHorizontalVelocity (0);
 			}
+			
+			if (!_controller.State.IsGrappling) {
+				TargetGrapple();
+			}
+		}
+	}
+
+	void LateUpdate () {
+		if (!_controller.State.IsGrappling) {
+			TargetGrapple();
 		}
 	}
 	
+	private void TargetGrapple() {
+		if (_normalizedHorizontalSpeed > 0)
+			TargetGrappleRight ();
+		else if (_normalizedHorizontalSpeed < 0)
+			TargetGrappleLeft ();
+		else
+			TargetGrappleUp ();
+	}
+
 	public void Jump(float force)
 	{
 		_controller.Jump (force);
@@ -180,6 +199,20 @@ public class Player : MonoBehaviour {
 
 	private void FireGrappleUp() {
 		_controller.FireGrapple (Vector2.up, Parameters.grappleMaxLength);
+	}
+
+	private void TargetGrappleRight() {
+		var direction = new Vector2(Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
+		_controller.TargetGrapple (direction, Parameters.grappleMaxLength);
+	}
+	
+	private void TargetGrappleLeft() {
+		var direction = new Vector2(-Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
+		_controller.TargetGrapple (direction, Parameters.grappleMaxLength);
+	}
+	
+	private void TargetGrappleUp() {
+		_controller.TargetGrapple (Vector2.up, Parameters.grappleMaxLength);
 	}
 
 	private void Flip() {
