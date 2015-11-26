@@ -65,7 +65,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-		if (LevelManager.Instance.ResetInProgress ()) {
+		if (LevelManager.Instance && LevelManager.Instance.ResetInProgress ()) {
 			Reset ();
 		}
 		if (_alive) {
@@ -79,11 +79,12 @@ public class Player : MonoBehaviour {
 					_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
 					_leaveWallIn = Parameters.WallStickTime;
 				}
-			} else if (_controller.State.IsGrounded)
+			} else if (_controller.State.IsGrounded) {
 				_controller.SetHorizontalVelocity (0);
+			}
 		}
 	}
-
+	
 	public void Jump(float force)
 	{
 		_controller.Jump (force);

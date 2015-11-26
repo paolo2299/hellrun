@@ -33,7 +33,7 @@ public class GameProgress {
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open (Application.persistentDataPath + "/gameProgress.dat", FileMode.Open);
 			var gameProgress = (GameProgress)bf.Deserialize (file);
-			foreach (GameChapter gc in _gameProgress.chapters) {
+			foreach (GameChapter gc in gameProgress.chapters) {
 				Debug.Log ("Loaded state of chapter " + gc.name);
 				foreach (GameLevel gl in gc.levels) {
 					Debug.Log ("******* " + gl.name + " ********");
