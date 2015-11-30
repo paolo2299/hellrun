@@ -340,8 +340,6 @@ GameObject:
   - 4: {fileID: 563507638}
   - 20: {fileID: 563507637}
   - 124: {fileID: 563507636}
-  - 92: {fileID: 563507635}
-  - 81: {fileID: 563507634}
   m_Layer: 0
   m_Name: BackgroundCamera
   m_TagString: Untagged
@@ -349,20 +347,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &563507634
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 563507633}
-  m_Enabled: 1
---- !u!92 &563507635
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 563507633}
-  m_Enabled: 0
 --- !u!124 &563507636
 Behaviour:
   m_ObjectHideFlags: 0

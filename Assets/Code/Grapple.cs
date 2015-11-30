@@ -5,15 +5,20 @@ public class Grapple : MonoBehaviour {
 
 	public bool isActive { set; private get; }
 
+	public GameObject rope;
+	public GameObject claw;
 	private Vector2 _anchor;
 	private Vector2 _trailingEnd;
-	private SpriteRenderer _spriteRenderer;
 	private float _normalisedLength;
+	private SpriteRenderer _ropeRenderer;
+	private SpriteRenderer _clawRenderer;
 
 	public void Awake () {
-		_spriteRenderer = GetComponent<SpriteRenderer>();
-		var spriteBounds = _spriteRenderer.bounds;
-		_normalisedLength = spriteBounds.max.y - spriteBounds.min.y;
+		_ropeRenderer = rope.GetComponent<SpriteRenderer> ();
+		_clawRenderer = claw.GetComponent<SpriteRenderer> ();
+
+		var ropeBounds = _ropeRenderer.bounds;
+		_normalisedLength = ropeBounds.max.y - ropeBounds.min.y;
 	}
 
 	public void SetEnds (Vector2 anchor, Vector2 trailingEnd) {
@@ -26,7 +31,7 @@ public class Grapple : MonoBehaviour {
 	}
 
 	public float AngleInDegrees () {
-		var direction = (Vector2) transform.position - _anchor;
+		var direction = (Vector2) _trailingEnd - _anchor;
 		var anglePositivity = Mathf.Sign (direction.x);
 
 		return anglePositivity * Vector2.Angle (Vector2.down, direction);
@@ -39,12 +44,17 @@ public class Grapple : MonoBehaviour {
 
 	public void LateUpdate () {
 		if (isActive) {
-			_spriteRenderer.enabled = true;
-			transform.position = _trailingEnd;
-			transform.eulerAngles = new Vector3(0, 0, AngleInDegrees());
-			transform.localScale = new Vector3(transform.localScale.x, _normalisedLength * LengthMultiplier(), transform.localScale.z);
+			_ropeRenderer.enabled = true;
+			_clawRenderer.enabled = true;
+			rope.transform.position = _trailingEnd;
+			claw.transform.position = _anchor;
+			var angle = AngleInDegrees();
+			rope.transform.eulerAngles = new Vector3(0, 0, AngleInDegrees());
+			claw.transform.eulerAngles = new Vector3(0, 0, AngleInDegrees());
+			rope.transform.localScale = new Vector3(transform.localScale.x, _normalisedLength * LengthMultiplier(), transform.localScale.z);
 		} else {
-			_spriteRenderer.enabled = false;
+			_ropeRenderer.enabled = false;
+			_clawRenderer.enabled = false;
 		}
 	}
 }
