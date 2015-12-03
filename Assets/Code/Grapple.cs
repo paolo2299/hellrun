@@ -57,4 +57,13 @@ public class Grapple : MonoBehaviour {
 			_clawRenderer.enabled = false;
 		}
 	}
+
+	public void SetByAngleDegreesAndLength(float angleInDegrees, Vector2 trailingEnd, float length) {
+		//assumes angle is between -90 degress and 90 degrees, where 0 degrees is straight up
+		var angleInRadians = angleInDegrees * 2 * Mathf.PI / 360f;
+		_trailingEnd = trailingEnd;
+		var anchorY = _trailingEnd.y + length * Mathf.Cos (angleInRadians);
+		var anchorX = _trailingEnd.x + length * Mathf.Sin (angleInRadians);
+		_anchor = new Vector2 (anchorX, anchorY);
+	}
 }

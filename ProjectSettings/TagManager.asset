@@ -55,3 +55,6 @@ TagManager:
   - name: grapple
     uniqueID: 2743936567
     locked: 0
+  - name: player
+    uniqueID: 3744733107
+    locked: 0

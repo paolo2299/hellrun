@@ -12,7 +12,6 @@ public class CharacterController2D : MonoBehaviour
 	public LayerMask PlatformMask;
 	public Animator animator;
 	public ControllerParameters2D DefaultParameters;
-	public Grapple grapple;
 	public GameObject grappleTarget;
 	
 	public ControllerState2D State { get; private set; }
@@ -20,6 +19,7 @@ public class CharacterController2D : MonoBehaviour
 	public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
 	public GameObject StandingOn { get; private set; }
 	public GameObject GrapplingOn { get; private set; }
+	public GrappleConstraint grappleConstraint { get; private set; }
 
 	private Vector3 _originalPos;
 	private Vector2 _velocity;
@@ -28,7 +28,6 @@ public class CharacterController2D : MonoBehaviour
 	private BoxCollider2D _boxCollider;
 	private ControllerParameters2D _overrideParameters;
 	private GameObject _lastStandingOn;
-	private GrappleConstraint _grappleConstraint;
 	private bool _alive = true;
 
 	private Vector3
@@ -71,7 +70,6 @@ public class CharacterController2D : MonoBehaviour
 			var deltaMovement = Velocity * Time.deltaTime;
 			Move (deltaMovement);
 		}
-		UpdateGrapple ();
 		UpdateAnimator ();
 	}
 
@@ -111,7 +109,7 @@ public class CharacterController2D : MonoBehaviour
 		AdjustGrappleForPlatforms ();
 		AdjustPositionForGrappleLength ();
 		
-		var grappleDirectionStart = (Vector2) _transform.position - _grappleConstraint.anchor;
+		var grappleDirectionStart = (Vector2) _transform.position - grappleConstraint.anchor;
 
 		var grappleAngleDegrees = 0f;
 		if (grappleDirectionStart.y < 0)
@@ -121,7 +119,7 @@ public class CharacterController2D : MonoBehaviour
 		var grappleAngleRadians = grappleAngleDegrees * 2 * Mathf.PI / 360f;
 		
 		var gravityForce = -Parameters.Gravity * Vector2.down;
-		var tensionForceMagnitude = -Parameters.Gravity * Mathf.Cos (grappleAngleRadians) + (Velocity.magnitude * Velocity.magnitude) / _grappleConstraint.length;
+		var tensionForceMagnitude = -Parameters.Gravity * Mathf.Cos (grappleAngleRadians) + (Velocity.magnitude * Velocity.magnitude) / grappleConstraint.length;
 		var tensionForceDirection = -grappleDirectionStart.normalized;
 		var tensionForce = tensionForceMagnitude * tensionForceDirection;
 		
@@ -133,14 +131,14 @@ public class CharacterController2D : MonoBehaviour
 		Move (deltaMovement);
 	
 		//Adjust Velocity for the fact that we have moved in an arc, not a straight line
-		var grappleDirectionEnd = (Vector2) _transform.position - _grappleConstraint.anchor;
+		var grappleDirectionEnd = (Vector2) _transform.position - grappleConstraint.anchor;
 		var angleTraversedRadians = Vector2.Angle (grappleDirectionStart, grappleDirectionEnd) * 2 * Mathf.PI / 360f;
-		var distanceTraversed = angleTraversedRadians * _grappleConstraint.length;
+		var distanceTraversed = angleTraversedRadians * grappleConstraint.length;
 
 		var grapplePerp = new Vector2 (-grappleDirectionEnd.y, grappleDirectionEnd.x).normalized;
 		var currentSpeed = distanceTraversed / Time.deltaTime;
 		
-		var grappleDirectionTowards = (Vector2)_transform.position + Velocity * Time.deltaTime - _grappleConstraint.anchor;
+		var grappleDirectionTowards = (Vector2)_transform.position + Velocity * Time.deltaTime - grappleConstraint.anchor;
 		var clockwiseness = Mathf.Sign (grappleDirectionEnd.y * grappleDirectionTowards.x - grappleDirectionEnd.x * grappleDirectionTowards.y);
 		var tangentialVelocity = -currentSpeed * clockwiseness * grapplePerp;
 		
@@ -149,17 +147,17 @@ public class CharacterController2D : MonoBehaviour
 
 	private void AdjustPositionForGrappleLength()
 	{
-		var grappleVector = _grappleConstraint.anchor - (Vector2) _transform.position;
+		var grappleVector = grappleConstraint.anchor - (Vector2) _transform.position;
 		var grappleNormal = grappleVector.normalized;
-		var adjustmentSize = grappleVector.magnitude - _grappleConstraint.length;
+		var adjustmentSize = grappleVector.magnitude - grappleConstraint.length;
 		var adjustment = grappleNormal * adjustmentSize;
 		Move (adjustment, false);
-		var newGrappleVector = _grappleConstraint.anchor - (Vector2) _transform.position;
+		var newGrappleVector = grappleConstraint.anchor - (Vector2) _transform.position;
 		var newGrappleLength = newGrappleVector.magnitude;
 
-		if (Mathf.Abs(newGrappleLength - _grappleConstraint.length) > 0.001f) {
+		if (Mathf.Abs(newGrappleLength - grappleConstraint.length) > 0.001f) {
 			//Must have hit something so adjust the grapple instead
-			_grappleConstraint.Extend(newGrappleLength - _grappleConstraint.length);
+			grappleConstraint.Extend(newGrappleLength - grappleConstraint.length);
 			//TODO if grapple exceeds maximum length then release
 		}
 	}
@@ -227,6 +225,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	public void FireGrapple(Vector2 direction, float maxLength) {
+		Debug.Log (maxLength);
 		var origin = _transform.position;
 		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
 		
@@ -236,7 +235,25 @@ public class CharacterController2D : MonoBehaviour
 		
 		var anchor = raycastHit.point;
 		var length = raycastHit.distance;
-		_grappleConstraint = new GrappleConstraint (anchor, length, maxLength);
+		grappleConstraint = new GrappleConstraint (anchor, length, maxLength);
+		State.IsGrappling = true;
+		GrapplingOn = raycastHit.collider.gameObject;
+		SetGrapplePoints();
+	}
+
+	public void FireGrapple(float angleInDegrees, float maxLength) {
+		var origin = _transform.position;
+		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
+		var angleInRadians = angleInDegrees * 2 * Mathf.PI / 360f;
+		var direction = new Vector2 (Mathf.Sin (angleInRadians), Mathf.Cos (angleInRadians));
+
+		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
+		if (!raycastHit)
+			return;
+		
+		var anchor = raycastHit.point;
+		var length = raycastHit.distance;
+		grappleConstraint = new GrappleConstraint (anchor, length, maxLength);
 		State.IsGrappling = true;
 		GrapplingOn = raycastHit.collider.gameObject;
 		SetGrapplePoints();
@@ -259,20 +276,11 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	public void ReleaseGrapple () {
-		_grappleConstraint = null;
+		grappleConstraint = null;
 		State.IsGrappling = false;
 		GrapplingOn = null;
 		State.PreviousGrapplingPosition = Vector2.zero;
 		State.PreviousGrapplingVelocity = Vector2.zero;
-	}
-
-	private void UpdateGrapple () {
-		if (grapple  && State.IsGrappling) {
-			grapple.isActive = true;
-			grapple.SetEnds (_grappleConstraint.anchor, _transform.position);
-		} else {
-			grapple.isActive = false;
-		}
 	}
 
 	public void RetractGrapple(float speed)
@@ -280,7 +288,7 @@ public class CharacterController2D : MonoBehaviour
 		if (!State.IsGrappling)
 			return;
 
-		_grappleConstraint.Retract(speed * Time.deltaTime);
+		grappleConstraint.Retract(speed * Time.deltaTime);
 	}
 
 	public void ExtendGrapple(float speed)
@@ -288,7 +296,7 @@ public class CharacterController2D : MonoBehaviour
 		if (!State.IsGrappling)
 			return;
 		
-		_grappleConstraint.Extend(speed * Time.deltaTime);
+		grappleConstraint.Extend(speed * Time.deltaTime);
 	}
 	
 	private void Move(Vector2 deltaMovement, bool updateVelocity = true)
@@ -355,8 +363,8 @@ public class CharacterController2D : MonoBehaviour
 
 	private void SetGrapplePoints()
 	{
-		_activeGlobalGrapplePoint = _grappleConstraint.anchor;
-		_activeLocalGrapplePoint = GrapplingOn.transform.InverseTransformPoint (_grappleConstraint.anchor);
+		_activeGlobalGrapplePoint = grappleConstraint.anchor;
+		_activeLocalGrapplePoint = GrapplingOn.transform.InverseTransformPoint (grappleConstraint.anchor);
 	}
 	
 	private void HandlePlatforms()
@@ -382,8 +390,7 @@ public class CharacterController2D : MonoBehaviour
 			
 			if (moveDistance != Vector3.zero)
 			{
-				_grappleConstraint.SetAnchor(_grappleConstraint.anchor + (Vector2) moveDistance);
-				grapple.SetAnchor(_grappleConstraint.anchor);
+				grappleConstraint.SetAnchor(grappleConstraint.anchor + (Vector2) moveDistance);
 			}
 		}
 	}

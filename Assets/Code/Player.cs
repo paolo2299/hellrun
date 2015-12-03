@@ -11,7 +11,9 @@ public class Player : MonoBehaviour {
 	public float MaxSpeedWalking = 5f;
 	public float jumpForce = 8.5f;
 	public float jumpCutoff = 2.2f;
+	public float grappleDirectionChangeSpeed = 100.0f;
 	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
+	public Grapple grapple;
 
 	private bool _alive = true;
 	private CharacterController2D _controller;
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour {
 	private bool _isRunning;
 	private int _normalizedHorizontalSpeed;
 	private float _jumpIn;
+	private float _grappleAngle;
 	private bool _canJump
 	{
 		get
@@ -90,12 +93,11 @@ public class Player : MonoBehaviour {
 	}
 
 	void LateUpdate () {
-		if (!_controller.State.IsGrappling) {
-			TargetGrapple();
-		}
+		UpdateGrapple ();
 	}
 	
 	private void TargetGrapple() {
+		grapple.SetByAngleDegreesAndLength (_grappleAngle, (Vector2) transform.position, 0.3f);
 		if (_normalizedHorizontalSpeed > 0)
 			TargetGrappleRight ();
 		else if (_normalizedHorizontalSpeed < 0)
@@ -125,6 +127,18 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	private void UpdateGrapple () {
+		if (grapple && _controller.State.IsGrappling) {
+			grapple.isActive = true;
+			grapple.SetEnds (_controller.grappleConstraint.anchor, transform.position);
+		} else if (grapple) {
+			grapple.isActive = true;
+			TargetGrapple();
+		} else {
+			grapple.isActive = false;
+		}
+	}
+
 	public void Respawn () {
 		Debug.Log ("Respawning");
 		_alive = true;
@@ -146,14 +160,19 @@ public class Player : MonoBehaviour {
 	private void HandleInput() {
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			_normalizedHorizontalSpeed = 1;
-			if (!_isFacingRight && !_controller.State.IsHuggingWallLeft)
+			if (!_isFacingRight && !_controller.State.IsHuggingWallLeft) {
 				Flip ();
+			}
+			ShiftGrappleRight();
 		} else if (Input.GetKey (KeyCode.LeftArrow)) {
 			_normalizedHorizontalSpeed = -1;
-			if (_isFacingRight && !_controller.State.IsHuggingWallRight)
+			if (_isFacingRight && !_controller.State.IsHuggingWallRight) {
 				Flip ();
+			}
+			ShiftGrappleLeft();
 		} else {
 			_normalizedHorizontalSpeed = 0;
+			ShiftGrappleTowardsCentre();
 		}
 
 		_isRunning = Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift);
@@ -178,29 +197,33 @@ public class Player : MonoBehaviour {
 		}
 
 		if (!_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
-			if (_normalizedHorizontalSpeed > 0)
-				FireGrappleRight ();
-			else if (_normalizedHorizontalSpeed < 0)
-				FireGrappleLeft ();
-			else
-				FireGrappleUp ();
+			_controller.FireGrapple (_grappleAngle, Parameters.grappleMaxLength);
 		}
 	}
 
-	private void FireGrappleRight() {
-		var direction = new Vector2(Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
-		_controller.FireGrapple (direction, Parameters.grappleMaxLength);
-	}
-	
-	private void FireGrappleLeft() {
-		var direction = new Vector2(-Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
-		_controller.FireGrapple (direction, Parameters.grappleMaxLength);
+	private void ShiftGrappleRight() {
+		_grappleAngle += grappleDirectionChangeSpeed * Time.deltaTime;
+		_grappleAngle = Mathf.Clamp (_grappleAngle, -Parameters.grappleAngleDegrees, Parameters.grappleAngleDegrees);
 	}
 
-	private void FireGrappleUp() {
-		_controller.FireGrapple (Vector2.up, Parameters.grappleMaxLength);
+	private void ShiftGrappleLeft() {
+		_grappleAngle -= grappleDirectionChangeSpeed * Time.deltaTime;
+		_grappleAngle = Mathf.Clamp (_grappleAngle, -Parameters.grappleAngleDegrees, Parameters.grappleAngleDegrees);
 	}
 
+	private void ShiftGrappleTowardsCentre() {
+		//if (_grappleAngle > 0) {
+		//	ShiftGrappleLeft ();
+		//	_grappleAngle = Mathf.Max (_grappleAngle, 0);
+		//} else if (_grappleAngle < 0) {
+		//	ShiftGrappleRight ();
+		//	_grappleAngle = Mathf.Min (_grappleAngle, 0);
+		//}
+		//TODO settle on what to do here
+		_grappleAngle = 0;
+	}
+
+	//TODO fix or kill target grapple functionality
 	private void TargetGrappleRight() {
 		var direction = new Vector2(Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
 		_controller.TargetGrapple (direction, Parameters.grappleMaxLength);

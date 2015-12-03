@@ -281,16 +281,18 @@ MonoBehaviour:
     JumpFrequency: .25
     WallStickTime: .25
     grappleAngleDegrees: 45
-    grappleMaxLength: 3
-    grappleRetractSpeed: 2
-    grappleExtendSpeed: 2
+    grappleMaxLength: 2.75
+    grappleRetractSpeed: 1
+    grappleExtendSpeed: 1
   SpeedAccelerationRunning: 4
   SpeedAccelerationWalking: 3
   MaxSpeedRunning: 8
   MaxSpeedWalking: 5
   jumpForce: 8.5
   jumpCutoff: 2.20000005
-  wallJumpForce: {x: 6, y: 10}
+  grappleDirectionChangeSpeed: 360
+  wallJumpForce: {x: 8, y: 10}
+  grapple: {fileID: 11411874}
 --- !u!114 &11483542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,7 +314,6 @@ MonoBehaviour:
     Gravity: -17
     MaxFallingVelocity: 15
     JumpFrequency: .25
-  grapple: {fileID: 11411874}
   grappleTarget: {fileID: 127078}
 --- !u!212 &21209766
 SpriteRenderer:
@@ -336,7 +337,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1551030729
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 23b4cedd9e85d42758e5c92fc724bd06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -388,7 +389,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -550234189
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 24a9a74f09075456aa3d69370661f5c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -414,7 +415,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -550234189
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -440,7 +441,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1551030729
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b8cae8d0b3cc74f3e95cc27a9f763f70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
