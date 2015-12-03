@@ -12,7 +12,6 @@ public class CharacterController2D : MonoBehaviour
 	public LayerMask PlatformMask;
 	public Animator animator;
 	public ControllerParameters2D DefaultParameters;
-	public GameObject grappleTarget;
 	
 	public ControllerState2D State { get; private set; }
 	public Vector2 Velocity { get { return _velocity; } }
@@ -257,22 +256,6 @@ public class CharacterController2D : MonoBehaviour
 		State.IsGrappling = true;
 		GrapplingOn = raycastHit.collider.gameObject;
 		SetGrapplePoints();
-	}
-
-	public void TargetGrapple(Vector2 direction, float maxLength) {
-		var origin = _transform.position;
-		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
-		
-		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
-		var renderer = grappleTarget.GetComponent<SpriteRenderer>();
-		if (!raycastHit) {
-			renderer.enabled = false;
-			return;
-		}
-
-		renderer.enabled = true;
-		var targetPoint = raycastHit.point;
-		grappleTarget.transform.position = targetPoint;
 	}
 
 	public void ReleaseGrapple () {

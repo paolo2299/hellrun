@@ -85,10 +85,6 @@ public class Player : MonoBehaviour {
 			} else if (_controller.State.IsGrounded) {
 				_controller.SetHorizontalVelocity (0);
 			}
-			
-			if (!_controller.State.IsGrappling) {
-				TargetGrapple();
-			}
 		}
 	}
 
@@ -96,16 +92,6 @@ public class Player : MonoBehaviour {
 		UpdateGrapple ();
 	}
 	
-	private void TargetGrapple() {
-		grapple.SetByAngleDegreesAndLength (_grappleAngle, (Vector2) transform.position, 0.3f);
-		if (_normalizedHorizontalSpeed > 0)
-			TargetGrappleRight ();
-		else if (_normalizedHorizontalSpeed < 0)
-			TargetGrappleLeft ();
-		else
-			TargetGrappleUp ();
-	}
-
 	public void Jump(float force)
 	{
 		_controller.Jump (force);
@@ -133,7 +119,7 @@ public class Player : MonoBehaviour {
 			grapple.SetEnds (_controller.grappleConstraint.anchor, transform.position);
 		} else if (grapple) {
 			grapple.isActive = true;
-			TargetGrapple();
+			grapple.SetByAngleDegreesAndLength (_grappleAngle, (Vector2) transform.position, 0.3f);
 		} else {
 			grapple.isActive = false;
 		}
@@ -221,21 +207,6 @@ public class Player : MonoBehaviour {
 		//}
 		//TODO settle on what to do here
 		_grappleAngle = 0;
-	}
-
-	//TODO fix or kill target grapple functionality
-	private void TargetGrappleRight() {
-		var direction = new Vector2(Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
-		_controller.TargetGrapple (direction, Parameters.grappleMaxLength);
-	}
-	
-	private void TargetGrappleLeft() {
-		var direction = new Vector2(-Mathf.Cos (Parameters.grappleAngleRadians), Mathf.Sin (Parameters.grappleAngleRadians));
-		_controller.TargetGrapple (direction, Parameters.grappleMaxLength);
-	}
-	
-	private void TargetGrappleUp() {
-		_controller.TargetGrapple (Vector2.up, Parameters.grappleMaxLength);
 	}
 
 	private void Flip() {
