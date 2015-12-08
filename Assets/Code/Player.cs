@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
 	private bool _isRunning;
 	private int _normalizedHorizontalSpeed;
 	private float _jumpIn;
+	private bool _grappleInPosession = false;
 	private float _grappleAngle;
 	private bool _canJump
 	{
@@ -69,6 +70,7 @@ public class Player : MonoBehaviour {
 
 	void Update () {
 		if (LevelManager.Instance && LevelManager.Instance.ResetInProgress ()) {
+			Debug.Log ("player resetting due to level reset");
 			Reset ();
 		}
 		if (_alive) {
@@ -114,15 +116,19 @@ public class Player : MonoBehaviour {
 	}
 
 	private void UpdateGrapple () {
-		if (grapple && _controller.State.IsGrappling) {
+		if (_grappleInPosession && _controller.State.IsGrappling) {
 			grapple.isActive = true;
 			grapple.SetEnds (_controller.grappleConstraint.anchor, transform.position);
-		} else if (grapple) {
+		} else if (_grappleInPosession) {
 			grapple.isActive = true;
 			grapple.SetByAngleDegreesAndLength (_grappleAngle, (Vector2) transform.position, 0.3f);
 		} else {
 			grapple.isActive = false;
 		}
+	}
+
+	public void CollectGrapple() {
+		_grappleInPosession = true;
 	}
 
 	public void Respawn () {
@@ -135,6 +141,8 @@ public class Player : MonoBehaviour {
 
 	public void Reset () {
 		_controller.ReleaseGrapple ();
+		_grappleInPosession = false;
+		UpdateGrapple ();
 		Disable ();
 		Respawn ();
 	}
@@ -149,16 +157,22 @@ public class Player : MonoBehaviour {
 			if (!_isFacingRight && !_controller.State.IsHuggingWallLeft) {
 				Flip ();
 			}
-			ShiftGrappleRight();
+			if (_grappleInPosession) {
+				ShiftGrappleRight();
+			}
 		} else if (Input.GetKey (KeyCode.LeftArrow)) {
 			_normalizedHorizontalSpeed = -1;
 			if (_isFacingRight && !_controller.State.IsHuggingWallRight) {
 				Flip ();
 			}
-			ShiftGrappleLeft();
+			if (_grappleInPosession) {
+				ShiftGrappleLeft();
+			}
 		} else {
 			_normalizedHorizontalSpeed = 0;
-			ShiftGrappleTowardsCentre();
+			if (_grappleInPosession) {
+				ShiftGrappleTowardsCentre();
+			}
 		}
 
 		_isRunning = Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift);
@@ -182,7 +196,7 @@ public class Player : MonoBehaviour {
 			    _controller.ExtendGrapple(Parameters.grappleExtendSpeed);
 		}
 
-		if (!_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
+		if (_grappleInPosession && !_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
 			_controller.FireGrapple (_grappleAngle, Parameters.grappleMaxLength);
 		}
 	}

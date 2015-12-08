@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour {
 	private string levelName;
 
 	private bool _resetting;
+	private int _resetFrames = 1;
 
 	public void Awake() {
 		LevelManager.Instance = this;
@@ -49,8 +50,10 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void Reset() {
+		Debug.Log ("level resetting");
 		stopWatchThisTry.Start ();
 		_resetting = true;
+		_resetFrames = 1;
 	}
 
 	public void KillPlayer() {
@@ -60,8 +63,7 @@ public class LevelManager : MonoBehaviour {
 	private IEnumerator KillPlayerCo() {
 		player.Die ();
 		yield return new WaitForSeconds (0.5f);
-		stopWatchThisTry.Start ();
-		player.Respawn ();
+		Reset ();
 	}
 
 	public void Update() {
@@ -72,8 +74,11 @@ public class LevelManager : MonoBehaviour {
 			levelNameText.text = levelName;
 		}
 		if (_resetting) {
-			//Only allow the resetting flag to be true for one frame
-			_resetting = false;
+			if (_resetFrames > 0) {
+				_resetFrames -= 1;
+			} else {
+				_resetting = false;
+			} 
 		}
 		if (Input.GetKey (KeyCode.R)) {
 			Reset ();
