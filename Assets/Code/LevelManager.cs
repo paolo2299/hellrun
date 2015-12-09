@@ -66,6 +66,14 @@ public class LevelManager : MonoBehaviour {
 		Reset ();
 	}
 
+	public bool PlayerHasPermanentGrapple() {
+		return gameProgress.hasPermanentGrapple;
+	}
+
+	public void CollectPermanentGrapple() {
+		gameProgress.CollectPermanentGrapple ();
+	}
+
 	public void Update() {
 		elapsedTimeText.text = stopWatchThisTry.formattedTime;
 		if (stopWatchSinceLevelStart.time > 5f) {

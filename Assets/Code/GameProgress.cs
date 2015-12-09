@@ -10,6 +10,7 @@ using UnityEngine;
 public class GameProgress {
 
 	public List<GameChapter> chapters = new List<GameChapter>();
+	public bool hasPermanentGrapple = false;
 
 	private static GameProgress _gameProgress;
 
@@ -46,6 +47,8 @@ public class GameProgress {
 					Debug.Log (gl.bestTime);
 				}
 			}
+			Debug.Log ("has permanent grapple");
+			Debug.Log (gameProgress.hasPermanentGrapple);
 			file.Close ();
 			return gameProgress;
 		} else {
@@ -88,6 +91,11 @@ public class GameProgress {
 
 	public GameProgress () {
 		chapters.Add (GameChapter.TheCastle);
+	}
+
+	public void CollectPermanentGrapple() {
+		hasPermanentGrapple = true;
+		SaveGameProgress ();
 	}
 
 	private GameLevel GetLevelWithSceneName(string sceneName) {

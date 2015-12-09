@@ -66,6 +66,9 @@ public class Player : MonoBehaviour {
 		_controller = GetComponent<CharacterController2D> ();
 		_isFacingRight = transform.localScale.x > 0;
 		_leaveWallIn = Parameters.WallStickTime;
+		if (LevelManager.Instance.PlayerHasPermanentGrapple ()) {
+			_grappleInPosession = true;
+		}
 	}
 
 	void Update () {
