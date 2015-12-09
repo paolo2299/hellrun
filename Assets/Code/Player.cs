@@ -116,6 +116,10 @@ public class Player : MonoBehaviour {
 	}
 
 	private void UpdateGrapple () {
+		if (!_alive) {
+			grapple.isActive = false;
+			return;
+		}
 		if (_grappleInPosession && _controller.State.IsGrappling) {
 			grapple.isActive = true;
 			grapple.SetEnds (_controller.grappleConstraint.anchor, transform.position);
