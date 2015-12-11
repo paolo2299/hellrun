@@ -204,7 +204,10 @@ public class Player : MonoBehaviour {
 		}
 
 		if (_grappleInPosession && !_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
-			_controller.FireGrapple (_grappleAngle, Parameters.grappleMaxLength);
+			var missPoint = _controller.FireGrapple (_grappleAngle, Parameters.grappleMaxLength);
+			if (missPoint.x != -1 || missPoint.y != -1) {
+				grapple.RegisterMiss(missPoint);
+			}
 		}
 	}
 

@@ -223,14 +223,15 @@ public class CharacterController2D : MonoBehaviour
 		enabled = true;
 	}
 
-	public void FireGrapple(Vector2 direction, float maxLength) {
+	public Vector2 FireGrapple(Vector2 direction, float maxLength) {
 		Debug.Log (maxLength);
 		var origin = _transform.position;
 		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
 		
 		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
-		if (!raycastHit)
-			return;
+		if (!raycastHit) {
+			return (Vector2) origin + (direction * maxLength);
+		}
 		
 		var anchor = raycastHit.point;
 		var length = raycastHit.distance;
@@ -238,9 +239,10 @@ public class CharacterController2D : MonoBehaviour
 		State.IsGrappling = true;
 		GrapplingOn = raycastHit.collider.gameObject;
 		SetGrapplePoints();
+		return new Vector2(-1, -1);
 	}
 
-	public void FireGrapple(float angleInDegrees, float maxLength) {
+	public Vector2 FireGrapple(float angleInDegrees, float maxLength) {
 		var origin = _transform.position;
 		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
 		var angleInRadians = angleInDegrees * 2 * Mathf.PI / 360f;
@@ -248,7 +250,7 @@ public class CharacterController2D : MonoBehaviour
 
 		var raycastHit = Physics2D.Raycast(origin, direction, maxLength, PlatformMask);
 		if (!raycastHit)
-			return;
+			return (Vector2) origin + (direction * maxLength);
 		
 		var anchor = raycastHit.point;
 		var length = raycastHit.distance;
@@ -256,6 +258,7 @@ public class CharacterController2D : MonoBehaviour
 		State.IsGrappling = true;
 		GrapplingOn = raycastHit.collider.gameObject;
 		SetGrapplePoints();
+		return new Vector2(-1, -1);
 	}
 
 	public void ReleaseGrapple () {
