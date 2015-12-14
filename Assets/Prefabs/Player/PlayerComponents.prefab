@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 406422}
   - 212: {fileID: 21214572}
   m_Layer: 0
-  m_Name: grapple_rope_miss
+  m_Name: rope_miss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rope: {fileID: 151356}
-  ropeMiss: {fileID: 0}
+  ropeMiss: {fileID: 107294}
   claw: {fileID: 148018}
 --- !u!114 &11448802
 MonoBehaviour:
