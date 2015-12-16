@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b4558bffaa35c49fa804b1c8472da4e0
-timeCreated: 1444596091
+timeCreated: 1450256050
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -2364,8 +2364,8 @@ TextureImporter:
         y: 48
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: light_blue_foreground_4
       rect:
