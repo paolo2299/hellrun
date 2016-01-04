@@ -6,7 +6,6 @@ public class LevelManager : MonoBehaviour {
 	public static LevelManager Instance { get; private set; }
 
 	public Player player;
-	public CameraController mainCamera;
 	public GUIText elapsedTimeText;
 	public GUIText levelNameText;
 	public string nextLevel;
@@ -21,7 +20,6 @@ public class LevelManager : MonoBehaviour {
 	public void Awake() {
 		LevelManager.Instance = this;
 		player = GameObject.FindObjectOfType<Player> ();
-		mainCamera = GameObject.FindObjectOfType<CameraController> ();
 		stopWatchThisTry = new StopWatch ();
 		stopWatchSinceLevelStart = new StopWatch ();
 		gameProgress = GameProgress.Load();
