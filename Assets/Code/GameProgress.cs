@@ -70,6 +70,10 @@ public class GameProgress {
 	public float GetLevelBestTime(string sceneName) {
 		return GetLevelWithSceneName (sceneName).bestTime;
 	}
+
+	public string GetMedalAttained(string sceneName) {
+		return GetLevelWithSceneName (sceneName).medalAttained();
+	}
 	
 	public void SetLevelBestTime(string sceneName, float bestTime) {
 		var level = GetLevelWithSceneName (sceneName);
@@ -135,10 +139,20 @@ public class GameProgress {
 
 [System.Serializable]
 public class GameLevel {
-	public GameLevel (string name, string sceneName, string nextSceneName, bool firstLevelInChapter = false, bool lastLevelInChapter = false) {
+	public GameLevel (string name,
+	                  string sceneName,
+	                  string nextSceneName,
+	                  float goldTime,
+	                  float silverTime,
+	                  float bronzeTime,
+	                  bool firstLevelInChapter = false,
+	                  bool lastLevelInChapter = false) {
 		this.name = name;
 		this.sceneName = sceneName;
 		this.nextSceneName = nextSceneName;
+		this.bronzeTime = bronzeTime;
+		this.silverTime = silverTime;
+		this.goldTime = goldTime;
 		this.firstLevelInChapter = firstLevelInChapter;
 		this.lastLevelInChapter = lastLevelInChapter;
 	}
@@ -148,8 +162,27 @@ public class GameLevel {
 	public bool lastLevelInChapter;
 	public bool complete;
 	public float bestTime;
+	public float goldTime;
+	public float silverTime;
+	public float bronzeTime;
 	public string sceneName;
 	public string nextSceneName;
+
+	public string medalAttained() {  //TODO use enum instead of strings
+		if (!complete) {
+			return "";
+		}
+		if (bestTime > bronzeTime) {
+			return "";
+		}
+		if (bestTime > silverTime) {
+			return "bronze";
+		}
+		if (bestTime > goldTime) {
+			return "silver";
+		}
+		return "gold";
+	}
 }
 
 [System.Serializable]
@@ -157,12 +190,54 @@ public class GameChapter {
 	public static GameChapter TheCastle { 
 		get {
 			var levels = new List<GameLevel> {
-				new GameLevel("The stairs", "level_1_1", "level_1_2", true, false),
-				new GameLevel("Scaling the turret", "level_1_2", "level_1_3", false, false), //TODO saving the next scene name is a bit weird - should be a more elegant way
-				new GameLevel("Gate hopper", "level_1_3", "level_1_4", false, false),
-				new GameLevel("Climbing the walls", "level_1_4", "level_1_5", false, false),
-				new GameLevel("The haunted platform", "level_1_5", "level_1_6", false, false),
-				new GameLevel("The descent", "level_1_6", "level_1_7", false, true),
+				new GameLevel("The stairs",
+				              "level_1_1",
+				              "level_1_2",
+				              5f,
+				              10f,
+				              15f,
+				              true,
+				              false),
+				new GameLevel("Scaling the turret",
+				              "level_1_2",
+				              "level_1_3",
+				              10f,
+				              20f,
+				              30f,
+				              false,
+				              false), //TODO saving the next scene name is a bit weird - should be a more elegant way
+				new GameLevel("Gate hopper",
+				              "level_1_3",
+				              "level_1_4",
+				              10f,
+				              20f,
+				              30f,
+				              false,
+				              false),
+				new GameLevel("Climbing the walls",
+				              "level_1_4",
+				              "level_1_5",
+				              10f,
+				              20f,
+				              30f,
+				              false,
+				              false),
+				new GameLevel("The haunted platform",
+				              "level_1_5",
+				              "level_1_6",
+				              10f,
+				              20f,
+				              30f,
+				              false,
+				              false),
+				new GameLevel("The descent",
+				              "level_1_6",
+				              "level_1_7",
+				              10f,
+				              20f,
+				              30f,
+				              false,
+				              true),
 			};
 			return new GameChapter("The Castle", levels);
 		} 
