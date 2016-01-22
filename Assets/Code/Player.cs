@@ -15,6 +15,11 @@ public class Player : MonoBehaviour {
 	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
 	public Grapple grapple;
 
+	private float _grappleMaxLength = 5f;
+	private float _grappleRetractSpeed = 1f;
+	private float _grappleExtendSpeed = 1f;
+	private float _grappleAngleDegrees = 45f;
+
 	private bool _alive = true;
 	private CharacterController2D _controller;
 	private PlayerParameters2D _overrideParameters;
@@ -198,13 +203,13 @@ public class Player : MonoBehaviour {
 
 		if (_controller.State.IsGrappling) {
 			if (Input.GetKey (KeyCode.UpArrow))
-				_controller.RetractGrapple(Parameters.grappleRetractSpeed);
+				_controller.RetractGrapple(_grappleRetractSpeed);
 			else if (Input.GetKey (KeyCode.DownArrow))
-			    _controller.ExtendGrapple(Parameters.grappleExtendSpeed);
+			    _controller.ExtendGrapple(_grappleExtendSpeed);
 		}
 
 		if (_grappleInPosession && !_controller.State.IsGrappling && Input.GetKey (KeyCode.UpArrow)){
-			var missPoint = _controller.FireGrapple (_grappleAngle, Parameters.grappleMaxLength);
+			var missPoint = _controller.FireGrapple (_grappleAngle, _grappleMaxLength);
 			if (missPoint.x != -1 || missPoint.y != -1) {
 				grapple.RegisterMiss(missPoint);
 			}
@@ -213,23 +218,15 @@ public class Player : MonoBehaviour {
 
 	private void ShiftGrappleRight() {
 		_grappleAngle += grappleDirectionChangeSpeed * Time.deltaTime;
-		_grappleAngle = Mathf.Clamp (_grappleAngle, -Parameters.grappleAngleDegrees, Parameters.grappleAngleDegrees);
+		_grappleAngle = Mathf.Clamp (_grappleAngle, -1 * _grappleAngleDegrees, _grappleAngleDegrees);
 	}
 
 	private void ShiftGrappleLeft() {
 		_grappleAngle -= grappleDirectionChangeSpeed * Time.deltaTime;
-		_grappleAngle = Mathf.Clamp (_grappleAngle, -Parameters.grappleAngleDegrees, Parameters.grappleAngleDegrees);
+		_grappleAngle = Mathf.Clamp (_grappleAngle, -_grappleAngleDegrees, _grappleAngleDegrees);
 	}
 
 	private void ShiftGrappleTowardsCentre() {
-		//if (_grappleAngle > 0) {
-		//	ShiftGrappleLeft ();
-		//	_grappleAngle = Mathf.Max (_grappleAngle, 0);
-		//} else if (_grappleAngle < 0) {
-		//	ShiftGrappleRight ();
-		//	_grappleAngle = Mathf.Min (_grappleAngle, 0);
-		//}
-		//TODO settle on what to do here
 		_grappleAngle = 0;
 	}
 

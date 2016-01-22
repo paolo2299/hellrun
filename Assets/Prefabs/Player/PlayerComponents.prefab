@@ -310,10 +310,6 @@ MonoBehaviour:
     JumpRestrictions: 0
     JumpFrequency: .25
     WallStickTime: .25
-    grappleAngleDegrees: 45
-    grappleMaxLength: 2.75
-    grappleRetractSpeed: 1
-    grappleExtendSpeed: 1
   SpeedAccelerationRunning: 4
   SpeedAccelerationWalking: 3
   MaxSpeedRunning: 8
