@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class PathDefinition : MonoBehaviour {
 
+	public Transform start;
 	public Transform[] points;
 
 	public IEnumerator<Transform> GetPathEnumerator() {
@@ -12,6 +13,11 @@ public class PathDefinition : MonoBehaviour {
 
 		var direction = 1;
 		var index = 0;
+
+		if (start != null) {
+			yield return start;
+		}
+
 		while (true) {
 			yield return points[index];
 
