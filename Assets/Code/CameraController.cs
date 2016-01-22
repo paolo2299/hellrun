@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour {
 	public Vector2 Smoothing = new Vector2(5f, 5f);
 	public BoxCollider2D Bounds;
 	public bool IsFollowing = true;
+	public bool FixX = false;
+	public float FixedX;
 
 	private float targetaspectX = 16.0f;
 	private float targetaspectY = 9.0f;
@@ -61,6 +63,10 @@ public class CameraController : MonoBehaviour {
 			x = Player.position.x;
 
 			y = Player.position.y;
+		}
+
+		if (FixX) {
+			x = FixedX;
 		}
 
 		var cameraHalfWidth = Camera.main.orthographicSize * targetaspect;
