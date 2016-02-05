@@ -46,6 +46,9 @@ TagManager:
   - name: Near Background
     uniqueID: 3798075675
     locked: 0
+  - name: hazards
+    uniqueID: 1442811355
+    locked: 0
   - name: tiles
     uniqueID: 3560186567
     locked: 0
