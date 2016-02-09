@@ -43,9 +43,9 @@ public class StopWatch {
 		var seconds = (int)(timeInSecs % 60);
 		var fraction = (int)((timeInSecs * 100) % 100);
 		if (minutes > 0) {
-			return string.Format ("{0:00}:{1:00}:{2:00}", minutes, seconds, fraction);
+			return string.Format ("{0}:{1:00}.{2:00}", minutes, seconds, fraction);
 		} else {
-			return string.Format ("{0:00}:{1:00}", seconds, fraction);
+			return string.Format ("{0}.{1:00}", seconds, fraction);
 		}
 	}
 }
