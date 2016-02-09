@@ -34,6 +34,10 @@ public class LevelManager : MonoBehaviour {
 		Application.LoadLevelAdditive ("level_complete");
 	}
 
+	public float ElapsedTime() {
+		return stopWatchThisTry.time;
+	}
+
 	private void SaveLevelData() {
 		var alreadyComplete = gameProgress.GetLevelComplete (Application.loadedLevelName);
 		var bestTime = gameProgress.GetLevelBestTime (Application.loadedLevelName);

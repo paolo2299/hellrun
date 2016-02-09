@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class LevelComplete : MonoBehaviour {
 	private GameProgress gameProgess;
 	private LevelManager levelManager;
-	public GUIText fastestTime;
+	public Text fastestTime;
+	public Text thisTime;
 
 	void Start () {
 		gameProgess = GameProgress.Load ();
-		fastestTime.text = "fastet time ever: " + StopWatch.Format(gameProgess.GetLevelBestTime(Application.loadedLevelName));
+		if (Application.loadedLevelName != "level_complete") {
+			fastestTime.text = StopWatch.Format (gameProgess.GetLevelBestTime (Application.loadedLevelName));
+			thisTime.text = StopWatch.Format (LevelManager.Instance.ElapsedTime());
+		}
 	}
 
 	void Update () {
