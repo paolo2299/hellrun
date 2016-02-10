@@ -74,6 +74,10 @@ public class GameProgress {
 	public string GetMedalAttained(string sceneName) {
 		return GetLevelWithSceneName (sceneName).medalAttained();
 	}
+
+	public string GetMedalAttained(string sceneName, float timeTaken) {
+		return GetLevelWithSceneName (sceneName).medalAttained(timeTaken);
+	}
 	
 	public void SetLevelBestTime(string sceneName, float bestTime) {
 		var level = GetLevelWithSceneName (sceneName);
@@ -172,13 +176,17 @@ public class GameLevel {
 		if (!complete) {
 			return "";
 		}
-		if (bestTime > bronzeTime) {
+		return medalAttained (bestTime);
+	}
+
+	public string medalAttained(float timeTaken) { //TODO use enum instead of strings
+		if (timeTaken > bronzeTime) {
 			return "";
 		}
-		if (bestTime > silverTime) {
+		if (timeTaken > silverTime) {
 			return "bronze";
 		}
-		if (bestTime > goldTime) {
+		if (timeTaken > goldTime) {
 			return "silver";
 		}
 		return "gold";

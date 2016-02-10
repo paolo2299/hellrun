@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 9dcb09dd706be4e4a81edaa1fbb20153
+timeCreated: 1455093775
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: medal_silver_dark_blue
+    21300002: medal_silver_red
+    21300004: medal_silver_green
+    21300006: medal_silver_purple
+    21300008: medal_silver_light_blue
+    21300010: medal_silver_yellow
+    21300012: medal_gold_purple
+    21300014: medal_gold_green
+    21300016: medal_gold_yellow
+    21300018: medal_gold_light_blue
+    21300020: medal_gold_red
+    21300022: medal_gold_dark_blue
+    21300024: medal_bronze_purple
+    21300026: medal_bronze_yellow
+    21300028: medal_bronze_red
+    21300030: medal_bronze_light_blue
+    21300032: medal_bronze_green
+    21300034: medal_bronze_dark_blue
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: medal_silver_dark_blue
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 137
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_silver_red
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 137
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_silver_green
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 137
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_silver_purple
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 113
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_silver_light_blue
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 113
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_silver_yellow
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 113
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_gold_purple
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 89
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_gold_green
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 89
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_gold_yellow
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 89
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_gold_light_blue
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 65
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_gold_red
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 65
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_gold_dark_blue
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 65
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_bronze_purple
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 38
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_bronze_yellow
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 38
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_bronze_red
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 38
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_bronze_light_blue
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 14
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_bronze_green
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 14
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: medal_bronze_dark_blue
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 14
+        width: 16
+        height: 23
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
