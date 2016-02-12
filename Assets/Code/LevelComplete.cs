@@ -9,6 +9,12 @@ public class LevelComplete : MonoBehaviour {
 	public Text fastestTime;
 	public Image fastestTimeImage;
 
+	public Text goldTimeText;
+	public Text silverTimeText;
+	public Text bronzeTimeText;
+
+	public Image medalAwarded;
+
 	public Sprite goldMedal;
 	public Sprite silverMedal;
 	public Sprite bronzeMedal;
@@ -16,14 +22,21 @@ public class LevelComplete : MonoBehaviour {
 	void Start () {
 		var sceneName = Application.loadedLevelName;
 		gameProgess = GameProgress.Load ();
-		var timeTaken = LevelManager.Instance.ElapsedTime ();
-		var medalThisTime = gameProgess.GetMedalAttained (sceneName, timeTaken);
-		var personalBest = gameProgess.GetLevelBestTime (sceneName);
-		var personalBestMedal = gameProgess.GetMedalAttained (sceneName);
-		if (Application.loadedLevelName != "level_complete") {
+		if (sceneName != "level_complete") {   //Check that we are not loading level_complete as a standalone in the editor
+			//Upper left panel
+			var timeTaken = LevelManager.Instance.ElapsedTime ();
+			var medalThisTime = gameProgess.GetMedalAttained (sceneName, timeTaken);
+			var personalBest = gameProgess.GetLevelBestTime (sceneName);
+			var personalBestMedal = gameProgess.GetMedalAttained (sceneName);
 			thisTime.text = StopWatch.Format (timeTaken);
 			fastestTime.text = StopWatch.Format (personalBest);
 			AssignMedalSprite(fastestTimeImage, personalBestMedal);
+			AssignMedalSprite(medalAwarded, personalBestMedal);
+
+			//Upper right panel
+			goldTimeText.text = StopWatch.Format(gameProgess.GetGoldMedalTime(sceneName));
+			silverTimeText.text = StopWatch.Format(gameProgess.GetSilverMedalTime(sceneName));
+			bronzeTimeText.text = StopWatch.Format(gameProgess.GetBronzeMedalTime(sceneName));
 		}
 	}
 

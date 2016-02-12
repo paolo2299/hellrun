@@ -78,6 +78,18 @@ public class GameProgress {
 	public string GetMedalAttained(string sceneName, float timeTaken) {
 		return GetLevelWithSceneName (sceneName).medalAttained(timeTaken);
 	}
+
+	public float GetGoldMedalTime(string sceneName) {
+		return GetLevelWithSceneName (sceneName).goldTime;
+	}
+
+	public float GetSilverMedalTime(string sceneName) {
+		return GetLevelWithSceneName (sceneName).silverTime;
+	}
+
+	public float GetBronzeMedalTime(string sceneName) {
+		return GetLevelWithSceneName (sceneName).bronzeTime;
+	}
 	
 	public void SetLevelBestTime(string sceneName, float bestTime) {
 		var level = GetLevelWithSceneName (sceneName);
