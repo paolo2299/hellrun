@@ -6,12 +6,14 @@ public class LevelComplete : MonoBehaviour {
 	private GameProgress gameProgess;
 	private LevelManager levelManager;
 	public Text thisTime;
+	public Image thisTimeImage;
 	public Text fastestTime;
 	public Image fastestTimeImage;
 
 	public Text goldTimeText;
 	public Text silverTimeText;
 	public Text bronzeTimeText;
+	public Text differenceText;
 
 	public Image medalAwarded;
 
@@ -28,9 +30,13 @@ public class LevelComplete : MonoBehaviour {
 			var medalThisTime = gameProgess.GetMedalAttained (sceneName, timeTaken);
 			var personalBest = gameProgess.GetLevelBestTime (sceneName);
 			var personalBestMedal = gameProgess.GetMedalAttained (sceneName);
+			var difference = timeTaken - personalBest;
+			var parityString = (difference > 0) ? "+" : "-";
+			differenceText.text = "(" + parityString + StopWatch.Format(difference) + ")";
 			thisTime.text = StopWatch.Format (timeTaken);
 			fastestTime.text = StopWatch.Format (personalBest);
 			AssignMedalSprite(fastestTimeImage, personalBestMedal);
+			AssignMedalSprite(thisTimeImage, medalThisTime);
 			AssignMedalSprite(medalAwarded, personalBestMedal);
 
 			//Upper right panel
