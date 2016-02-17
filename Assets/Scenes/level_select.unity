@@ -87,6 +87,12 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &58116572 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483536, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1837756164}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &186974688
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +191,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -275,7 +281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -341,9 +347,23 @@ Prefab:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 2044768180}
+    - target: {fileID: 193770, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectMedal4
+      objectReference: {fileID: 0}
+    - target: {fileID: 122738, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectText4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &371706418 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11413616, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1837756164}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!224 &466734531 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f,
@@ -429,6 +449,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &519306807 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483536, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1582566478}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &551003961
 Prefab:
   m_ObjectHideFlags: 0
@@ -507,7 +533,7 @@ RectTransform:
   m_Children:
   - {fileID: 186974689}
   m_Father: {fileID: 1987625900}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_AnchorMin: {x: .649999976, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -666,6 +692,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: 1
+  selectText1: {fileID: 834196925}
+  selectText2: {fileID: 1880988391}
+  selectText3: {fileID: 1124461096}
+  selectText4: {fileID: 1819549064}
+  selectText5: {fileID: 58116572}
+  selectText6: {fileID: 519306807}
+  selectMedal1: {fileID: 1974950620}
+  selectMedal2: {fileID: 929247009}
+  selectMedal3: {fileID: 903471634}
+  selectMedal4: {fileID: 940704252}
+  selectMedal5: {fileID: 371706418}
+  selectMedal6: {fileID: 1220653293}
+  goldMedal: {fileID: 21300016, guid: 9dcb09dd706be4e4a81edaa1fbb20153, type: 3}
+  silverMedal: {fileID: 21300000, guid: 9dcb09dd706be4e4a81edaa1fbb20153, type: 3}
+  bronzeMedal: {fileID: 21300028, guid: 9dcb09dd706be4e4a81edaa1fbb20153, type: 3}
+--- !u!114 &834196925 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483536, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 226387601}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &903471634 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11413616, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1250592159}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &929247009 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11413616, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1154672798}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &940704252 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11413616, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 247696298}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &1124461096 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483536, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1250592159}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1154672798
 Prefab:
   m_ObjectHideFlags: 0
@@ -703,7 +774,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -769,6 +840,14 @@ Prefab:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 1722066660}
+    - target: {fileID: 193770, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectMedal2
+      objectReference: {fileID: 0}
+    - target: {fileID: 122738, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectText2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
   m_IsPrefabParent: 0
@@ -792,6 +871,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f,
     type: 2}
   m_PrefabInternal: {fileID: 226387601}
+--- !u!114 &1220653293 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11413616, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1582566478}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1250592159
 Prefab:
   m_ObjectHideFlags: 0
@@ -829,7 +914,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -895,6 +980,14 @@ Prefab:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 466734532}
+    - target: {fileID: 193770, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectMedal3
+      objectReference: {fileID: 0}
+    - target: {fileID: 122738, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectText3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
   m_IsPrefabParent: 0
@@ -1001,6 +1094,72 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1397149052}
+--- !u!1 &1427920432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1427920433}
+  - 222: {fileID: 1427920435}
+  - 114: {fileID: 1427920434}
+  m_Layer: 5
+  m_Name: WorldName
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1427920433
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427920432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1987625900}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -30}
+  m_SizeDelta: {x: 0, y: 40}
+  m_Pivot: {x: .5, y: 1}
+--- !u!114 &1427920434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427920432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: The Castle
+--- !u!222 &1427920435
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427920432}
 --- !u!224 &1476377599 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f,
@@ -1049,7 +1208,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -1111,6 +1270,14 @@ Prefab:
       propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 2044768180}
+    - target: {fileID: 193770, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectMedal6
+      objectReference: {fileID: 0}
+    - target: {fileID: 122738, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectText6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
   m_IsPrefabParent: 0
@@ -1125,6 +1292,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1250592159}
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &1819549064 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483536, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 247696298}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1837756164
 Prefab:
   m_ObjectHideFlags: 0
@@ -1162,7 +1335,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 22459438, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -1224,9 +1397,29 @@ Prefab:
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 
       objectReference: {fileID: 1476377600}
+    - target: {fileID: 193770, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectMedal5
+      objectReference: {fileID: 0}
+    - target: {fileID: 122738, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
+      propertyPath: m_Name
+      value: selectText5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 83d0108f814c14c829c28ba5e775933f, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1880988391 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11483536, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1154672798}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &1974950620 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11413616, guid: 83d0108f814c14c829c28ba5e775933f,
+    type: 2}
+  m_PrefabInternal: {fileID: 226387601}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1987625899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,13 +1449,14 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1397149053}
+  - {fileID: 1427920433}
+  - {fileID: 762714827}
   - {fileID: 1200075535}
   - {fileID: 1154672799}
   - {fileID: 1722066659}
   - {fileID: 466734531}
   - {fileID: 2044768179}
   - {fileID: 1476377599}
-  - {fileID: 762714827}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
