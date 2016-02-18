@@ -54,7 +54,7 @@ public class LevelComplete : MonoBehaviour {
 		} else if (medal == "gold") {
 			image.sprite = goldMedal;
 		} else {
-			image.sprite = null;
+			image.enabled = false;
 		}
 	}
 	
