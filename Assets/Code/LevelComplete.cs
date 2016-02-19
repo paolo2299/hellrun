@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class LevelComplete : MonoBehaviour {
-	private GameProgress gameProgess;
+	private GameProgress gameProgress;
 	private LevelManager levelManager;
 	public Text thisTime;
 	public Image thisTimeImage;
@@ -23,13 +23,13 @@ public class LevelComplete : MonoBehaviour {
 
 	void Start () {
 		var sceneName = Application.loadedLevelName;
-		gameProgess = GameProgress.Load ();
+		gameProgress = GameProgress.Load ();
 		if (sceneName != "level_complete") {   //Check that we are not loading level_complete as a standalone in the editor
 			//Upper left panel
 			var timeTaken = LevelManager.Instance.ElapsedTime ();
-			var medalThisTime = gameProgess.GetMedalAttained (sceneName, timeTaken);
-			var personalBest = gameProgess.GetLevelBestTime (sceneName);
-			var personalBestMedal = gameProgess.GetMedalAttained (sceneName);
+			var medalThisTime = gameProgress.GetMedalAttained (sceneName, timeTaken);
+			var personalBest = gameProgress.GetLevelBestTime (sceneName);
+			var personalBestMedal = gameProgress.GetMedalAttained (sceneName);
 			var difference = timeTaken - personalBest;
 			var parityString = (difference > 0) ? "+" : "-";
 			differenceText.text = "(" + parityString + StopWatch.Format(difference) + ")";
@@ -40,9 +40,9 @@ public class LevelComplete : MonoBehaviour {
 			AssignMedalSprite(medalAwarded, personalBestMedal);
 
 			//Upper right panel
-			goldTimeText.text = StopWatch.Format(gameProgess.GetGoldMedalTime(sceneName));
-			silverTimeText.text = StopWatch.Format(gameProgess.GetSilverMedalTime(sceneName));
-			bronzeTimeText.text = StopWatch.Format(gameProgess.GetBronzeMedalTime(sceneName));
+			goldTimeText.text = StopWatch.Format(gameProgress.GetGoldMedalTime(sceneName));
+			silverTimeText.text = StopWatch.Format(gameProgress.GetSilverMedalTime(sceneName));
+			bronzeTimeText.text = StopWatch.Format(gameProgress.GetBronzeMedalTime(sceneName));
 		}
 	}
 
@@ -62,10 +62,10 @@ public class LevelComplete : MonoBehaviour {
 		if (Input.GetKey (KeyCode.R)) {
 			Application.LoadLevel(Application.loadedLevelName);
 		} else if (Input.GetKey (KeyCode.Return)) {
-			if (gameProgess.GetIsLastLevelInChapter(Application.loadedLevelName)) {
+			if (gameProgress.GetIsLastLevelInChapter(Application.loadedLevelName)) {
 				Application.LoadLevel("level_select");
 			} else {
-				Application.LoadLevel(gameProgess.GetNextSceneName(Application.loadedLevelName));
+				Application.LoadLevel(gameProgress.GetNextSceneName(Application.loadedLevelName));
 			}
 		}
 	}

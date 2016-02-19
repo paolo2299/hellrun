@@ -30,6 +30,16 @@ public class LevelSelect : MonoBehaviour {
 	public Sprite goldMedal;
 	public Sprite silverMedal;
 	public Sprite bronzeMedal;
+	public Image currentMedal;
+	public Image playerImage;
+
+	public Text goldMedalTime;
+	public Text silverMedalTime;
+	public Text bronzeMedalTime;
+
+	public Text personalBestText;
+
+	public Text levelName;
 
 	private GameProgress _gameProgress;
 	private int _selectedLevelIndex;
@@ -104,6 +114,7 @@ public class LevelSelect : MonoBehaviour {
 	}
 
 	private void AssignMedalSprite(Image image, string medal) {
+		image.enabled = true;
 		if (medal == "bronze") {  //TODO case statement instead
 			image.sprite = bronzeMedal;
 		} else if (medal == "silver") {
@@ -111,7 +122,6 @@ public class LevelSelect : MonoBehaviour {
 		} else if (medal == "gold") {
 			image.sprite = goldMedal;
 		} else {
-			image.sprite = null;
 			image.enabled = false;
 		}
 	}
@@ -119,5 +129,22 @@ public class LevelSelect : MonoBehaviour {
 	public void LoadCurrentLevel(Button button) {
 		var sceneName = "level_" + world + "_" + button.name;
 		Application.LoadLevel (sceneName);
+	}
+
+	public void DisplayLevel(Button button) {
+		var sceneName = "level_" + world + "_" + button.name;
+		levelName.text = _gameProgress.GetLevelName (sceneName);
+		goldMedalTime.text = StopWatch.Format(_gameProgress.GetGoldMedalTime(sceneName));
+		silverMedalTime.text = StopWatch.Format(_gameProgress.GetSilverMedalTime(sceneName));
+		bronzeMedalTime.text = StopWatch.Format(_gameProgress.GetBronzeMedalTime(sceneName));
+		if (_gameProgress.GetLevelComplete (sceneName)) {
+			personalBestText.text = StopWatch.Format (_gameProgress.GetLevelBestTime (sceneName));
+			AssignMedalSprite(currentMedal, _gameProgress.GetMedalAttained(sceneName));
+			playerImage.enabled = true;
+		} else {
+			personalBestText.text = "";
+			currentMedal.enabled = false;
+			playerImage.enabled = false;
+		}
 	}
 }
