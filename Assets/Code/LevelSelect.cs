@@ -27,6 +27,13 @@ public class LevelSelect : MonoBehaviour {
 	public Image selectMedal5;
 	public Image selectMedal6;
 
+	public Image padlock1;
+	public Image padlock2;
+	public Image padlock3;
+	public Image padlock4;
+	public Image padlock5;
+	public Image padlock6;
+
 	public Sprite goldMedal;
 	public Sprite silverMedal;
 	public Sprite bronzeMedal;
@@ -63,6 +70,8 @@ public class LevelSelect : MonoBehaviour {
 		AssignMedalSprite (selectMedal5, _gameProgress.GetMedalAttained ("level_" + world + "_5"));
 		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_6"));
 
+		padlock1.enabled = false;
+
 		if (!_gameProgress.GetLevelComplete ("level_" + world + "_1")) {
 			selectText2.text = "";
 			selectMedal2.enabled = false;
@@ -70,6 +79,7 @@ public class LevelSelect : MonoBehaviour {
 			navigation.selectOnRight = null;
 			level1Button.navigation = navigation;
 			level2Button.interactable = false;
+			padlock2.enabled = true;
 		}
 
 		if (!_gameProgress.GetLevelComplete ("level_" + world + "_2")) {
@@ -79,6 +89,7 @@ public class LevelSelect : MonoBehaviour {
 			navigation.selectOnRight = null;
 			level2Button.navigation = navigation;
 			level3Button.interactable = false;
+			padlock3.enabled = true;
 		}
 
 		if (!_gameProgress.GetLevelComplete ("level_" + world + "_3")) {
@@ -88,6 +99,7 @@ public class LevelSelect : MonoBehaviour {
 			navigation.selectOnRight = null;
 			level3Button.navigation = navigation;
 			level4Button.interactable = false;
+			padlock4.enabled = true;
 		}
 
 		if (!_gameProgress.GetLevelComplete ("level_" + world + "_4")) {
@@ -97,6 +109,7 @@ public class LevelSelect : MonoBehaviour {
 			navigation.selectOnDown = null;
 			level4Button.navigation = navigation;
 			level5Button.interactable = false;
+			padlock5.enabled = true;
 		}
 
 		if (!_gameProgress.GetLevelComplete ("level_" + world + "_5")) {
@@ -106,6 +119,7 @@ public class LevelSelect : MonoBehaviour {
 			navigation.selectOnLeft = null;
 			level5Button.navigation = navigation;
 			level6Button.interactable = false;
+			padlock6.enabled = true;
 		}
 	}
 
