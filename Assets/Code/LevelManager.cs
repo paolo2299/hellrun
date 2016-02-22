@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour {
 
 	private bool _resetting;
 	private int _resetFrames = 1;
+	private bool _paused = false;
 
 	public void Awake() {
 		LevelManager.Instance = this;
@@ -36,6 +37,20 @@ public class LevelManager : MonoBehaviour {
 
 	public float ElapsedTime() {
 		return stopWatchThisTry.time;
+	}
+
+	private void Pause () {
+		_paused = true;
+		Time.timeScale = 0;
+	}
+
+	private void Unpause () {
+		_paused = false;
+		Time.timeScale = 1;
+	}
+
+	public bool Paused () {
+		return _paused;
 	}
 
 	private void SaveLevelData() {
@@ -90,8 +105,16 @@ public class LevelManager : MonoBehaviour {
 				_resetting = false;
 			} 
 		}
-		if (Input.GetKey (KeyCode.R)) {
+		if (Input.GetKeyDown (KeyCode.R)) {
 			Reset ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.P)) {
+			if (_paused) {
+				Unpause();
+			} else {
+				Pause ();
+			}
 		}
 	}
 }

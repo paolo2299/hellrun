@@ -81,7 +81,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("player resetting due to level reset");
 			Reset ();
 		}
-		if (_alive) {
+		if (_alive && !Paused()) {
 			_jumpIn -= Time.deltaTime;
 			HandleInput ();
 
@@ -96,6 +96,16 @@ public class Player : MonoBehaviour {
 				_controller.SetHorizontalVelocity (0);
 			}
 		}
+	}
+
+	bool Paused() {
+		if (!LevelManager.Instance) {
+			return false;
+		}
+		if (LevelManager.Instance.Paused ()) {
+			return true;
+		}
+		return false;
 	}
 
 	void LateUpdate () {

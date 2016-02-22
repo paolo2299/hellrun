@@ -30,3 +30,8 @@ obj/
 ehthumbs.db
 Thumbs.db
 *.un~
+
+# ============ #
+# compiled     #
+# ============ #
+*.app
