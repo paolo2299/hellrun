@@ -66,11 +66,8 @@ public class LevelManager : MonoBehaviour {
 		return _resetting;
 	}
 
-	public void Reset() {
-		Debug.Log ("level resetting");
-		stopWatchThisTry.Start ();
-		_resetting = true;
-		_resetFrames = 1;
+	public void Reset() {;
+		Application.LoadLevel(Application.loadedLevelName);
 	}
 
 	public void KillPlayer() {

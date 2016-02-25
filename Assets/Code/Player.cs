@@ -79,10 +79,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-		if (LevelManager.Instance && LevelManager.Instance.ResetInProgress ()) {
-			Debug.Log ("player resetting due to level reset");
-			Reset ();
-		}
 		if (_alive && !Paused()) {
 			_jumpIn -= Time.deltaTime;
 			HandleInput ();
@@ -153,22 +149,6 @@ public class Player : MonoBehaviour {
 
 	public void CollectGrapple() {
 		_grappleInPosession = true;
-	}
-
-	public void Respawn () {
-		Debug.Log ("Respawning");
-		_alive = true;
-		_controller.Respawn ();
-		_controller.Live ();
-		_controller.SetVelocity(new Vector2 (0f, 0f));
-	}
-
-	public void Reset () {
-		_controller.ReleaseGrapple ();
-		_grappleInPosession = false;
-		UpdateGrapple ();
-		Disable ();
-		Respawn ();
 	}
 
 	public void Disable() {

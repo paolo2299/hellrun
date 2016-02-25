@@ -197,11 +197,6 @@ public class CharacterController2D : MonoBehaviour
 		SetVelocity(force);
 	}
 
-	public void Respawn() {
-		Live ();
-		transform.position = _originalPos;
-	}
-
 	public void Die() {
 		Disable ();
 		_alive = false;

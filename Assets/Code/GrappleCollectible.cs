@@ -18,11 +18,6 @@ public class GrappleCollectible : MonoBehaviour {
 			Debug.Log ("disabling grapple collectible");
 			Disable ();
 		}
-
-		if (LevelManager.Instance.ResetInProgress ()) {
-			Debug.Log ("player grapple collectible due to level reset");
-			animator.SetBool("IsCollected", false);
-		}
 	}
 
 	void Disable () {

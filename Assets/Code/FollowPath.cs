@@ -25,18 +25,7 @@ public class FollowPath : MonoBehaviour {
 		transform.position = _currentPoint.Current.position;
 	}
 
-	public void Reset() {
-		//_currentPoint.Reset ();
-		//_currentPoint.MoveNext ();
-		Start ();
-	}
-
 	public void Update () {
-		if (LevelManager.Instance && LevelManager.Instance.ResetInProgress ()) {
-			Debug.Log ("follow path resetting due to level reset");
-			Reset ();
-		}
-
 		if (_currentPoint == null || _currentPoint.Current == null)
 			return;
 

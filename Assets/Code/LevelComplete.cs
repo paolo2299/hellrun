@@ -4,7 +4,6 @@ using System.Collections;
 
 public class LevelComplete : MonoBehaviour {
 	private GameProgress gameProgress;
-	private LevelManager levelManager;
 	public Text thisTime;
 	public Image thisTimeImage;
 	public Text fastestTime;
@@ -65,7 +64,7 @@ public class LevelComplete : MonoBehaviour {
 			if (gameProgress.GetIsLastLevelInChapter(Application.loadedLevelName)) {
 				Application.LoadLevel("level_select");
 			} else {
-				Application.LoadLevel(gameProgress.GetNextSceneName(Application.loadedLevelName));
+				LevelManager.Instance.Reset();
 			}
 		}
 	}
