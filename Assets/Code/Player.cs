@@ -5,14 +5,16 @@ public class Player : MonoBehaviour {
 
 	public PlayerParameters2D DefaultParameters;
 	public PlayerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
-	public float SpeedAccelerationRunning = 4f;
-	public float SpeedAccelerationWalking = 3f;
-	public float MaxSpeedRunning = 8f;
-	public float MaxSpeedWalking = 5f;
-	public float jumpForce = 8.5f;
-	public float jumpCutoff = 2.2f;
-	public float grappleDirectionChangeSpeed = 100.0f;
-	public Vector2 wallJumpForce = new Vector2 (8f, 10f);
+	private float SpeedAccelerationRunning = 4f;
+	private float SpeedAccelerationWalking = 3.5f;
+	private float MaxSpeedRunning = 8f;
+	private float MaxSpeedWalking = 6f;
+	private float jumpForce = 8.5f;
+	private float jumpCutoff = 2.2f;
+	private float grappleDirectionChangeSpeed = 360.0f;
+	private float wallStickTime = 0.1f;
+	private Vector2 wallJumpForceRunning = new Vector2 (8f, 10f);
+	private Vector2 wallJumpForceWalking = new Vector2 (5f, 9f);
 	public Grapple grapple;
 
 	private float _grappleMaxLength = 5f;
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour {
 			if (Input.GetKey(keyCode)) {
 				_leaveWallIn -= Time.deltaTime;
 			} else {
-				_leaveWallIn = Parameters.WallStickTime;
+				_leaveWallIn = wallStickTime;
 			}
 			return false;
 		}
@@ -70,7 +72,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		_controller = GetComponent<CharacterController2D> ();
 		_isFacingRight = transform.localScale.x > 0;
-		_leaveWallIn = Parameters.WallStickTime;
+		_leaveWallIn = wallStickTime;
 		if (LevelManager.Instance && LevelManager.Instance.PlayerHasPermanentGrapple ()) {
 			_grappleInPosession = true;
 		}
@@ -90,7 +92,7 @@ public class Player : MonoBehaviour {
 					var acceleration = _isRunning ? SpeedAccelerationRunning : SpeedAccelerationWalking;
 					var maxSpeed = _isRunning ? MaxSpeedRunning : MaxSpeedWalking;
 					_controller.SetHorizontalVelocity (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * maxSpeed, Time.deltaTime * acceleration));
-					_leaveWallIn = Parameters.WallStickTime;
+					_leaveWallIn = wallStickTime;
 				}
 			} else if (_controller.State.IsGrounded) {
 				_controller.SetHorizontalVelocity (0);
@@ -200,6 +202,8 @@ public class Player : MonoBehaviour {
 		_isRunning = Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift);
 
 		if (_canJump && Input.GetKeyDown (KeyCode.Space)) {
+			var wallJumpForce = _isRunning ? wallJumpForceRunning : wallJumpForceWalking;
+			Debug.Log (wallJumpForce);
 			if (_controller.State.IsHuggingWallRight && !_controller.State.IsGrounded)
 				_controller.Jump(new Vector2(-wallJumpForce.x, wallJumpForce.y));
 			else if (_controller.State.IsHuggingWallLeft && !_controller.State.IsGrounded)
