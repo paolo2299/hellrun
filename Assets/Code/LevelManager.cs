@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour {
 	private bool _paused = false;
 
 	public void Awake() {
+		Time.timeScale = 1; //In case we arrive here from a paused state
 		LevelManager.Instance = this;
 		player = GameObject.FindObjectOfType<Player> ();
 		stopWatchThisTry = new StopWatch ();
@@ -40,13 +41,16 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	private void Pause () {
-		_paused = true;
 		Time.timeScale = 0;
+		Application.LoadLevelAdditive ("pause");
+		_paused = true;
 	}
 
 	private void Unpause () {
-		_paused = false;
 		Time.timeScale = 1;
+		var pauseObject = GameObject.Find ("Pause");
+		Destroy (pauseObject);
+		_paused = false;
 	}
 
 	public bool Paused () {
@@ -62,11 +66,7 @@ public class LevelManager : MonoBehaviour {
 		gameProgress.SetLevelComplete (Application.loadedLevelName, true);
 	}
 
-	public bool ResetInProgress() {
-		return _resetting;
-	}
-
-	public void Reset() {;
+	public void Reset() {
 		Application.LoadLevel(Application.loadedLevelName);
 	}
 
@@ -104,6 +104,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.R)) {
 			Reset ();
+			return;
 		}
 
 		if (Input.GetKeyDown (KeyCode.P)) {
@@ -112,6 +113,13 @@ public class LevelManager : MonoBehaviour {
 			} else {
 				Pause ();
 			}
+			return;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Escape) && Paused ()) {
+			var pauseObject = GameObject.Find ("Pause");
+			pauseObject.SendMessage("ShowLoading");
+			Application.LoadLevel("level_select");
 		}
 	}
 }

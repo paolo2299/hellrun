@@ -59,12 +59,12 @@ public class LevelComplete : MonoBehaviour {
 	
 	void Update () {
 		if (Input.GetKey (KeyCode.R)) {
-			Application.LoadLevel(Application.loadedLevelName);
+			LevelManager.Instance.Reset();
 		} else if (Input.GetKey (KeyCode.Return)) {
 			if (gameProgress.GetIsLastLevelInChapter(Application.loadedLevelName)) {
 				Application.LoadLevel("level_select");
 			} else {
-				LevelManager.Instance.Reset();
+				Application.LoadLevel(gameProgress.GetNextSceneName(Application.loadedLevelName));
 			}
 		}
 	}

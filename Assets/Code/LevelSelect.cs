@@ -54,6 +54,7 @@ public class LevelSelect : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1; //In case we arrived here from a paused state
 		_gameProgress = GameProgress.Load ();
 
 		selectText1.text = _gameProgress.GetLevelName ("level_" + world + "_1");
