@@ -26,6 +26,9 @@ public class MusicSingleton : MonoBehaviour {
 			DontDestroyOnLoad(this.gameObject);
 			DontDestroyOnLoad(audio.gameObject);
 			audio.Play();
+			if (audio.clip.name == "destoroya") { //TODO clip the mp3 instead
+				audio.time = 13.3f;
+			}
 		}
 	}
 }	
