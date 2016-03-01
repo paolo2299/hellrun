@@ -107,13 +107,20 @@ public class LevelManager : MonoBehaviour {
 			return;
 		}
 
-		if (Input.GetKeyDown (KeyCode.P) || Input.GetKeyDown (KeyCode.Escape)) {
+		if (Input.GetKeyDown (KeyCode.P)) {
 			if (_paused) {
 				Unpause();
 			} else {
 				Pause ();
 			}
 			return;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if (!_paused) {
+				Pause ();
+				return;
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.Escape) && Paused ()) {
