@@ -162,4 +162,10 @@ public class LevelSelect : MonoBehaviour {
 			playerImage.enabled = false;
 		}
 	}
+
+	public void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.LoadLevel("main_menu");
+		}
+	}
 }
