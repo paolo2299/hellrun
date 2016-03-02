@@ -34,5 +34,6 @@ public class MainMenu : MonoBehaviour {
 	public void QuitGame(Button button) {
 		var text = button.GetComponentInChildren<Text> ();
 		text.color = new Color (1f, 1f, 0f, 1f);
+		Application.Quit ();
 	}
 }
