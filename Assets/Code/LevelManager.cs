@@ -102,7 +102,7 @@ public class LevelManager : MonoBehaviour {
 				_resetting = false;
 			} 
 		}
-		if (Input.GetKeyDown (KeyCode.R)) {
+		if (Input.GetKeyDown (KeyCode.R) && Paused()) {
 			Reset ();
 			return;
 		}
