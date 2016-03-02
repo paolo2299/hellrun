@@ -79,7 +79,11 @@ public class Player : MonoBehaviour {
 	}
 
 	void Update () {
-		if (_alive && !Paused()) {
+		if (Paused ()) {
+			return;
+		}
+
+		if (_alive) {
 			_jumpIn -= Time.deltaTime;
 			HandleInput ();
 
@@ -107,6 +111,10 @@ public class Player : MonoBehaviour {
 	}
 
 	void LateUpdate () {
+		if (Paused ()) {
+			return;
+		}
+
 		UpdateGrapple ();
 	}
 	

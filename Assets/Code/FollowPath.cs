@@ -26,6 +26,10 @@ public class FollowPath : MonoBehaviour {
 	}
 
 	public void Update () {
+		if (LevelManager.Instance && LevelManager.Instance.Paused ()) {
+			return;
+		}
+
 		if (_currentPoint == null || _currentPoint.Current == null)
 			return;
 

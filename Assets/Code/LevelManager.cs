@@ -88,7 +88,7 @@ public class LevelManager : MonoBehaviour {
 		gameProgress.CollectPermanentGrapple ();
 	}
 
-	public void Update() {
+	public void LateUpdate() {
 		elapsedTimeText.text = stopWatchThisTry.formattedTime;
 		if (stopWatchSinceLevelStart.time > 5f) {
 			levelNameText.enabled = false;

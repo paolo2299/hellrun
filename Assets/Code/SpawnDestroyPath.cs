@@ -36,6 +36,10 @@ public class SpawnDestroyPath : MonoBehaviour {
 	}
 
 	void Update () {
+		if (LevelManager.Instance && LevelManager.Instance.Paused ()) {
+			return;
+		}
+
 		var toRemove = new List<GameObject>();
 
 		foreach (GameObject ob in _gameObjects) {

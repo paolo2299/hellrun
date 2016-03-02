@@ -61,6 +61,10 @@ public class CharacterController2D : MonoBehaviour
 
 	public void LateUpdate()
 	{
+		if (LevelManager.Instance && LevelManager.Instance.Paused ()) {
+			return;
+		}
+
 		if (State.IsGrappling) {
 			UpdateForGrapple ();
 		} else {
@@ -116,14 +120,14 @@ public class CharacterController2D : MonoBehaviour
 		else
 			grappleAngleDegrees = Vector2.Angle (Vector2.up, grappleDirectionStart);
 		var grappleAngleRadians = grappleAngleDegrees * 2 * Mathf.PI / 360f;
-		
+
 		var gravityForce = -Parameters.Gravity * Vector2.down;
 		var tensionForceMagnitude = -Parameters.Gravity * Mathf.Cos (grappleAngleRadians) + (Velocity.magnitude * Velocity.magnitude) / grappleConstraint.length;
 		var tensionForceDirection = -grappleDirectionStart.normalized;
 		var tensionForce = tensionForceMagnitude * tensionForceDirection;
 		
 		var resultantForce = gravityForce + tensionForce;
-		
+
 		AddForce (resultantForce * Time.deltaTime);
 
 		var deltaMovement = Velocity * Time.deltaTime;
@@ -140,7 +144,7 @@ public class CharacterController2D : MonoBehaviour
 		var grappleDirectionTowards = (Vector2)_transform.position + Velocity * Time.deltaTime - grappleConstraint.anchor;
 		var clockwiseness = Mathf.Sign (grappleDirectionEnd.y * grappleDirectionTowards.x - grappleDirectionEnd.x * grappleDirectionTowards.y);
 		var tangentialVelocity = -currentSpeed * clockwiseness * grapplePerp;
-		
+
 		SetVelocity (tangentialVelocity);
 	}
 
