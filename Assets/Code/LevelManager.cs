@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour {
 	private bool _resetting;
 	private int _resetFrames = 1;
 	private bool _paused = false;
+	private bool _complete = false;
 
 	public void Awake() {
 		Time.timeScale = 1; //In case we arrive here from a paused state
@@ -32,6 +33,7 @@ public class LevelManager : MonoBehaviour {
 		stopWatchThisTry.Stop ();
 		player.Disable ();
 		SaveLevelData ();
+		_complete = true;
 		
 		Application.LoadLevelAdditive ("level_complete");
 	}
@@ -55,6 +57,10 @@ public class LevelManager : MonoBehaviour {
 
 	public bool Paused () {
 		return _paused;
+	}
+
+	public bool Complete() {
+		return _complete;
 	}
 
 	private void SaveLevelData() {
@@ -117,7 +123,7 @@ public class LevelManager : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (!_paused) {
+			if (!Paused() && !Complete()) {
 				Pause ();
 				return;
 			}
