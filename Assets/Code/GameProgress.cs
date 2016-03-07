@@ -210,7 +210,7 @@ public class GameChapter {
 	public static GameChapter TheCastle { 
 		get {
 			var levels = new List<GameLevel> {
-				new GameLevel("The stairs",
+				new GameLevel("the stairs",
 				              "level_1_1",
 				              "level_1_2",
 				              4f,
@@ -218,7 +218,7 @@ public class GameChapter {
 				              10f,
 				              true,
 				              false),
-				new GameLevel("Scaling the turret",
+				new GameLevel("scaling the turret",
 				              "level_1_2",
 				              "level_1_3",
 				              5.5f,
@@ -226,7 +226,7 @@ public class GameChapter {
 				              11f,
 				              false,
 				              false), //TODO saving the next scene name is a bit weird - should be a more elegant way
-				new GameLevel("Gate hopper",
+				new GameLevel("gate hopper",
 				              "level_1_3",
 				              "level_1_4",
 				              11.1f,
@@ -234,7 +234,7 @@ public class GameChapter {
 				              16f,
 				              false,
 				              false),
-				new GameLevel("Climbing the walls",
+				new GameLevel("climbing the walls",
 				              "level_1_4",
 				              "level_1_5",
 				              14.5f,
@@ -242,7 +242,7 @@ public class GameChapter {
 				              23f,
 				              false,
 				              false),
-				new GameLevel("The haunted platform",
+				new GameLevel("the haunted platform",
 				              "level_1_5",
 				              "level_1_6",
 				              20.8f,
@@ -250,7 +250,7 @@ public class GameChapter {
 				              30f,
 				              false,
 				              false),
-				new GameLevel("The descent",
+				new GameLevel("the descent",
 				              "level_1_6",
 				              "level_1_7",
 				              25f,
@@ -259,7 +259,7 @@ public class GameChapter {
 				              false,
 				              true),
 			};
-			return new GameChapter("The Castle", levels);
+			return new GameChapter("the castle", levels);
 		} 
 	}
 

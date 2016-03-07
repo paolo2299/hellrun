@@ -1536,7 +1536,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quit to main menu
+  m_Text: quit to main menu
 --- !u!222 &1384004516
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1729,7 +1729,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The Castle
+  m_Text: the castle
 --- !u!222 &1427920435
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2746,7 +2746,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The stairs
+  m_Text: the stairs
 --- !u!222 &2048835231
 CanvasRenderer:
   m_ObjectHideFlags: 0
