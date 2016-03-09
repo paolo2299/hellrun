@@ -6,7 +6,7 @@ public class LevelFinish : MonoBehaviour {
 	{
 		var player = other.gameObject.GetComponent<Player> ();
 		if (player != null) {
-			LevelManager.Instance.LevelComplete();
+			LevelManagerSingleton.Instance.LevelComplete();
 		}
 	}
 }

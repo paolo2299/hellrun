@@ -36,7 +36,7 @@ public class SpawnDestroyPath : MonoBehaviour {
 	}
 
 	void Update () {
-		if (LevelManager.Instance && LevelManager.Instance.Paused ()) {
+		if (LevelManagerSingleton.Instance && LevelManagerSingleton.Instance.Paused ()) {
 			return;
 		}
 

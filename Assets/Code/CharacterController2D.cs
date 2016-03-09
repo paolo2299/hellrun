@@ -61,7 +61,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public void LateUpdate()
 	{
-		if (LevelManager.Instance && LevelManager.Instance.Paused ()) {
+		if (LevelManagerSingleton.Instance && LevelManagerSingleton.Instance.Paused ()) {
 			return;
 		}
 

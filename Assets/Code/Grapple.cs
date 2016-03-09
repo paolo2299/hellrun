@@ -56,6 +56,10 @@ public class Grapple : MonoBehaviour {
 	}
 
 	public void LateUpdate () {
+		if (LevelManagerSingleton.Instance && LevelManagerSingleton.Instance.Paused ()) {
+			return;
+		}
+
 		if (isActive) {
 			var missed = false;
 			var anchor = _anchor;

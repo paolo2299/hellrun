@@ -73,7 +73,7 @@ public class Player : MonoBehaviour {
 		_controller = GetComponent<CharacterController2D> ();
 		_isFacingRight = transform.localScale.x > 0;
 		_leaveWallIn = wallStickTime;
-		if (LevelManager.Instance && LevelManager.Instance.PlayerHasPermanentGrapple ()) {
+		if (LevelManagerSingleton.Instance && LevelManagerSingleton.Instance.PlayerHasPermanentGrapple ()) {
 			_grappleInPosession = true;
 		}
 	}
@@ -101,10 +101,10 @@ public class Player : MonoBehaviour {
 	}
 
 	bool Paused() {
-		if (!LevelManager.Instance) {
+		if (!LevelManagerSingleton.Instance) {
 			return false;
 		}
-		if (LevelManager.Instance.Paused ()) {
+		if (LevelManagerSingleton.Instance.Paused ()) {
 			return true;
 		}
 		return false;

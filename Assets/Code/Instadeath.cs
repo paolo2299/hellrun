@@ -6,7 +6,7 @@ public class Instadeath : MonoBehaviour {
 	{
 		var player = other.gameObject.GetComponent<Player> ();
 		if (player != null) {
-			LevelManager.Instance.KillPlayer();
+			LevelManagerSingleton.Instance.KillPlayer();
 		}
 	}
 }
