@@ -11,7 +11,7 @@ public class GrappleCollectible : MonoBehaviour {
 	void Awake () {
 		_boxCollider = GetComponent<BoxCollider2D> ();
 		_renderer = GetComponent<Renderer> ();
-		if (LevelManager.Instance.PlayerHasPermanentGrapple ()) {
+		if (LevelManagerSingleton.Instance.PlayerHasPermanentGrapple ()) {
 			Debug.Log ("disabling grapple collectible");
 			Disable ();
 		}

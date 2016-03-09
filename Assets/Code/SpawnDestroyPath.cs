@@ -36,7 +36,7 @@ public class SpawnDestroyPath : MonoBehaviour {
 	}
 
 	void Update () {
-		if (LevelManager.Instance && LevelManager.Instance.Paused ()) {
+		if (LevelManagerSingleton.Instance && LevelManagerSingleton.Instance.Paused ()) {
 			return;
 		}
 
@@ -64,6 +64,7 @@ public class SpawnDestroyPath : MonoBehaviour {
 
 	void Spawn() {
 		var ob = Object.Instantiate (template);
+		ob.tag = "Destroyable";
 		ob.transform.position = start.position;
 		_gameObjects.Add (ob);
 		_lastSpawnTime = Time.time;

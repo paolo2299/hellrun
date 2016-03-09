@@ -21,11 +21,11 @@ public class LevelComplete : MonoBehaviour {
 	public Sprite bronzeMedal;
 
 	void Start () {
-		var sceneName = Application.loadedLevelName;
+		var sceneName = LevelManagerSingleton.Instance.loadedScene;
 		gameProgress = GameProgress.Load ();
 		if (sceneName != "level_complete") {   //Check that we are not loading level_complete as a standalone in the editor
 			//Upper left panel
-			var timeTaken = LevelManager.Instance.ElapsedTime ();
+			var timeTaken = LevelManagerSingleton.Instance.ElapsedTime ();
 			var medalThisTime = gameProgress.GetMedalAttained (sceneName, timeTaken);
 			var personalBest = gameProgress.GetLevelBestTime (sceneName);
 			var personalBestMedal = gameProgress.GetMedalAttained (sceneName);
@@ -59,12 +59,12 @@ public class LevelComplete : MonoBehaviour {
 	
 	void Update () {
 		if (Input.GetKey (KeyCode.R)) {
-			LevelManager.Instance.Reset ();
+			LevelManagerSingleton.Instance.ResetLevel ();
 		} else if (Input.GetKey (KeyCode.Return)) {
-			if (gameProgress.GetIsLastLevelInChapter (Application.loadedLevelName)) {
+			if (gameProgress.GetIsLastLevelInChapter (LevelManagerSingleton.Instance.loadedScene)) {
 				Application.LoadLevel ("level_select");
 			} else {
-				Application.LoadLevel (gameProgress.GetNextSceneName (Application.loadedLevelName));
+				LevelManagerSingleton.Instance.LoadLevel(gameProgress.GetNextSceneName (LevelManagerSingleton.Instance.loadedScene));
 			}
 		} else if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.LoadLevel ("level_select");

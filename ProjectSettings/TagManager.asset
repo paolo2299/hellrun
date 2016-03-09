@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GrappleHead
   - GrappleRope
+  - Destroyable
   layers:
   - Default
   - TransparentFX
