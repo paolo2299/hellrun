@@ -1751,6 +1751,7 @@ GameObject:
   - 223: {fileID: 729070883}
   - 114: {fileID: 729070882}
   - 114: {fileID: 729070881}
+  - 81: {fileID: 729070885}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -1832,6 +1833,13 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!81 &729070885
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 729070880}
+  m_Enabled: 1
 --- !u!1001 &730355451
 Prefab:
   m_ObjectHideFlags: 0

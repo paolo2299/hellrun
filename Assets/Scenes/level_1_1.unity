@@ -727,9 +727,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11445176, guid: 6b16a8522f95d473aac64fb2eca18b11, type: 2}
-    - {fileID: 11413838, guid: 6b16a8522f95d473aac64fb2eca18b11, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b16a8522f95d473aac64fb2eca18b11, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &693948806
@@ -790,11 +788,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 495630, guid: e48bbf9439149497b8c5a8ea6b7f7b58, type: 2}
   m_PrefabInternal: {fileID: 18659360}
---- !u!132 &840027479 stripped
-GUIText:
-  m_PrefabParentObject: {fileID: 13285656, guid: 6b16a8522f95d473aac64fb2eca18b11,
-    type: 2}
-  m_PrefabInternal: {fileID: 594437133}
 --- !u!1001 &842922726
 Prefab:
   m_ObjectHideFlags: 0
@@ -841,11 +834,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f100c3a6331b649d594cb4efd3c7cd20, type: 2}
   m_IsPrefabParent: 0
---- !u!132 &874724442 stripped
-GUIText:
-  m_PrefabParentObject: {fileID: 13268574, guid: 6b16a8522f95d473aac64fb2eca18b11,
-    type: 2}
-  m_PrefabInternal: {fileID: 594437133}
 --- !u!1001 &925453595
 Prefab:
   m_ObjectHideFlags: 0
@@ -1416,33 +1404,6 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 476236, guid: 5a07b1ca1ea0b400fa7958de525f770c, type: 2}
   m_PrefabInternal: {fileID: 101652009}
---- !u!1 &1526332226 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 176370, guid: 6b16a8522f95d473aac64fb2eca18b11, type: 2}
-  m_PrefabInternal: {fileID: 594437133}
---- !u!81 &1526332227
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1526332226}
-  m_Enabled: 1
---- !u!114 &1526332228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1526332226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8da3e5f91cf49a5b7aa36419a1da23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  elapsedTimeText: {fileID: 874724442}
-  levelNameText: {fileID: 840027479}
-  nextLevel: 
-  loadedScene: 
 --- !u!1001 &1548308292
 Prefab:
   m_ObjectHideFlags: 0

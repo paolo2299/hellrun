@@ -55,7 +55,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 450730}
-  - 114: {fileID: 11413838}
+  - 114: {fileID: 11412170}
+  - 81: {fileID: 8141162}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -114,7 +115,14 @@ Transform:
   - {fileID: 434156}
   m_Father: {fileID: 450730}
   m_RootOrder: 0
---- !u!114 &11413838
+--- !u!81 &8141162
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176370}
+  m_Enabled: 1
+--- !u!114 &11412170
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

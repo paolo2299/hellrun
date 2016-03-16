@@ -1878,7 +1878,8 @@ Prefab:
       propertyPath: orthographic size
       value: 4.4000001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 228d0894929264c30939eca2ab26bd22, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1000905604
@@ -3359,7 +3360,6 @@ GameObject:
   - 20: {fileID: 2047237964}
   - 92: {fileID: 2047237963}
   - 124: {fileID: 2047237962}
-  - 81: {fileID: 2047237961}
   - 114: {fileID: 2047237966}
   - 114: {fileID: 2047237967}
   - 114: {fileID: 2047237968}
@@ -3370,14 +3370,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2047237961
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8128906, guid: 228d0894929264c30939eca2ab26bd22,
-    type: 2}
-  m_PrefabInternal: {fileID: 988716007}
-  m_GameObject: {fileID: 2047237960}
-  m_Enabled: 1
 --- !u!124 &2047237962
 Behaviour:
   m_ObjectHideFlags: 0

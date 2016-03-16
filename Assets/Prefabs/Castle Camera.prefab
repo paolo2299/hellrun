@@ -11,7 +11,6 @@ GameObject:
   - 20: {fileID: 2037914}
   - 92: {fileID: 9234458}
   - 124: {fileID: 12404644}
-  - 81: {fileID: 8176296}
   - 114: {fileID: 11487672}
   - 114: {fileID: 11430178}
   - 114: {fileID: 11408398}
@@ -54,7 +53,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 4.4000001
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -68,13 +67,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
   m_StereoMirrorMode: 0
---- !u!81 &8176296
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 139212}
-  m_Enabled: 1
 --- !u!92 &9234458
 Behaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +115,8 @@ MonoBehaviour:
   Smoothing: {x: 5, y: 5}
   Bounds: {fileID: 0}
   IsFollowing: 1
+  FixX: 0
+  FixedX: 0
 --- !u!124 &12404644
 Behaviour:
   m_ObjectHideFlags: 1
