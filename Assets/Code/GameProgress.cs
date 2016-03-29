@@ -257,7 +257,15 @@ public class GameChapter {
 				              29f,
 				              40f,
 				              false,
-				              true),
+				              false),		
+				new GameLevel("donkey kong",
+				              "level_1_7",
+				              "level_1_8",
+				              25f,
+				              29f,
+				              40f,
+				              false,
+								true),
 			};
 			return new GameChapter("the castle", levels);
 		} 
