@@ -151,7 +151,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -382.650452, y: -136.458542, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 476790}
@@ -259,7 +259,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 176160}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
@@ -309,15 +309,6 @@ MonoBehaviour:
   DefaultParameters:
     JumpRestrictions: 0
     JumpFrequency: .25
-    WallStickTime: .25
-  SpeedAccelerationRunning: 4
-  SpeedAccelerationWalking: 3
-  MaxSpeedRunning: 8
-  MaxSpeedWalking: 5
-  jumpForce: 8.5
-  jumpCutoff: 2.20000005
-  grappleDirectionChangeSpeed: 360
-  wallJumpForce: {x: 8, y: 10}
   grapple: {fileID: 11411874}
 --- !u!114 &11483542
 MonoBehaviour:

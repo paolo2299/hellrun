@@ -35,20 +35,20 @@ public class GameProgress {
 			FileStream file = File.Open (Application.persistentDataPath + "/gameProgress.dat", FileMode.Open);
 			var gameProgress = (GameProgress)bf.Deserialize (file);
 			foreach (GameChapter gc in gameProgress.chapters) {
-				Debug.Log ("Loaded state of chapter " + gc.name);
+				//Debug.Log ("Loaded state of chapter " + gc.name);
 				foreach (GameLevel gl in gc.levels) {
-					Debug.Log ("******* " + gl.name + " ********");
-					Debug.Log ("name of next scene: " + gl.nextSceneName);
-					Debug.Log ("complete?");
-					Debug.Log (gl.complete);
-					Debug.Log ("last level in chapter?");
-					Debug.Log (gl.lastLevelInChapter);
-					Debug.Log ("best time");
-					Debug.Log (gl.bestTime);
+					//Debug.Log ("******* " + gl.name + " ********");
+					//Debug.Log ("name of next scene: " + gl.nextSceneName);
+					//Debug.Log ("complete?");
+					//Debug.Log (gl.complete);
+					//Debug.Log ("last level in chapter?");
+					//Debug.Log (gl.lastLevelInChapter);
+					//Debug.Log ("best time");
+					//Debug.Log (gl.bestTime);
 				}
 			}
-			Debug.Log ("has permanent grapple");
-			Debug.Log (gameProgress.hasPermanentGrapple);
+			//Debug.Log ("has permanent grapple");
+			//Debug.Log (gameProgress.hasPermanentGrapple);
 			file.Close ();
 			return gameProgress;
 		} else {
@@ -135,13 +135,13 @@ public class GameProgress {
 	}
 	
 	private void SaveGameProgressToFile() {
-		Debug.Log ("Saving Game");
+		//Debug.Log ("Saving Game");
 		foreach (GameChapter gc in chapters) {
-			Debug.Log ("State of chapter " + gc.name);
+			//Debug.Log ("State of chapter " + gc.name);
 			foreach (GameLevel gl in gc.levels) {
-				Debug.Log (gl.name);
-				Debug.Log (gl.nextSceneName);
-				Debug.Log (gl.lastLevelInChapter);
+				//Debug.Log (gl.name);
+				//Debug.Log (gl.nextSceneName);
+				//Debug.Log (gl.lastLevelInChapter);
 			}
 		}
 		
