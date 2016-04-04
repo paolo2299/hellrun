@@ -223,7 +223,6 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	public Vector2 FireGrapple(Vector2 direction, float maxLength) {
-		Debug.Log (maxLength);
 		var origin = _transform.position;
 		//Debug.DrawRay(origin, direction * maxLength, Color.cyan);
 		
@@ -291,8 +290,8 @@ public class CharacterController2D : MonoBehaviour
 
 		HandlePlatforms();
 		CalculateRayOrigins();
-		
-		if (deltaMovement.y < 0 && wasGrounded)
+
+		if (deltaMovement.y < -0.00001f && wasGrounded)
 			HandleVerticalSlope(ref deltaMovement);
 		
 		if (Mathf.Abs(deltaMovement.x) > .001f)
@@ -433,9 +432,10 @@ public class CharacterController2D : MonoBehaviour
 			var rayCastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
 			if (!rayCastHit)
 				continue;
-			
-			if (i == 0 && HandleHorizontalSlope(ref deltaMovement, Vector2.Angle(rayCastHit.normal, Vector2.up), isGoingRight))
+
+			if (i == 0 && HandleHorizontalSlope(ref deltaMovement, Vector2.Angle(rayCastHit.normal, Vector2.up), isGoingRight)) {
 				break;
+			}
 			
 			deltaMovement.x = rayCastHit.point.x - rayVector.x;
 			rayDistance = Mathf.Abs(deltaMovement.x);
@@ -542,7 +542,7 @@ public class CharacterController2D : MonoBehaviour
 		
 		var slopeDistance = SlopeLimitTangant * (_raycastBottomRight.x - center);
 		var slopeRayVector = new Vector2(center, _raycastBottomLeft.y);
-		
+
 		//Debug.DrawRay(slopeRayVector, direction * slopeDistance, Color.yellow);
 		
 		var raycastHit = Physics2D.Raycast(slopeRayVector, direction, slopeDistance, PlatformMask);
@@ -552,8 +552,9 @@ public class CharacterController2D : MonoBehaviour
 		// ReSharper disable CompareOfFloatsByEqualityOperator
 		
 		var isMovingDownSlope = Mathf.Sign(raycastHit.normal.x) == Mathf.Sign(deltaMovement.x);
-		if (!isMovingDownSlope)
+		if (!isMovingDownSlope) {
 			return;
+		}
 		
 		var angle = Vector2.Angle(raycastHit.normal, Vector2.up);
 		if (Mathf.Abs(angle) < .0001f)
@@ -577,8 +578,8 @@ public class CharacterController2D : MonoBehaviour
 		
 		if (deltaMovement.y > .07f)
 			return true;
-		
-		deltaMovement.x += isGoingRight ? -SkinWidth : SkinWidth;
+
+		//deltaMovement.x += isGoingRight ? -SkinWidth : SkinWidth; - removed to stop drag up slope, but not 100% sure if it's OK to do so!
 		deltaMovement.y = Mathf.Abs(Mathf.Tan(angle * Mathf.Deg2Rad) * deltaMovement.x);
 		State.IsMovingUpSlope = true;
 		State.IsCollidingBelow = true;
