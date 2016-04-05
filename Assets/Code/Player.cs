@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 	private Vector2 wallJumpForceWalking = new Vector2 (5f, 9f);
 	public Grapple grapple;
 
-	private float _grappleMaxLength = 5f;
+	private float _grappleMaxLength = 7f;
 	private float _grappleRetractSpeed = 1f;
 	private float _grappleExtendSpeed = 1f;
 	private float _grappleAngleDegrees = 45f;

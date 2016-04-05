@@ -11,7 +11,7 @@ GameObject:
   - 58: {fileID: 5854830}
   - 114: {fileID: 11427766}
   - 50: {fileID: 5028182}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: spike_roller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 464686}
   - 212: {fileID: 21297432}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: spikespin_large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.8332481, y: 5.80127668, z: 0}
+  m_LocalPosition: {x: 7.4000001, y: 11.3000002, z: 0}
   m_LocalScale: {x: 1.70000005, y: 1.70000005, z: 1}
   m_Children:
   - {fileID: 464686}

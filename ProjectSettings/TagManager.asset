@@ -17,9 +17,9 @@ TagManager:
   - 
   - 
   - Platforms
-  - SemiCollidable
+  - 
   - NonSemiCollidable
-  - TestSemiCollidable
+  - SemiCollidable
   - 
   - 
   - 
