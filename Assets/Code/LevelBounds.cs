@@ -7,6 +7,10 @@ public class LevelBounds : MonoBehaviour {
 		var player = other.gameObject.GetComponent<Player> ();
 		if (player != null) {
 			LevelManagerSingleton.Instance.KillPlayer();
+			return;
 		}
+
+		//Not the player so destroy it
+		Destroy(other.gameObject);
 	}
 }

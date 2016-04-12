@@ -8,12 +8,12 @@ public class SemiCollidableSwitch : MonoBehaviour {
 	public void OnTriggerEnter2D(Collider2D other)
 	{
 		var layer = LayerMask.LayerToName(other.gameObject.layer);
-		if (layer == "NonSemiCollidable" || layer == "SemiCollidable") {
+		if (layer == "SemiCollidablePasser" || layer == "SemiCollidableNonPasser") {
 			var p = Random.value;
 			if (p < semiProbability) {
-				other.gameObject.layer = LayerMask.NameToLayer("SemiCollidable");
+				other.gameObject.layer = LayerMask.NameToLayer("SemiCollidablePasser");
 			} else {
-				other.gameObject.layer = LayerMask.NameToLayer("NonSemiCollidable");
+				other.gameObject.layer = LayerMask.NameToLayer("SemiCollidableNonPasser");
 			}
 		}
 	}
