@@ -7,20 +7,20 @@ public class RandomSpawner : MonoBehaviour {
 
 	public Transform spawnPoint;
 	public GameObject template;
-
-	public float spawnFrequency = 10f;
-	public float spawnProbability = 0.05f;
-
-	private static int spawnArraySize = 10;
+	
+	public static int spawnArraySize = 10;
+	public float[] spawnTimes = new float[spawnArraySize];
+	
 	private float startTime;
 	private float spawnTimeOffset = 0f;
-	private float[] spawnTimes = new float[spawnArraySize];
 	private int spawnTimesIndex = 0;
 
 	// Use this for initialization
 	void Start () {
 		startTime = Time.fixedTime;
+	}
 
+	void CreateRandomSpawnTimes(float spawnProbability, float spawnFrequency) {
 		Random.seed = 42;
 		var index = 0;
 		var time = 0f;
@@ -28,7 +28,6 @@ public class RandomSpawner : MonoBehaviour {
 			var p = Random.value;
 			if (p < spawnProbability) {
 				spawnTimes[index] = time;
-				Debug.Log (time);
 				index += 1;
 			}
 			time += 1f / spawnFrequency;
