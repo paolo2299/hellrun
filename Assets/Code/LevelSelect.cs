@@ -12,6 +12,7 @@ public class LevelSelect : MonoBehaviour {
 	public Button level4Button;
 	public Button level5Button;
 	public Button level6Button;
+	public Button level7Button;
 
 	public Text selectText1;
 	public Text selectText2;
@@ -19,6 +20,7 @@ public class LevelSelect : MonoBehaviour {
 	public Text selectText4;
 	public Text selectText5;
 	public Text selectText6;
+	public Text selectText7;
 	
 	public Image selectMedal1;
 	public Image selectMedal2;
@@ -26,6 +28,7 @@ public class LevelSelect : MonoBehaviour {
 	public Image selectMedal4;
 	public Image selectMedal5;
 	public Image selectMedal6;
+	public Image selectMedal7;
 
 	public Image padlock1;
 	public Image padlock2;
@@ -33,6 +36,7 @@ public class LevelSelect : MonoBehaviour {
 	public Image padlock4;
 	public Image padlock5;
 	public Image padlock6;
+	public Image padlock7;
 
 	public Sprite goldMedal;
 	public Sprite silverMedal;
@@ -63,6 +67,7 @@ public class LevelSelect : MonoBehaviour {
 		selectText4.text = _gameProgress.GetLevelName ("level_" + world + "_4");
 		selectText5.text = _gameProgress.GetLevelName ("level_" + world + "_5");
 		selectText6.text = _gameProgress.GetLevelName ("level_" + world + "_6");
+		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_7");
 
 		AssignMedalSprite (selectMedal1, _gameProgress.GetMedalAttained ("level_" + world + "_1"));
 		AssignMedalSprite (selectMedal2, _gameProgress.GetMedalAttained ("level_" + world + "_2"));
@@ -70,6 +75,7 @@ public class LevelSelect : MonoBehaviour {
 		AssignMedalSprite (selectMedal4, _gameProgress.GetMedalAttained ("level_" + world + "_4"));
 		AssignMedalSprite (selectMedal5, _gameProgress.GetMedalAttained ("level_" + world + "_5"));
 		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_6"));
+		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_7"));
 
 		padlock1.enabled = false;
 
@@ -121,6 +127,16 @@ public class LevelSelect : MonoBehaviour {
 			level5Button.navigation = navigation;
 			level6Button.interactable = false;
 			padlock6.enabled = true;
+		}
+
+		if (!_gameProgress.GetLevelComplete ("level_" + world + "_6")) {
+			selectText7.text = "";
+			selectMedal7.enabled = false;
+			var navigation = level6Button.navigation;
+			navigation.selectOnLeft = null;
+			level6Button.navigation = navigation;
+			level7Button.interactable = false;
+			padlock7.enabled = true;
 		}
 	}
 
