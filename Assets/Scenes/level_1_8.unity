@@ -1761,7 +1761,6 @@ Transform:
   - {fileID: 485844641}
   - {fileID: 2037747671}
   - {fileID: 990021071}
-  - {fileID: 1000252455}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1001 &594008132
@@ -3186,56 +3185,6 @@ GameObject:
 Transform:
   m_PrefabParentObject: {fileID: 405822, guid: a2a5dc51122a94cfab19c23f8e2df0ea, type: 2}
   m_PrefabInternal: {fileID: 529111213}
---- !u!1001 &1000252454
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 566787713}
-    m_Modifications:
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 33.4500008
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 8.85999966
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 100108, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-      propertyPath: m_Name
-      value: GrappleCollectible (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1000252455 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
-  m_PrefabInternal: {fileID: 1000252454}
 --- !u!1001 &1019106660
 Prefab:
   m_ObjectHideFlags: 0
@@ -5590,11 +5539,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 33.4500008
+      value: 21.8500004
       objectReference: {fileID: 0}
     - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 8.85999966
+      value: 13.1400003
       objectReference: {fileID: 0}
     - target: {fileID: 405370, guid: 87f2d313a56b14d52b7b11f3e205cda3, type: 2}
       propertyPath: m_LocalPosition.z
