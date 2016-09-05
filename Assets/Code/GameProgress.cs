@@ -13,6 +13,7 @@ public class GameProgress {
 	public bool hasPermanentGrapple = false;
 
 	private static GameProgress _gameProgress;
+	private static string saveFileName = "gameProgressv3.dat";
 
 	public static GameProgress Load() {
 		if (_gameProgress != null) {
@@ -29,10 +30,10 @@ public class GameProgress {
 	}
 
 	private static GameProgress LoadFromFile() {
-		if (File.Exists (Application.persistentDataPath + "/gameProgress.dat")) {
-			Debug.Log ("Loading game progress from file " + Application.persistentDataPath + "/gameProgress.dat");
+		if (File.Exists (Application.persistentDataPath + "/" + saveFileName)) {
+			Debug.Log ("Loading game progress from file " + Application.persistentDataPath + "/" + saveFileName);
 			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open (Application.persistentDataPath + "/gameProgress.dat", FileMode.Open);
+			FileStream file = File.Open (Application.persistentDataPath + "/" + saveFileName, FileMode.Open);
 			var gameProgress = (GameProgress)bf.Deserialize (file);
 			foreach (GameChapter gc in gameProgress.chapters) {
 				//Debug.Log ("Loaded state of chapter " + gc.name);
@@ -52,7 +53,7 @@ public class GameProgress {
 			file.Close ();
 			return gameProgress;
 		} else {
-			Debug.Log ("No game progress file found at " + Application.persistentDataPath + "/gameProgress.dat");
+			Debug.Log ("No game progress file found at " + Application.persistentDataPath + "/" + saveFileName);
 			return new GameProgress ();
 		}
 	}
@@ -146,8 +147,8 @@ public class GameProgress {
 		}
 		
 		BinaryFormatter bf = new BinaryFormatter();
-		Debug.Log ("Saving game progress to file " + Application.persistentDataPath + "/gameProgress.dat");
-		FileStream file = File.Create (Application.persistentDataPath + "/gameProgress.dat");
+		Debug.Log ("Saving game progress to file " + Application.persistentDataPath + "/" + saveFileName);
+		FileStream file = File.Create (Application.persistentDataPath + "/" + saveFileName);
 		bf.Serialize (file, this);
 		file.Close ();
 	}
@@ -261,33 +262,33 @@ public class GameChapter {
 				new GameLevel("donkey kong I",
 				              "level_1_7",
 				              "level_1_8",
-				              25f,
-				              29f,
-				              40f,
+				              26f,
+				              33f,
+				              45f,
 				              false,
 							  false),
 				new GameLevel("donkey kong II",
 				              "level_1_8",
 				              "level_1_9",
+				              19f,
 				              25f,
-				              29f,
 				              40f,
 				              false,
 				              false),
-				new GameLevel("donkey kong",
+				new GameLevel("donkey kong III",
 				              "level_1_9",
 				              "level_1_10",
-				              25f,
-				              29f,
 				              40f,
+				              50f,
+				              70f,
 				              false,
 				              false),
-				new GameLevel("donkey kong",
+				new GameLevel("donkey kong IV",
 				              "level_1_10",
 				              "level_1_11",
-				              25f,
-				              29f,
 				              40f,
+				              50f,
+				              70f,
 				              false,
 				              true),
 			};

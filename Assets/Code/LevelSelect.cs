@@ -13,6 +13,9 @@ public class LevelSelect : MonoBehaviour {
 	public Button level5Button;
 	public Button level6Button;
 	public Button level7Button;
+	public Button level8Button;
+	public Button level9Button;
+	public Button level10Button;
 
 	public Text selectText1;
 	public Text selectText2;
@@ -21,6 +24,9 @@ public class LevelSelect : MonoBehaviour {
 	public Text selectText5;
 	public Text selectText6;
 	public Text selectText7;
+	public Text selectText8;
+	public Text selectText9;
+	public Text selectText10;
 	
 	public Image selectMedal1;
 	public Image selectMedal2;
@@ -29,6 +35,9 @@ public class LevelSelect : MonoBehaviour {
 	public Image selectMedal5;
 	public Image selectMedal6;
 	public Image selectMedal7;
+	public Image selectMedal8;
+	public Image selectMedal9;
+	public Image selectMedal10;
 
 	public Image padlock1;
 	public Image padlock2;
@@ -37,6 +46,9 @@ public class LevelSelect : MonoBehaviour {
 	public Image padlock5;
 	public Image padlock6;
 	public Image padlock7;
+	public Image padlock8;
+	public Image padlock9;
+	public Image padlock10;
 
 	public Sprite goldMedal;
 	public Sprite silverMedal;
@@ -68,6 +80,9 @@ public class LevelSelect : MonoBehaviour {
 		selectText5.text = _gameProgress.GetLevelName ("level_" + world + "_5");
 		selectText6.text = _gameProgress.GetLevelName ("level_" + world + "_6");
 		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_7");
+		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_8");
+		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_9");
+		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_10");
 
 		AssignMedalSprite (selectMedal1, _gameProgress.GetMedalAttained ("level_" + world + "_1"));
 		AssignMedalSprite (selectMedal2, _gameProgress.GetMedalAttained ("level_" + world + "_2"));
@@ -76,6 +91,9 @@ public class LevelSelect : MonoBehaviour {
 		AssignMedalSprite (selectMedal5, _gameProgress.GetMedalAttained ("level_" + world + "_5"));
 		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_6"));
 		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_7"));
+		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_8"));
+		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_9"));
+		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_10"));
 
 		padlock1.enabled = false;
 
@@ -137,6 +155,36 @@ public class LevelSelect : MonoBehaviour {
 			level6Button.navigation = navigation;
 			level7Button.interactable = false;
 			padlock7.enabled = true;
+		}
+
+		if (!_gameProgress.GetLevelComplete ("level_" + world + "_7")) {
+			selectText8.text = "";
+			selectMedal8.enabled = false;
+			var navigation = level7Button.navigation;
+			navigation.selectOnLeft = null;
+			level7Button.navigation = navigation;
+			level8Button.interactable = false;
+			padlock8.enabled = true;
+		}
+
+		if (!_gameProgress.GetLevelComplete ("level_" + world + "_8")) {
+			selectText9.text = "";
+			selectMedal9.enabled = false;
+			var navigation = level8Button.navigation;
+			navigation.selectOnLeft = null;
+			level8Button.navigation = navigation;
+			level9Button.interactable = false;
+			padlock9.enabled = true;
+		}
+
+		if (!_gameProgress.GetLevelComplete ("level_" + world + "_9")) {
+			selectText10.text = "";
+			selectMedal10.enabled = false;
+			var navigation = level9Button.navigation;
+			navigation.selectOnLeft = null;
+			level9Button.navigation = navigation;
+			level10Button.interactable = false;
+			padlock10.enabled = true;
 		}
 	}
 

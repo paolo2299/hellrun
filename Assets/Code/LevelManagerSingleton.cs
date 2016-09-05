@@ -52,10 +52,12 @@ public class LevelManagerSingleton : MonoBehaviour {
 	}
 	
 	public void LoadLevel(string sceneNameToLoad) {
+		Debug.Log ("Destroying all destroyables");
 		var destroyables = GameObject.FindGameObjectsWithTag("Destroyable");
 		foreach (GameObject destroyable in destroyables) {
 			GameObject.Destroy (destroyable);
 		}
+		Debug.Log ("Loading level additive: " + sceneNameToLoad);
 		Application.LoadLevelAdditive (sceneNameToLoad);
 		loadedScene = sceneNameToLoad;
 		Reset ();

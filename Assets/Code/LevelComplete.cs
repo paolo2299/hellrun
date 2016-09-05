@@ -64,6 +64,8 @@ public class LevelComplete : MonoBehaviour {
 			if (gameProgress.GetIsLastLevelInChapter (LevelManagerSingleton.Instance.loadedScene)) {
 				Application.LoadLevel ("level_select");
 			} else {
+				Debug.Log ("Attempting to load next level");
+				Debug.Log ("Next level is " + gameProgress.GetNextSceneName (LevelManagerSingleton.Instance.loadedScene));
 				LevelManagerSingleton.Instance.LoadLevel(gameProgress.GetNextSceneName (LevelManagerSingleton.Instance.loadedScene));
 			}
 		} else if (Input.GetKeyDown (KeyCode.Escape)) {
