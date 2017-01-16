@@ -80,9 +80,9 @@ public class LevelSelect : MonoBehaviour {
 		selectText5.text = _gameProgress.GetLevelName ("level_" + world + "_5");
 		selectText6.text = _gameProgress.GetLevelName ("level_" + world + "_6");
 		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_7");
-		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_8");
-		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_9");
-		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_10");
+		selectText8.text = _gameProgress.GetLevelName ("level_" + world + "_8");
+		selectText9.text = _gameProgress.GetLevelName ("level_" + world + "_9");
+		selectText10.text = _gameProgress.GetLevelName ("level_" + world + "_10");
 
 		AssignMedalSprite (selectMedal1, _gameProgress.GetMedalAttained ("level_" + world + "_1"));
 		AssignMedalSprite (selectMedal2, _gameProgress.GetMedalAttained ("level_" + world + "_2"));
@@ -90,10 +90,10 @@ public class LevelSelect : MonoBehaviour {
 		AssignMedalSprite (selectMedal4, _gameProgress.GetMedalAttained ("level_" + world + "_4"));
 		AssignMedalSprite (selectMedal5, _gameProgress.GetMedalAttained ("level_" + world + "_5"));
 		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_6"));
-		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_7"));
-		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_8"));
-		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_9"));
-		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_10"));
+		AssignMedalSprite (selectMedal7, _gameProgress.GetMedalAttained ("level_" + world + "_7"));
+		AssignMedalSprite (selectMedal8, _gameProgress.GetMedalAttained ("level_" + world + "_8"));
+		AssignMedalSprite (selectMedal9, _gameProgress.GetMedalAttained ("level_" + world + "_9"));
+		AssignMedalSprite (selectMedal10, _gameProgress.GetMedalAttained ("level_" + world + "_10"));
 
 		padlock1.enabled = false;
 
