@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
 	private float _grappleAngleDegrees = 45f;
 
 	private bool _alive = true;
+	private bool _inPlay = true;
 	private CharacterController2D _controller;
 	private PlayerParameters2D _overrideParameters;
 	private bool _isFacingRight;
@@ -110,6 +111,10 @@ public class Player : MonoBehaviour {
 		return false;
 	}
 
+	public bool InPlay() {
+		return _inPlay;
+	}
+
 	void LateUpdate () {
 		if (Paused ()) {
 			return;
@@ -135,6 +140,7 @@ public class Player : MonoBehaviour {
 			Debug.Log ("You dead!!!!");
 			_controller.ReleaseGrapple ();
 			_alive = false;
+			_inPlay = false;
 			_controller.Die();
 		}
 	}
@@ -160,6 +166,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Disable() {
+		_inPlay = false;
 		_controller.Disable ();
 	}
 

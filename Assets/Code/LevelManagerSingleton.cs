@@ -39,7 +39,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 		Time.timeScale = 1;
 		stopWatchThisTry = new StopWatch ();
 		stopWatchSinceLevelStart = new StopWatch ();
-		levelName = gameProgress.GetLevelName(loadedScene);
+		levelName = GameStructure.GetLevelDisplayName(loadedScene);
 	}
 	
 	public void LevelComplete() {
@@ -52,6 +52,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 	}
 	
 	public void LoadLevel(string sceneNameToLoad) {
+		
 		Debug.Log ("Destroying all destroyables");
 		var destroyables = GameObject.FindGameObjectsWithTag("Destroyable");
 		foreach (GameObject destroyable in destroyables) {
@@ -98,6 +99,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 	}
 	
 	public void ResetLevel() {
+		Debug.Log ("resetting");
 		LoadLevel (loadedScene);
 	}
 	
@@ -108,6 +110,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 	private IEnumerator KillPlayerCo() {
 		player.Die ();
 		yield return new WaitForSeconds (0.5f);
+		Debug.Log ("player is dead; resetting");
 		ResetLevel ();
 	}
 	

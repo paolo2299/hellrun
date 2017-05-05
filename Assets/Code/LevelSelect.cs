@@ -73,16 +73,16 @@ public class LevelSelect : MonoBehaviour {
 		Time.timeScale = 1; //In case we arrived here from a paused state
 		_gameProgress = GameProgress.Load ();
 
-		selectText1.text = _gameProgress.GetLevelName ("level_" + world + "_1");
-		selectText2.text = _gameProgress.GetLevelName ("level_" + world + "_2");
-		selectText3.text = _gameProgress.GetLevelName ("level_" + world + "_3");
-		selectText4.text = _gameProgress.GetLevelName ("level_" + world + "_4");
-		selectText5.text = _gameProgress.GetLevelName ("level_" + world + "_5");
-		selectText6.text = _gameProgress.GetLevelName ("level_" + world + "_6");
-		selectText7.text = _gameProgress.GetLevelName ("level_" + world + "_7");
-		selectText8.text = _gameProgress.GetLevelName ("level_" + world + "_8");
-		selectText9.text = _gameProgress.GetLevelName ("level_" + world + "_9");
-		selectText10.text = _gameProgress.GetLevelName ("level_" + world + "_10");
+		selectText1.text = GameStructure.GetLevelDisplayName ("level_" + world + "_1");
+		selectText2.text = GameStructure.GetLevelDisplayName ("level_" + world + "_2");
+		selectText3.text = GameStructure.GetLevelDisplayName ("level_" + world + "_3");
+		selectText4.text = GameStructure.GetLevelDisplayName ("level_" + world + "_4");
+		selectText5.text = GameStructure.GetLevelDisplayName ("level_" + world + "_5");
+		selectText6.text = GameStructure.GetLevelDisplayName ("level_" + world + "_6");
+		selectText7.text = GameStructure.GetLevelDisplayName ("level_" + world + "_7");
+		selectText8.text = GameStructure.GetLevelDisplayName ("level_" + world + "_8");
+		selectText9.text = GameStructure.GetLevelDisplayName ("level_" + world + "_9");
+		selectText10.text = GameStructure.GetLevelDisplayName ("level_" + world + "_10");
 
 		AssignMedalSprite (selectMedal1, _gameProgress.GetMedalAttained ("level_" + world + "_1"));
 		AssignMedalSprite (selectMedal2, _gameProgress.GetMedalAttained ("level_" + world + "_2"));
@@ -212,10 +212,10 @@ public class LevelSelect : MonoBehaviour {
 
 	public void DisplayLevel(Button button) {
 		var sceneName = "level_" + world + "_" + button.name;
-		levelName.text = _gameProgress.GetLevelName (sceneName);
-		goldMedalTime.text = StopWatch.Format(_gameProgress.GetGoldMedalTime(sceneName));
-		silverMedalTime.text = StopWatch.Format(_gameProgress.GetSilverMedalTime(sceneName));
-		bronzeMedalTime.text = StopWatch.Format(_gameProgress.GetBronzeMedalTime(sceneName));
+		levelName.text = GameStructure.GetLevelDisplayName (sceneName);
+		goldMedalTime.text = StopWatch.Format(GameStructure.GetGoldMedalTime(sceneName));
+		silverMedalTime.text = StopWatch.Format(GameStructure.GetSilverMedalTime(sceneName));
+		bronzeMedalTime.text = StopWatch.Format(GameStructure.GetBronzeMedalTime(sceneName));
 		if (_gameProgress.GetLevelComplete (sceneName)) {
 			personalBestText.text = StopWatch.Format (_gameProgress.GetLevelBestTime (sceneName));
 			AssignMedalSprite(currentMedal, _gameProgress.GetMedalAttained(sceneName));
