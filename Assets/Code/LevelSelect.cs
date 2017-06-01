@@ -1,54 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class LevelSelect : MonoBehaviour {
+	public string chapterRef;
 
-	public string world;
-
-	public Button level1Button;
-	public Button level2Button;
-	public Button level3Button;
-	public Button level4Button;
-	public Button level5Button;
-	public Button level6Button;
-	public Button level7Button;
-	public Button level8Button;
-	public Button level9Button;
-	public Button level10Button;
-
-	public Text selectText1;
-	public Text selectText2;
-	public Text selectText3;
-	public Text selectText4;
-	public Text selectText5;
-	public Text selectText6;
-	public Text selectText7;
-	public Text selectText8;
-	public Text selectText9;
-	public Text selectText10;
-	
-	public Image selectMedal1;
-	public Image selectMedal2;
-	public Image selectMedal3;
-	public Image selectMedal4;
-	public Image selectMedal5;
-	public Image selectMedal6;
-	public Image selectMedal7;
-	public Image selectMedal8;
-	public Image selectMedal9;
-	public Image selectMedal10;
-
-	public Image padlock1;
-	public Image padlock2;
-	public Image padlock3;
-	public Image padlock4;
-	public Image padlock5;
-	public Image padlock6;
-	public Image padlock7;
-	public Image padlock8;
-	public Image padlock9;
-	public Image padlock10;
+	public List<Button> levelButtons;
+	public List<Text> selectTexts;
+	public List<Image> selectMedals;
+	public List<Image> padlocks;
 
 	public Sprite goldMedal;
 	public Sprite silverMedal;
@@ -73,123 +34,56 @@ public class LevelSelect : MonoBehaviour {
 		Time.timeScale = 1; //In case we arrived here from a paused state
 		_gameProgress = GameProgress.Load ();
 
-		selectText1.text = GameStructure.GetLevelDisplayName ("level_" + world + "_1");
-		selectText2.text = GameStructure.GetLevelDisplayName ("level_" + world + "_2");
-		selectText3.text = GameStructure.GetLevelDisplayName ("level_" + world + "_3");
-		selectText4.text = GameStructure.GetLevelDisplayName ("level_" + world + "_4");
-		selectText5.text = GameStructure.GetLevelDisplayName ("level_" + world + "_5");
-		selectText6.text = GameStructure.GetLevelDisplayName ("level_" + world + "_6");
-		selectText7.text = GameStructure.GetLevelDisplayName ("level_" + world + "_7");
-		selectText8.text = GameStructure.GetLevelDisplayName ("level_" + world + "_8");
-		selectText9.text = GameStructure.GetLevelDisplayName ("level_" + world + "_9");
-		selectText10.text = GameStructure.GetLevelDisplayName ("level_" + world + "_10");
+		var numLevels = levelButtons.Count;
 
-		AssignMedalSprite (selectMedal1, _gameProgress.GetMedalAttained ("level_" + world + "_1"));
-		AssignMedalSprite (selectMedal2, _gameProgress.GetMedalAttained ("level_" + world + "_2"));
-		AssignMedalSprite (selectMedal3, _gameProgress.GetMedalAttained ("level_" + world + "_3"));
-		AssignMedalSprite (selectMedal4, _gameProgress.GetMedalAttained ("level_" + world + "_4"));
-		AssignMedalSprite (selectMedal5, _gameProgress.GetMedalAttained ("level_" + world + "_5"));
-		AssignMedalSprite (selectMedal6, _gameProgress.GetMedalAttained ("level_" + world + "_6"));
-		AssignMedalSprite (selectMedal7, _gameProgress.GetMedalAttained ("level_" + world + "_7"));
-		AssignMedalSprite (selectMedal8, _gameProgress.GetMedalAttained ("level_" + world + "_8"));
-		AssignMedalSprite (selectMedal9, _gameProgress.GetMedalAttained ("level_" + world + "_9"));
-		AssignMedalSprite (selectMedal10, _gameProgress.GetMedalAttained ("level_" + world + "_10"));
-
-		padlock1.enabled = false;
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_1")) {
-			selectText2.text = "";
-			selectMedal2.enabled = false;
-			var navigation = level1Button.navigation;
-			navigation.selectOnRight = null;
-			level1Button.navigation = navigation;
-			level2Button.interactable = false;
-			padlock2.enabled = true;
+		for (var i = 0; i < numLevels; i++) {
+			padlocks [i].enabled = false;
 		}
 
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_2")) {
-			selectText3.text = "";
-			selectMedal3.enabled = false;
-			var navigation = level2Button.navigation;
-			navigation.selectOnRight = null;
-			level2Button.navigation = navigation;
-			level3Button.interactable = false;
-			padlock3.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_3")) {
-			selectText4.text = "";
-			selectMedal4.enabled = false;
-			var navigation = level3Button.navigation;
-			navigation.selectOnRight = null;
-			level3Button.navigation = navigation;
-			level4Button.interactable = false;
-			padlock4.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_4")) {
-			selectText5.text = "";
-			selectMedal5.enabled = false;
-			var navigation = level4Button.navigation;
-			navigation.selectOnDown = null;
-			level4Button.navigation = navigation;
-			level5Button.interactable = false;
-			padlock5.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_5")) {
-			selectText6.text = "";
-			selectMedal6.enabled = false;
-			var navigation = level5Button.navigation;
-			navigation.selectOnLeft = null;
-			level5Button.navigation = navigation;
-			level6Button.interactable = false;
-			padlock6.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_6")) {
-			selectText7.text = "";
-			selectMedal7.enabled = false;
-			var navigation = level6Button.navigation;
-			navigation.selectOnLeft = null;
-			level6Button.navigation = navigation;
-			level7Button.interactable = false;
-			padlock7.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_7")) {
-			selectText8.text = "";
-			selectMedal8.enabled = false;
-			var navigation = level7Button.navigation;
-			navigation.selectOnLeft = null;
-			level7Button.navigation = navigation;
-			level8Button.interactable = false;
-			padlock8.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_8")) {
-			selectText9.text = "";
-			selectMedal9.enabled = false;
-			var navigation = level8Button.navigation;
-			navigation.selectOnLeft = null;
-			level8Button.navigation = navigation;
-			level9Button.interactable = false;
-			padlock9.enabled = true;
-		}
-
-		if (!_gameProgress.GetLevelComplete ("level_" + world + "_9")) {
-			selectText10.text = "";
-			selectMedal10.enabled = false;
-			var navigation = level9Button.navigation;
-			navigation.selectOnLeft = null;
-			level9Button.navigation = navigation;
-			level10Button.interactable = false;
-			padlock10.enabled = true;
+		for (var i = 0; i < numLevels; i++) {
+			var sceneName = SceneNameFromIndex (i);
+			if (!padlocks [i].enabled) {
+				selectTexts [i].text = GameStructure.GetLevelDisplayName (sceneName);
+				AssignMedalSprite (selectMedals [i], _gameProgress.GetMedalAttained (sceneName));
+			}
+			if (i < numLevels - 1 && !_gameProgress.GetLevelComplete (sceneName)) {
+				LockLevel (i + 1);
+			}
 		}
 	}
 
-	private void DisableLevel(string sceneName) {
-		Debug.Log ("foo");
+	private string SceneNameFromIndex(int i) {
+		return GameStructure.GetSceneName (chapterRef, i);
+	}
+
+	private void LockLevel(int levelIndex) {
+		selectTexts [levelIndex].text = "";
+		selectMedals [levelIndex].enabled = false;
+		DisableOnwardNavigation (levelIndex - 1);
+		levelButtons [levelIndex].interactable = false;
+		padlocks [levelIndex].enabled = true;
+	}
+
+	private void DisableOnwardNavigation(int levelIndex) {
+		var navigation = levelButtons [levelIndex].navigation;
+		switch (levelIndex) {
+		case 0:
+		case 1:
+		case 2:
+			navigation.selectOnRight = null;
+			break;
+		case 3:
+			navigation.selectOnDown = null;
+			break;
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+			navigation.selectOnLeft = null;
+			break;
+		}
+		levelButtons [levelIndex].navigation = navigation;
 	}
 
 	private void AssignMedalSprite(Image image, string medal) {
@@ -204,27 +98,10 @@ public class LevelSelect : MonoBehaviour {
 			image.enabled = false;
 		}
 	}
-	
-	public void LoadCurrentLevel(Button button) {
-		var sceneName = "level_" + world + "_" + button.name;
+		
+	public void LoadLevel(int levelIndex) {
+		var sceneName = SceneNameFromIndex (levelIndex);
 		Application.LoadLevel (sceneName);
-	}
-
-	public void DisplayLevel(Button button) {
-		var sceneName = "level_" + world + "_" + button.name;
-		levelName.text = GameStructure.GetLevelDisplayName (sceneName);
-		goldMedalTime.text = StopWatch.Format(GameStructure.GetGoldMedalTime(sceneName));
-		silverMedalTime.text = StopWatch.Format(GameStructure.GetSilverMedalTime(sceneName));
-		bronzeMedalTime.text = StopWatch.Format(GameStructure.GetBronzeMedalTime(sceneName));
-		if (_gameProgress.GetLevelComplete (sceneName)) {
-			personalBestText.text = StopWatch.Format (_gameProgress.GetLevelBestTime (sceneName));
-			AssignMedalSprite(currentMedal, _gameProgress.GetMedalAttained(sceneName));
-			playerImage.enabled = true;
-		} else {
-			personalBestText.text = "";
-			currentMedal.enabled = false;
-			playerImage.enabled = false;
-		}
 	}
 
 	public void Update() {

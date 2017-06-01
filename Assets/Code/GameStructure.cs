@@ -54,6 +54,15 @@ public class GameStructure {
 		return chapter.GetNextSceneName(sceneName);
 	}
 
+	public static string GetSceneName (string chapterRef, int levelIndex) {
+		var chapter = GetChapter (chapterRef);
+		return chapter.levels [levelIndex].sceneName;
+	}
+
+	public static GameChapter GetChapter (string chapterRef) {
+		return chapters.Find (c => c.reference == chapterRef);
+	}
+
 	public static string GetLevelDisplayName (string sceneName) {
 		return GetLevel (sceneName).displayName;
 	}
@@ -97,7 +106,7 @@ public class GameChapter {
 		get {
 			var levels = new List<GameLevel> {
 				new GameLevel("the stairs",
-				              "level_1_1",
+				              "the_stairs",
 				              4f,
 				              6f,
 				              10f),
@@ -147,7 +156,7 @@ public class GameChapter {
 				              50f,
 				              70f),
 			};
-			return new GameChapter("the_castle", "the castle", levels);
+			return new GameChapter("chapter1", "the castle", levels);
 		}
 
 	}

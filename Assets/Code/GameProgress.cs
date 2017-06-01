@@ -29,7 +29,7 @@ public class GameProgress {
 	public bool hasPermanentGrapple = false;
 	
 	private static GameProgress _gameProgress;
-	private static string saveFileName = "gameProgressv1001.dat";
+	private static string saveFileName = "gameProgressv1002.dat";
 	
 	public static GameProgress Load() {
 		if (_gameProgress != null) {
