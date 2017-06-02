@@ -15,7 +15,7 @@ public class RandomSpawner : MonoBehaviour {
 	private int spawnTimesIndex = 0;
 
 	void CreateRandomSpawnTimes(float spawnProbability, float spawnFrequency) {
-		Random.seed = 42;
+		Random.InitState(42);
 		var index = 0;
 		var time = 0f;
 		while (index < spawnArraySize) {
