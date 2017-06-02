@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MusicSingleton : MonoBehaviour {
 
-	public AudioSource audio;
+	public AudioSource theAudio;
 
 	private static MusicSingleton instance = null;
 	public static MusicSingleton Instance {
@@ -12,22 +12,22 @@ public class MusicSingleton : MonoBehaviour {
 
 	void Awake() {
 		if (instance != null && instance != this) {
-			AudioSource existingAudio = instance.audio;;
-			if (existingAudio.clip.name != audio.clip.name) {
+			AudioSource existingAudio = instance.theAudio;
+			if (existingAudio.clip.name != theAudio.clip.name) {
 				existingAudio.Stop();
-				existingAudio.clip = audio.clip;
+				existingAudio.clip = theAudio.clip;
 				existingAudio.Play();
 			}
 			Destroy(this.gameObject);
-			Destroy(audio.gameObject);
+			Destroy(theAudio.gameObject);
 			return;
 		} else {
 			instance = this;
 			DontDestroyOnLoad(this.gameObject);
-			DontDestroyOnLoad(audio.gameObject);
-			audio.Play();
-			if (audio.clip.name == "destoroya") { //TODO clip the mp3 instead
-				audio.time = 13.3f;
+			DontDestroyOnLoad(theAudio.gameObject);
+			theAudio.Play();
+			if (theAudio.clip.name == "destoroya") { //TODO clip the mp3 instead
+				theAudio.time = 13.3f;
 			}
 		}
 	}
