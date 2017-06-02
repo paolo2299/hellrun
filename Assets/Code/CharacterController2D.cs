@@ -20,7 +20,6 @@ public class CharacterController2D : MonoBehaviour
 	public GameObject GrapplingOn { get; private set; }
 	public GrappleConstraint grappleConstraint { get; private set; }
 
-	private Vector3 _originalPos;
 	private Vector2 _velocity;
 	private Transform _transform;
 	private Vector3 _localScale;
@@ -48,7 +47,6 @@ public class CharacterController2D : MonoBehaviour
 	{
 		State = new ControllerState2D();
 		_transform = transform;
-		_originalPos = transform.position;
 		_localScale = transform.localScale;
 		_boxCollider = GetComponent<BoxCollider2D>();
 		
