@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LevelComplete : MonoBehaviour {
 	private GameProgress gameProgress;
@@ -62,14 +63,14 @@ public class LevelComplete : MonoBehaviour {
 			LevelManagerSingleton.Instance.ResetLevel ();
 		} else if (Input.GetKey (KeyCode.Return)) {
 			if (GameStructure.GetIsLastLevelInChapter (LevelManagerSingleton.Instance.loadedScene)) {
-				Application.LoadLevel ("level_select");
+				SceneManager.LoadScene ("level_select");
 			} else {
 				Debug.Log ("Attempting to load next level");
 				Debug.Log ("Next level is " + GameStructure.GetNextSceneName (LevelManagerSingleton.Instance.loadedScene));
 				LevelManagerSingleton.Instance.LoadLevel(GameStructure.GetNextSceneName (LevelManagerSingleton.Instance.loadedScene));
 			}
 		} else if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.LoadLevel ("level_select");
+			SceneManager.LoadScene ("level_select");
 		}
 	}
 }
