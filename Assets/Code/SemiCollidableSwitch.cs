@@ -9,7 +9,7 @@ public class SemiCollidableSwitch : MonoBehaviour {
 	private int switchValueIndex = 0;
 
 	void Start () {
-		Random.seed = 42;
+		Random.InitState(42);
 		for (int i = 0; i < 100; i++) {
 			var p = Random.value;
 			if (p < semiProbability) {
