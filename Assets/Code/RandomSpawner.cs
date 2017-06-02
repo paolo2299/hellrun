@@ -10,15 +10,9 @@ public class RandomSpawner : MonoBehaviour {
 	
 	public static int spawnArraySize = 10;
 	public float[] spawnTimes = new float[spawnArraySize];
-	
-	private float startTime;
+
 	private float spawnTimeOffset = 0f;
 	private int spawnTimesIndex = 0;
-
-	// Use this for initialization
-	void Start () {
-		startTime = Time.fixedTime;
-	}
 
 	void CreateRandomSpawnTimes(float spawnProbability, float spawnFrequency) {
 		Random.seed = 42;
