@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelManagerSingleton : MonoBehaviour {
@@ -30,7 +31,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 		}
 
 		gameProgress = GameProgress.Load();
-		loadedScene = Application.loadedLevelName;
+		loadedScene = SceneManager.GetActiveScene ().name;
 		Reset ();
 	}
 	
@@ -48,7 +49,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 		SaveLevelData ();
 		_complete = true;
 		
-		Application.LoadLevelAdditive ("level_complete");
+		SceneManager.LoadScene ("level_complete", LoadSceneMode.Additive);
 	}
 	
 	public void LoadLevel(string sceneNameToLoad) {
@@ -59,7 +60,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 			GameObject.Destroy (destroyable);
 		}
 		Debug.Log ("Loading level additive: " + sceneNameToLoad);
-		Application.LoadLevelAdditive (sceneNameToLoad);
+		SceneManager.LoadScene (sceneNameToLoad, LoadSceneMode.Additive);
 		loadedScene = sceneNameToLoad;
 		Reset ();
 	}
@@ -70,7 +71,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 	
 	private void Pause () {
 		Time.timeScale = 0;
-		Application.LoadLevelAdditive ("pause");
+		SceneManager.LoadScene ("pause", LoadSceneMode.Additive);
 		_paused = true;
 	}
 	
@@ -159,7 +160,7 @@ public class LevelManagerSingleton : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape) && Paused ()) {
 			var pauseObject = GameObject.Find ("Pause");
 			pauseObject.SendMessage("ShowLoading");
-			Application.LoadLevel("level_select");
+			SceneManager.LoadScene("level_select");
 		}
 	}
 

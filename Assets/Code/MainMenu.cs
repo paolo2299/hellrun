@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -28,7 +29,7 @@ public class MainMenu : MonoBehaviour {
 	public void StartGame(Button button) {
 		var text = button.GetComponentInChildren<Text> ();
 		text.color = new Color (1f, 1f, 0f, 1f);
-		Application.LoadLevel ("level_select");
+		SceneManager.LoadScene ("level_select");
 	}
 
 	public void QuitGame(Button button) {

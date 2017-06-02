@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour {
 	public string chapterRef;
@@ -101,12 +102,12 @@ public class LevelSelect : MonoBehaviour {
 		
 	public void LoadLevel(int levelIndex) {
 		var sceneName = SceneNameFromIndex (levelIndex);
-		Application.LoadLevel (sceneName);
+		SceneManager.LoadScene (sceneName);
 	}
 
 	public void Update() {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Application.LoadLevel("main_menu");
+			SceneManager.LoadScene ("main_menu");
 		}
 	}
 }
